@@ -9,6 +9,34 @@ _This is currently being developed, this project is not yet in a usable state._
 
 Ruby and the gems: [treetop](http://cjheath.github.io/treetop) and pry.
 
+## Example
+
+```ruby
+require_relative 'ingredients-parser'
+
+s = "Sprankelend water, suiker, voedingszuren: citroenzuur, appelzuur, zuurteregelaar: natriumgluconaat, natuurlijke citroen-limoen aroma's, zoetstof: steviolglycosiden."
+parser = IngredientsParser.new
+puts parser.parse(s).to_a.inspect
+```
+Results in
+```
+[
+  {:name=>"Sprankelend water"},
+  {:name=>"suiker"},
+  {:name=>"voedingszuren", :contains=>[
+    {:name=>"citroenzuur"}
+  ]},
+  {:name=>"appelzuur"},
+  {:name=>"zuurteregelaar", :contains=>[
+    {:name=>"natriumgluconaat"}
+  ]},
+  {:name=>"natuurlijke citroen-limoen aroma's"},
+  {:name=>"zoetstof", :contains=>[
+    {:name=>"steviolglycosiden"}
+  ]}
+]
+```
+
 ## Test data
 
 [data/ingredient-samples-nl](`data/ingredient-samples-nl`) contains about 150k
