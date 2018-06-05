@@ -1,0 +1,78 @@
+grammar Ingredients
+
+  rule ingredients
+    prefix? contains:( colon_list / list ) ws* '.'? ws* <RootNode>
+  end
+
+  rule list
+    contains:(ingredient ws* ( '|' ws* ingredient )+ ) <ListNode> /
+    contains:(ingredient ws* ( ';' ws* ingredient )+ ) <ListNode> /
+    contains:(ingredient ws* ( ',' ws* ingredient )+ ) <ListNode> /
+    contains:(ingredient ws* ( '.' ws* ingredient )+ ) <ListNode> /
+    contains:(ingredient ws*)                          <ListNode>
+  end
+
+
+  rule simple_ingredient
+    name:( char ( char / ws / '/' )* ) <IngredientNode>
+  end
+
+  rule simple_ingredient_noslash
+    name:( char ( char / ws )* ) <IngredientNode>
+  end
+
+  rule nested_ingredient
+    ( name:simple_ingredient ws* '(' ws* contains:list ws* '.'? ws* ')' <NestedIngredientNode> ) /
+    ( name:simple_ingredient ws* '[' ws* contains:list ws* '.'? ws* ']' <NestedIngredientNode> )
+  end
+
+  rule ingredient
+    nested_ingredient / colon_ingredient / simple_ingredient
+  end
+
+
+  rule colon_ingredient
+    name:simple_ingredient ws* ':' ws* contains:( colon_ingredient_inner_list ) <NestedIngredientNode>
+  end
+
+  rule colon_ingredient_inner_list
+    contains:( simple_ingredient_noslash ws* ( '/' ws* simple_ingredient_noslash )* ) <ListNode>
+  end
+
+
+  rule colon_list
+    contains:( ( colon_list_ingredient ws* '.' ws* )+ colon_list_ingredient? ) <ListNode> /
+    contains:( ( colon_list_ingredient ws* ';' ws* )+ colon_list_ingredient? ) <ListNode> /
+    contains:( ( colon_list_ingredient ws* ) )                                 <ListNode>
+  end
+
+  rule colon_list_inner_list
+    contains:( ingredient ws* ( ',' ws* ingredient )* ) <ListNode>
+  end
+
+  rule colon_list_ingredient
+    name:simple_ingredient ws* ':' ws* contains:colon_list_inner_list <NestedIngredientNode>
+  end
+
+
+  rule prefix
+    ( [Ii] 'ngredients' / [Ii] 'ngredienten' / [Ii] 'ngrediënten' / [Zz] 'utaten' ) ws* ':' ws*
+  end
+
+  rule ws
+    ' ' / '\t'
+  end
+
+  rule newline
+    '\n'
+  end
+
+  rule char
+    [[:alnum:]] /
+    [-\'+=_%{}] /
+    [¿] /                             # weird characters turning up in names (e.g. encoding issues)
+    [¹²³⁴ᵃᵇᶜᵈᵉᶠᵍªº†‡•°*#^]            # @todo parse footnotes 
+    #[A-Za-z0-9] / [-\'+/=?;!*#@$_%] / [#xC0-#xD6] / [#xD8-#xF6] / [#xF8-#x2FF] / [#x370-#x37D] / [#x37F-#x1FFF] / [#x200C-#x200D] / [#x2070-#x218F] / [#x2C00-#x2FEF] / [#x3001-#xD7FF] / [#xF900-#xFDCF] / [#xFDF0-#xFFFD] / [#x10000-#xEFFFF]
+  end
+
+end
