@@ -13,3 +13,4 @@ p (a, b (r)), q(c)
 p: a, b. q: c
 p: a, b. q: c.
 o, p: a/b, q: c
+o, p: a/b//d

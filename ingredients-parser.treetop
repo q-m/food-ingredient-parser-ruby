@@ -36,7 +36,7 @@ grammar Ingredients
   end
 
   rule colon_ingredient_inner_list
-    contains:( simple_ingredient_noslash ws* ( '/' ws* simple_ingredient_noslash )* ) <ListNode>
+    contains:( simple_ingredient_noslash ws* ( '/'+ ws* simple_ingredient_noslash )* ) <ListNode>
   end
 
 
