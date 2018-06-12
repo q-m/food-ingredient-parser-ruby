@@ -7,14 +7,12 @@ require_relative 'ingredients-parser'
 
 begin
   require 'pry'
-rescue loaderror
-  # ok, we have a fallback
-end
-
-def pp(o)
-  if defined?(Pry)
+  def pp(o)
     Pry::ColorPrinter.pp(o)
-  else
+  end
+rescue loaderror
+  # fallback without color printing
+  def pp(o)
     puts(o.inspect)
   end
 end
