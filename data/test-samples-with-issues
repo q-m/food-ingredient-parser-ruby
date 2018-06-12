@@ -1,0 +1,12 @@
+## Ingredient lists with issues
+#
+# pending amount parsing
+Volkorengranen (61%) (HAVER, GERST), rozijnen (10%), suiker, aroma's. Vitaminen en Mineralen: vitaminen (B3/PP, B6) en ijzer. Allergenen: zie ingrediënten, in vet gemarkeerd.
+Teer 10 mg, nicotine 0,8 mg, koolmonoxide 9 mg
+TARWEBLOEM. zout. 1.8% kruiden en specerijen (SELDERIJ. MOSTERD).  emulgator: E481/SOJALECITHINE. erwteneiwit. kleurstof: E150d.  E= door EU goedgekeurde hulpstoffen.
+# missing comma after nested ingredient
+{RIBSTER MINI} (44% mechanisch gescheiden varkensvlees, {tarwe}gluten, ketjap (water, aroma ({soja}), kleurstof: E150d) {soja}-eiwit), {KIPKORN MINI} (28% mechanisch gescheiden kippenvlees, water, {tarwe}gluten, antioxidant: ascorbinezuur, Kan sporen van {ei} bevatten.)
+# nested ingredients without a name (too many comma's, they belong to previous ingredient)
+Cacaomassa, suiker, 16% mangovulling [suiker, glucosestroop, 1% mangopuree, volle melkpoeder, (LACTOSE, MELKEIWIT), cacaoboter, invertsuikerstroop, limoensap, 0,1% alcohol, natuurlijk aroma, emulgator, (lecithine (SOJA)), verdikkingsmiddel ( johannesbroodpitmeel, guarpitmeel, xanthaangom), kleurstof (caroteen)], 16% chilismaakvulling [suiker, palmvet, raapolie, magere cacaopoeder, cacaomassa, magere melkpoeder (LACTOSE, MELKEIWIT), Lactose (LACTOSE, MELKEIWIT), volle melkpoeder (LACTOSE, MELKEIWIT), wei-eiwit (LACTOSE, MELKEIWIT), dextrose, natuurlijk aroma, emulgator (lecithine (SOJA)), antioxidant, (E306)], cacaoboter, emulgator [lecithine (SOJA)]. 
+# confusing colons, not sure if there is a correct interpretation that is parseable
+Ingredienten: Natuurlijk mineraalwater, sappen uit geconcentreerde sappen uit: 9% sinaasappel, 1% citroen, 1% ananas, 1% mandarijn; voedingszuur: citroenzuur, aroma, zoetstof: sucralose, stevioglycosiden; verrijkt met: vitamine: C, vitamine A.
