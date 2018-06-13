@@ -14,20 +14,29 @@ grammar Ingredients
 
 
   rule simple_ingredient
-    name:( char ( char / ws / '/' )* ) <IngredientNode>
+    name:( char ( !amount char / '/' / ws )* ) <IngredientNode>
   end
 
   rule simple_ingredient_noslash
-    name:( char ( char / ws )* ) <IngredientNode>
+    name:( char ( !amount char / ws )* ) <IngredientNode>
+  end
+
+  rule simple_ingredient_with_amount
+    amount:amount ws* name:simple_ingredient  <IngredientNode> /
+    name:simple_ingredient ws* amount:amount? <IngredientNode>
   end
 
   rule nested_ingredient
-    ( name:simple_ingredient ws* '(' ws* contains:list ws* '.'? ws* ')' <NestedIngredientNode> ) /
-    ( name:simple_ingredient ws* '[' ws* contains:list ws* '.'? ws* ']' <NestedIngredientNode> )
+    ( amount:amount ws* name:simple_ingredient ws*                   '(' ws* contains:list ws* '.'? ws* ')'                    <NestedIngredientNode> ) /
+    (                   name:simple_ingredient ws* amount:amount ws* '(' ws* contains:list ws* '.'? ws* ')'                    <NestedIngredientNode> ) /
+    (                   name:simple_ingredient                   ws* '(' ws* contains:list ws* '.'? ws* ')' ws* amount:amount? <NestedIngredientNode> ) /
+    ( amount:amount ws* name:simple_ingredient ws*                   '[' ws* contains:list ws* '.'? ws* ']'                    <NestedIngredientNode> ) /
+    (                   name:simple_ingredient ws* amount:amount ws* '[' ws* contains:list ws* '.'? ws* ']'                    <NestedIngredientNode> ) /
+    (                   name:simple_ingredient                   ws* '[' ws* contains:list ws* '.'? ws* ']' ws* amount:amount? <NestedIngredientNode> )
   end
 
   rule ingredient
-    nested_ingredient / colon_ingredient / simple_ingredient
+    ws* ( nested_ingredient / colon_ingredient / simple_ingredient_with_amount ) ws*
   end
 
 
@@ -55,6 +64,18 @@ grammar Ingredients
   end
 
 
+  rule simple_amount
+    [<>]? ws* ( [0-9]+ [,.] [0-9]+ / [0-9]+ ) ws* ( '%' / 'g' / 'mg' / 'gram' / 'ml' )
+  end
+
+  rule amount
+    '(' ws* amount:simple_amount ws* ')' <AmountNode> /
+    '[' ws* amount:simple_amount ws* ']' <AmountNode> /
+    '{' ws* amount:simple_amount ws* '}' <AmountNode> /
+    amount:simple_amount                 <AmountNode>
+  end
+
+
   rule prefix
     ( [Ii] 'ngredients' / [Ii] 'ngredienten' / [Ii] 'ngrediënten' / [Zz] 'utaten' ) ws* ':' ws*
   end
@@ -69,7 +90,8 @@ grammar Ingredients
 
   rule char
     [[:alnum:]] /
-    [-\'+=_%{}] /
+    [-\'+=_{}] /
+    [®] /
     [¿] /                             # weird characters turning up in names (e.g. encoding issues)
     [¹²³⁴ᵃᵇᶜᵈᵉᶠᵍªº†‡•°*#^]            # @todo parse footnotes 
     #[A-Za-z0-9] / [-\'+/=?;!*#@$_%] / [#xC0-#xD6] / [#xD8-#xF6] / [#xF8-#x2FF] / [#x370-#x37D] / [#x37F-#x1FFF] / [#x200C-#x200D] / [#x2070-#x218F] / [#x2C00-#x2FEF] / [#x3001-#xD7FF] / [#xF900-#xFDCF] / [#xFDF0-#xFFFD] / [#x10000-#xEFFFF]

@@ -26,13 +26,19 @@ end
 
 class IngredientNode < SyntaxNode
   def to_h
-    { name: name.text_value.strip }
+    { name: name.text_value.strip }.merge((amount.to_h rescue {})) # @todo get rid of rescue
   end
 end
 
 class NestedIngredientNode < IngredientNode
   def to_h
     super.merge({ contains: to_a_deep(contains) })
+  end
+end
+
+class AmountNode < SyntaxNode
+  def to_h
+    { amount: amount.text_value.strip }
   end
 end
 
