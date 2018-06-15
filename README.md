@@ -14,23 +14,25 @@ Ruby and the gems: [treetop](http://cjheath.github.io/treetop) and pry.
 ```ruby
 require_relative 'ingredients-parser'
 
-s = "Sprankelend water, suiker, voedingszuren: citroenzuur, appelzuur, zuurteregelaar: natriumgluconaat, natuurlijke citroen-limoen aroma's, zoetstof: steviolglycosiden."
+s = "Water 60%, suiker 30%, voedingszuren: citroenzuur, appelzuur, zuurteregelaar: E576/E577, " \
+    + "natuurlijke citroen-limoen aroma's 0,2%, zoetstof: steviolglycosiden."
 parser = IngredientsParser.new
 puts parser.parse(s).to_a.inspect
 ```
 Results in
 ```
 [
-  {:name=>"Sprankelend water"},
-  {:name=>"suiker"},
+  {:name=>"Water", :amount=>"60%"},
+  {:name=>"suiker", :amount=>"30%"},
   {:name=>"voedingszuren", :contains=>[
     {:name=>"citroenzuur"}
   ]},
   {:name=>"appelzuur"},
   {:name=>"zuurteregelaar", :contains=>[
-    {:name=>"natriumgluconaat"}
+    {:name=>"E576"},
+    {:name=>"E577"}
   ]},
-  {:name=>"natuurlijke citroen-limoen aroma's"},
+  {:name=>"natuurlijke citroen-limoen aroma's", :amount=>"0,2%"},
   {:name=>"zoetstof", :contains=>[
     {:name=>"steviolglycosiden"}
   ]}
