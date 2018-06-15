@@ -77,7 +77,11 @@ grammar Ingredients
 
 
   rule prefix
-    ( [Ii] 'ngredients' / [Ii] 'ngredienten' / [Ii] 'ngrediënten' / [Zz] 'utaten' ) ws* ':'
+    (
+      [Ii] 'ngredients' / [Cc] 'ontains' /
+      [Ii] 'ngredienten' / [Ii] 'ngrediënten' / [Bb] 'evat' /
+      [Zz] 'utaten'
+    ) ws* ':'
   end
 
   rule ws

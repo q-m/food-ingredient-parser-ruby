@@ -26,7 +26,8 @@ Should be fairly straightforward.
 Some abbreviations are parsed as separate ingredients
 (like _o.a. tarwe_ now becomes _['o', 'a', 'tarwe']_).
 
-* _o.a._
+* _o.a._ ("onder andere")
+* _e.g._ ("europese gemeenschap")
 
 
 ## Characters
