@@ -1,7 +1,7 @@
 grammar Ingredients
 
   rule ingredients
-    prefix? contains:( colon_list / list ) ws* '.'? ws* <RootNode>
+    prefix? ws* contains:( colon_list / list ) ws* '.'? ws* <RootNode>
   end
 
   rule list
@@ -13,26 +13,26 @@ grammar Ingredients
   end
 
 
-  rule simple_ingredient
-    name:( char ( !amount char / '/' / ws )* ) <IngredientNode>
+  rule simple_ingredient_noslash
+    name:( char+ ( ws+ !amount char+ )* ) <IngredientNode>
   end
 
-  rule simple_ingredient_noslash
-    name:( char ( !amount char / ws )* ) <IngredientNode>
+  rule simple_ingredient
+    name:( char+ ( ws+ ( !amount char / '/' )+ )* ) <IngredientNode>
   end
 
   rule simple_ingredient_with_amount
-    amount:amount ws* name:simple_ingredient  <IngredientNode> /
-    name:simple_ingredient ws* amount:amount? <IngredientNode>
+    amount:amount ws+ name:simple_ingredient    <IngredientNode> /
+    name:simple_ingredient amount:(ws* amount)? <IngredientNode>
   end
 
   rule nested_ingredient
-    ( amount:amount ws* name:simple_ingredient ws*                   '(' ws* contains:list ws* '.'? ws* ')'                    <NestedIngredientNode> ) /
-    (                   name:simple_ingredient ws* amount:amount ws* '(' ws* contains:list ws* '.'? ws* ')'                    <NestedIngredientNode> ) /
-    (                   name:simple_ingredient                   ws* '(' ws* contains:list ws* '.'? ws* ')' ws* amount:amount? <NestedIngredientNode> ) /
-    ( amount:amount ws* name:simple_ingredient ws*                   '[' ws* contains:list ws* '.'? ws* ']'                    <NestedIngredientNode> ) /
-    (                   name:simple_ingredient ws* amount:amount ws* '[' ws* contains:list ws* '.'? ws* ']'                    <NestedIngredientNode> ) /
-    (                   name:simple_ingredient                   ws* '[' ws* contains:list ws* '.'? ws* ']' ws* amount:amount? <NestedIngredientNode> )
+    ( amount:amount ws+ name:simple_ingredient ws*                   '(' ws* contains:list ws* '.'? ws* ')'                      <NestedIngredientNode> ) /
+    (                   name:simple_ingredient ws* amount:amount ws* '(' ws* contains:list ws* '.'? ws* ')'                      <NestedIngredientNode> ) /
+    (                   name:simple_ingredient                   ws* '(' ws* contains:list ws* '.'? ws* ')' amount:(ws* amount)? <NestedIngredientNode> ) /
+    ( amount:amount ws+ name:simple_ingredient ws*                   '[' ws* contains:list ws* '.'? ws* ']'                      <NestedIngredientNode> ) /
+    (                   name:simple_ingredient ws* amount:amount ws* '[' ws* contains:list ws* '.'? ws* ']'                      <NestedIngredientNode> ) /
+    (                   name:simple_ingredient                   ws* '[' ws* contains:list ws* '.'? ws* ']' amount:(ws* amount)? <NestedIngredientNode> )
   end
 
   rule ingredient
@@ -77,7 +77,7 @@ grammar Ingredients
 
 
   rule prefix
-    ( [Ii] 'ngredients' / [Ii] 'ngredienten' / [Ii] 'ngrediënten' / [Zz] 'utaten' ) ws* ':' ws*
+    ( [Ii] 'ngredients' / [Ii] 'ngredienten' / [Ii] 'ngrediënten' / [Zz] 'utaten' ) ws* ':'
   end
 
   rule ws

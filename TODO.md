@@ -1,10 +1,4 @@
 
-## Remove whitespace greediness
-
-Many rules consume trailing whitespace. This is not a good idea, because sometimes whitespace
-separates items on a higher level. E.g. _tomaat (20%)_ now goes wrong and could be solved by this.
-
-
 ## Extra info after ingredient list.
 
 Will we handle these as ingredients, or as 'additional info'?
