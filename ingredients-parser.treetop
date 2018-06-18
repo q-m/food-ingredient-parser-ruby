@@ -93,9 +93,9 @@ grammar Ingredients
   rule prefix
     (
       [Ii] 'ngredients' / [Cc] 'ontains' /
-      [Ii] 'ngredienten' / [Ii] 'ngrediënten' / [Bb] 'evat' /
+      [Ii] 'ngredienten' / [Ii] 'ngrediënten' / [Bb] 'evat' / [Dd] 'it zit er in' /
       [Zz] 'utaten'
-    ) ws* ':'
+    ) ws* ':'?
   end
 
   rule ws
