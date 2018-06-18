@@ -81,6 +81,6 @@ parsed 15, no result 0
 
 [`data/ingredient-samples-nl`](data/ingredient-samples-nl) contains about 150k
 real-world ingredient lists found on the Dutch market. Each line contains one ingredient
-list, and newlines are encoded as `\n`.
+list (newlines are encoded as `\n`, empty lines and those starting with `#` are ignored).
 Currently about half of them is recognized and parsed. We aim to reach at least 90%.
 

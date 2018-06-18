@@ -33,7 +33,8 @@ end
 def parse_file(path, parser: nil, verbosity: 1)
   count_parsed = count_noresult = 0
   File.foreach(path) do |line|
-    next if line =~ /^#/ # comment
+    next if line =~ /^#/    # comment
+    next if line =~ /^\s*$/ # empty line
 
     line = line.gsub('\\n', "\n").strip
     parsed = parser.parse(line)

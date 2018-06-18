@@ -22,8 +22,9 @@ grammar Ingredients
   end
 
   rule simple_ingredient_with_amount
-    amount:amount ws+ name:simple_ingredient    <IngredientNode> /
-    name:simple_ingredient amount:(ws* amount)? <IngredientNode>
+    amount:amount ws+ name:simple_ingredient       <IngredientNode> /
+    name:simple_ingredient ws+ amount:amount       <IngredientNode> /
+    name:simple_ingredient                         <IngredientNode>
   end
 
   rule nested_ingredient
@@ -64,8 +65,21 @@ grammar Ingredients
   end
 
 
+  rule simple_amount_number
+    ( [0-9]+ [,.] [0-9]+ / [0-9]+ ) ws* ( '%' / 'g' / 'mg' / 'gram' / 'ml' )
+  end
+
   rule simple_amount
-    [<>]? ws* ( [0-9]+ [,.] [0-9]+ / [0-9]+ ) ws* ( '%' / 'g' / 'mg' / 'gram' / 'ml' )
+    ( (
+      'of which' / 'at least' /
+      'waarvan' / 'ten minste' / 'tenminste' / 'minimaal'
+    ) ws* )?
+    [<>]? ws*
+    simple_amount_number
+    ( ws+ (
+      'minimum' /
+      'minimaal' / 'minimum'
+    ) )?
   end
 
   rule amount
