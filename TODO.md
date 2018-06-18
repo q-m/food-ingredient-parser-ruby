@@ -1,4 +1,9 @@
 
+## Ingredient lists with newlines
+
+In various forms. Pending.
+
+
 ## Extra info after ingredient list.
 
 Will we handle these as ingredients, or as 'additional info'?
@@ -16,11 +21,6 @@ Will we handle these as ingredients, or as 'additional info'?
 Conclusion: we can make this 'additional info'. Needs adaptation of parse output.
 
 
-## Amounts
-
-Should be fairly straightforward.
-
-
 ## Abbreviations
 
 Some abbreviations are parsed as separate ingredients
@@ -35,7 +35,24 @@ Some abbreviations are parsed as separate ingredients
 `char` misses many unicode characters. Maybe it would be useful to base it on exclusions instead.
 
 
-## Ingredient lists with newlines
+## Other issues
 
-In various forms. Pending.
+- Sometimes ingredient list is enclosed by quotes.
+- Sometimes allergens are quoted in html with `<b>...</b>` (can occur intermixed with other forms).
+- Sometimes dash is separator: `stabilisatoren: e407-e412-e415` (but not always: `kleurstof: paprika-extract`).
+- Occasionally a tab character appears as (line-trailing) whitespace.
+
+
+## Detection of allergens
+
+In various forms:
+- `..., volle {melk}, ...`
+- `..., volle MELK, ...`
+- `... . Kan melk bevatten.` (various forms like `sporen van`, etc.)
+- `..., kan melk bevatten.` (ibid)
+- `..., botersaus (bevat melk), ...`
+- `..., VISsaus (VIS), ...`
+- `..., KAAS (17%) (EDAMMER (kleurstof: bèta-caroteen, MOZZARELLA), water, ...`
+- `..., <b>melk</b>, ...`
+- ...
 
