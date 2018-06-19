@@ -9,10 +9,10 @@ grammar Root
 
   rule root_prefix
     (
-      [Ii] 'ngredients' / [Cc] 'ontains' /
-      [Ii] 'ngredienten' / [Ii] 'ngrediënten' / [Bb] 'evat' / [Dd] 'it zit er in' /
-      [Zz] 'utaten'
-    ) ws* ':'?
+      'ingredients'i / 'contains'i /
+      ('ingred'i [IÏiï] [EËeë] 'n'i ( 't'i 'en'i? 'declaratie'i? )? ) / 'bevat'i / 'dit zit er in'i / 'samenstelling'i /
+      'zutaten'i
+    ) ( ws* [:;.] / ws ) ws*
   end
 
 end
