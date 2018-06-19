@@ -1,0 +1,15 @@
+grammar IngredientNested
+  include Common
+  include Amount
+  include IngredientSimple
+
+  rule ingredient_nested
+    ( amount:amount ws+ name:ingredient_simple ws*                   '(' ws* contains:list ws* '.'? ws* ')'                      <NestedIngredientNode> ) /
+    (                   name:ingredient_simple ws* amount:amount ws* '(' ws* contains:list ws* '.'? ws* ')'                      <NestedIngredientNode> ) /
+    (                   name:ingredient_simple                   ws* '(' ws* contains:list ws* '.'? ws* ')' amount:(ws* amount)? <NestedIngredientNode> ) /
+    ( amount:amount ws+ name:ingredient_simple ws*                   '[' ws* contains:list ws* '.'? ws* ']'                      <NestedIngredientNode> ) /
+    (                   name:ingredient_simple ws* amount:amount ws* '[' ws* contains:list ws* '.'? ws* ']'                      <NestedIngredientNode> ) /
+    (                   name:ingredient_simple                   ws* '[' ws* contains:list ws* '.'? ws* ']' amount:(ws* amount)? <NestedIngredientNode> )
+  end
+
+end

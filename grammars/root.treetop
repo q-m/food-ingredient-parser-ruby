@@ -1,0 +1,18 @@
+grammar Root
+  include Common
+  include List
+  include ListColoned
+
+  rule root
+    root_prefix? ws* contains:( list_coloned / list ) ws* '.'? ws* <RootNode>
+  end
+
+  rule root_prefix
+    (
+      [Ii] 'ngredients' / [Cc] 'ontains' /
+      [Ii] 'ngredienten' / [Ii] 'ngrediënten' / [Bb] 'evat' / [Dd] 'it zit er in' /
+      [Zz] 'utaten'
+    ) ws* ':'?
+  end
+
+end

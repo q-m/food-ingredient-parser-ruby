@@ -1,0 +1,15 @@
+grammar IngredientSimple
+  include Common
+  include Amount
+
+  rule ingredient_simple
+    name:( char+ ( ws+ !amount char+ )* ) <IngredientNode>
+  end
+
+  rule ingredient_simple_with_amount
+    amount:amount ws+ name:ingredient_simple       <IngredientNode> /
+    name:ingredient_simple ws+ amount:amount       <IngredientNode> /
+    name:ingredient_simple                         <IngredientNode>
+  end
+
+end

@@ -1,0 +1,12 @@
+grammar List
+  include Common
+  include Ingredient
+
+  rule list
+    contains:(ingredient ws* ( '|' ws* ingredient )+ ) <ListNode> /
+    contains:(ingredient ws* ( ';' ws* ingredient )+ ) <ListNode> /
+    contains:(ingredient ws* ( ',' ws* ingredient )+ ) <ListNode> /
+    contains:(ingredient ws* ( '.' ws* ingredient )+ ) <ListNode> /
+    contains:(ingredient ws*)                          <ListNode>
+  end
+end

@@ -43,4 +43,14 @@ class AmountNode < SyntaxNode
   end
 end
 
-Treetop.load 'ingredients-parser'
+Treetop.load 'grammars/common'
+Treetop.load 'grammars/amount'
+Treetop.load 'grammars/ingredient_simple'
+Treetop.load 'grammars/ingredient_nested'
+Treetop.load 'grammars/ingredient_coloned'
+Treetop.load 'grammars/ingredient'
+Treetop.load 'grammars/list'
+Treetop.load 'grammars/list_coloned'
+Treetop.load 'grammars/root'
+
+class IngredientsParser < RootParser; end

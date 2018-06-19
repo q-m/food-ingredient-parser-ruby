@@ -1,0 +1,18 @@
+grammar IngredientColoned
+  include Common
+  include Amount
+  include IngredientSimple
+
+  rule ingredient_coloned
+    name:ingredient_simple ws* ':' ws* contains:( ingredient_coloned_inner_list ) <NestedIngredientNode>
+  end
+
+  rule ingredient_coloned_inner_list
+    contains:( ingredient_coloned_simple ws* ( '/'+ ws* ingredient_coloned_simple )* ) <ListNode>
+  end
+
+  rule ingredient_coloned_simple
+    name:( ( !'/' char )+ ( ws+ !amount ( !'/' char )+ )* ) <IngredientNode>
+  end
+
+end
