@@ -64,9 +64,12 @@ grammar Ingredients
     name:simple_ingredient ws* ':' ws* contains:colon_list_inner_list <NestedIngredientNode>
   end
 
-
   rule simple_amount_number
-    ( [0-9]+ [,.] [0-9]+ / [0-9]+ ) ws* ( '%' / 'g' / 'mg' / 'gram' / 'ml' )
+    [0-9]+ [,.] [0-9]+ / [0-9]+
+  end
+
+  rule simple_amount_quantity
+    simple_amount_number ( ws* '-' ws* simple_amount_number )? ws* ( '%' / 'g' / 'mg' / 'gram' / 'ml' )
   end
 
   rule simple_amount
@@ -75,7 +78,7 @@ grammar Ingredients
       'waarvan' / 'ten minste' / 'tenminste' / 'minimaal'
     ) ws* )?
     [<>]? ws*
-    simple_amount_number
+    simple_amount_quantity
     ( ws+ (
       'minimum' /
       'minimaal' / 'minimum'
