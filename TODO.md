@@ -35,7 +35,8 @@ Some abbreviations are parsed as separate ingredients
 - Sometimes allergens are quoted in html with `<b>...</b>` (can occur intermixed with other forms).
 - Sometimes dash is separator: `stabilisatoren: e407-e412-e415` (but not always: `kleurstof: paprika-extract`).
 - Occasionally a tab character appears as (line-trailing) whitespace.
-
+- _Aqua, Alcohol denat.*, more_ stops the ingredient list after _denat._
+- Sometimes a dot is found in the middle of a comma-separated list, and all after that is marked as additional info.
 
 ## Detection of allergens
 
