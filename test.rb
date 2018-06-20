@@ -44,7 +44,9 @@ def parse_file(path, parser: nil, verbosity: 1)
     parse_single(line, parsed, parser: parser, verbosity: verbosity)
   end
 
-  puts "parsed \e[1;32m#{count_parsed}\e[0;22m, no result \e[1;31m#{count_noresult}\e[0;22m"
+  pct_parsed   = 100.0 * count_parsed / (count_parsed + count_noresult)
+  pct_noresult = 100.0 * count_noresult / (count_parsed + count_noresult)
+  puts "parsed \e[1;32m#{count_parsed}\e[0;22m (#{pct_parsed.round(1)}%), no result \e[1;31m#{count_noresult}\e[0;22m (#{pct_noresult.round(1)}%)"
 end
 
 verbosity = 1

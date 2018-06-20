@@ -74,7 +74,7 @@ RootNode+Ingredients0 offset=0, "tomato" (contains):
 [{:name=>"tomato"}]
 
 $ ./test.rb -q -f data/test-cases
-parsed 15, no result 0
+parsed 35 (100.0%), no result 0 (0.0%)
 ```
 
 ## Test data
