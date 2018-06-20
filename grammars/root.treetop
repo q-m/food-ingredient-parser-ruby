@@ -5,7 +5,10 @@ grammar Root
   include ListNewlined
 
   rule root
-    root_prefix? ws* contains:( list_newlined / list_coloned / list ) ws* '.'? ws* <RootNode>
+    root_prefix? ws*
+    contains:( list_newlined / list_coloned / list ) ws*
+    ( ( '.' ws* newline* / newline+ ) ws* root_sentences? )? ws*
+    <RootNode>
   end
 
   rule root_prefix
@@ -14,6 +17,18 @@ grammar Root
       ('ingred'i [IÏiï] [EËeë] 'n'i ( 't'i 'en'i? 'declaratie'i? )? ) / 'bevat'i / 'dit zit er in'i / 'samenstelling'i /
       'zutaten'i
     ) ( ws* [:;.] ( ws* newline )? / ws* newline / ws ) ws*
+  end
+
+  rule root_sentences
+    ( root_sentence ws* )+ root_sentence_open? / root_sentence_open
+  end
+
+  rule root_sentence
+    root_sentence_open ( '.' / ';' / newline+ )
+  end
+
+  rule root_sentence_open
+    char ( char / ws / [,:()] / '[' / ']' )+
   end
 
 end

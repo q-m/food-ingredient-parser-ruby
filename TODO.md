@@ -1,8 +1,6 @@
 
 ## Extra info after ingredient list.
 
-Will we handle these as ingredients, or as 'additional info'?
-
 - "100% BIJENPOLLEN*, *Biologisch. Geen allergenen."
 - "Groenten*, zetmeel, zout.\nKan selderij bevatten.\n\n* Duurzaam geteeld\n"
 - "Ingrediënten: kruidnoot (...), cacaopoeder.\nBevat >30% cacao\nE=goedgekeurd."
@@ -13,7 +11,8 @@ Will we handle these as ingredients, or as 'additional info'?
 - "ingredienten:suiker, olie.\nkleurstof beinvloedt kinderen.\ncacao 34%, puur 50.7%\nsporen van noten, gluten en eieren"
 - "SPELT volkoren**, roggemeel**, zeezout,\n\n* = Biologisch\n** = Demeter"
 
-Conclusion: we can make this 'additional info'. Needs adaptation of parse output.
+These things are already consumed, now, but need to find a place in the data structure.
+We can make this 'additional info' (needs adaptation of parse output).
 
 
 ## Abbreviations
@@ -57,4 +56,3 @@ In various forms:
 It would be good to put code and grammers in a namespace, so that it can be loaded in other programs.
 May be a matter of adding `module FoodIngredientParser` to some places plus some tiny tweaks.
 See also [cjheath/treetop#8](https://github.com/cjheath/treetop/issues/8).
-
