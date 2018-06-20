@@ -4,7 +4,7 @@ grammar ListNewlined
   include List
 
   rule list_newlined
-    contains:( ( list_newlined_ingredient_nested newline newline )* list_newlined_ingredient_nested ) <ListNode>
+    contains:( ( list_newlined_ingredient_nested ws* newline newline )* list_newlined_ingredient_nested ) <ListNode>
   end
 
   rule list_newlined_ingredient_nested
