@@ -2,9 +2,10 @@ grammar Root
   include Common
   include List
   include ListColoned
+  include ListNewlined
 
   rule root
-    root_prefix? ws* contains:( list_coloned / list ) ws* '.'? ws* <RootNode>
+    root_prefix? ws* contains:( list_newlined / list_coloned / list ) ws* '.'? ws* <RootNode>
   end
 
   rule root_prefix
@@ -12,7 +13,7 @@ grammar Root
       'ingredients'i / 'contains'i /
       ('ingred'i [IÏiï] [EËeë] 'n'i ( 't'i 'en'i? 'declaratie'i? )? ) / 'bevat'i / 'dit zit er in'i / 'samenstelling'i /
       'zutaten'i
-    ) ( ws* [:;.] / ws ) ws*
+    ) ( ws* [:;.] ( ws* newline )? / ws* newline / ws ) ws*
   end
 
 end

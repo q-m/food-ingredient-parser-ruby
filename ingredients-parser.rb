@@ -51,6 +51,7 @@ Treetop.load 'grammars/ingredient_coloned'
 Treetop.load 'grammars/ingredient'
 Treetop.load 'grammars/list'
 Treetop.load 'grammars/list_coloned'
+Treetop.load 'grammars/list_newlined'
 Treetop.load 'grammars/root'
 
 class IngredientsParser < RootParser; end

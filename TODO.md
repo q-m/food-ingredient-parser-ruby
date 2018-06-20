@@ -1,9 +1,4 @@
 
-## Ingredient lists with newlines
-
-In various forms. Pending.
-
-
 ## Extra info after ingredient list.
 
 Will we handle these as ingredients, or as 'additional info'?

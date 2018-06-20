@@ -1,11 +1,11 @@
 grammar Common
 
   rule ws
-    ' ' / '\t'
+    " " / "\t"
   end
 
   rule newline
-    '\n'
+    "\n"
   end
 
   rule char

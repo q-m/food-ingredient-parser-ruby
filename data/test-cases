@@ -15,6 +15,7 @@ p: a, b. q: c
 p: a, b. q: c.
 o, p: a/b, q: c
 o, p: a/b//d
+p\na, b\n\nq\nc
 # amounts
 tomaat (30%)
 tomaat [30%]
