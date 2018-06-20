@@ -49,6 +49,8 @@ Usage: ./test.rb [options] --file|-f <filename>
     -f, --file FILE                  Parse all lines of the file as ingredient lists.
     -s, --string INGREDIENTS         Parse specified ingredient list.
     -q, --[no-]quiet                 Only show summary.
+    -p, --parsed                     Only show lines that were successfully parsed.
+    -n, --noresult                   Only show lines that had no result.
     -v, --[no-]verbose               Show more data (parsed tree).
     -h, --help                       Show this help
 
