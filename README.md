@@ -54,19 +54,25 @@ Usage: ./test.rb [options] --file|-f <filename>
 
 $ ./test.rb -v -s "tomato"
 "tomato"
-RootNode+Ingredients0 offset=0, "tomato" (contains):
+RootNode+Root2 offset=0, "tomato" (contains):
+  SyntaxNode offset=0, ""
   SyntaxNode offset=0, ""
   ListNode+List13 offset=0, "tomato" (contains):
     SyntaxNode+List12 offset=0, "tomato" (ingredient):
-      IngredientNode+SimpleIngredient1 offset=0, "tomato" (name):
-        SyntaxNode+SimpleIngredient0 offset=0, "tomato" (char):
-          SyntaxNode offset=0, "t"
-          SyntaxNode offset=1, "omato":
-            SyntaxNode offset=1, "o"
-            SyntaxNode offset=2, "m"
-            SyntaxNode offset=3, "a"
-            SyntaxNode offset=4, "t"
-            SyntaxNode offset=5, "o"
+      SyntaxNode+Ingredient0 offset=0, "tomato":
+        SyntaxNode offset=0, ""
+        IngredientNode+IngredientSimpleWithAmount2 offset=0, "tomato" (name):
+          IngredientNode+IngredientSimple2 offset=0, "tomato" (name):
+            SyntaxNode+IngredientSimple1 offset=0, "tomato":
+              SyntaxNode offset=0, "tomato":
+                SyntaxNode offset=0, "t"
+                SyntaxNode offset=1, "o"
+                SyntaxNode offset=2, "m"
+                SyntaxNode offset=3, "a"
+                SyntaxNode offset=4, "t"
+                SyntaxNode offset=5, "o"
+              SyntaxNode offset=6, ""
+        SyntaxNode offset=6, ""
       SyntaxNode offset=6, ""
   SyntaxNode offset=6, ""
   SyntaxNode offset=6, ""
