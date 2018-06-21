@@ -26,8 +26,12 @@ end
 
 class IngredientNode < SyntaxNode
   def to_h
-    amnt = respond_to?(:amount) ? to_a_deep(amount, AmountNode)&.first : nil
-    { name: name.text_value }.merge(amnt&.to_h || {})
+    h = {}
+    h.merge!(to_a_deep(ing, IngredientNode)&.first&.to_h || {}) if respond_to?(:ing)
+    h.merge!(to_a_deep(amount, AmountNode)&.first&.to_h || {}) if respond_to?(:amount)
+    h[:name] = name.text_value if respond_to?(:name)
+    h[:mark] = mark.text_value if respond_to?(:mark) && mark.text_value != ''
+    h
   end
 end
 

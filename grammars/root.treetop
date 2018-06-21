@@ -7,8 +7,9 @@ grammar Root
   rule root
     '"'?
     root_prefix? ws*
-    contains:( list_newlined / list_coloned / list ) ws*
-    ( ( '.' ws* newline* / newline+ ) ws* root_sentences? )? ws*
+    contains:( list_newlined / list_coloned / list )
+    root_mark_sentences_in_list? ws*
+    ( ( '.' ws* newline* / newline+ ) ws* root_sentences? ws* )?
     '"'?
     <RootNode>
   end
@@ -32,7 +33,15 @@ grammar Root
   end
 
   rule root_sentence_open
-    ( word / ws / [,:()%] / '[' / ']' )+
+    ( word / ws / [,:()%] / '[' / ']' / mark )+
+  end
+
+  rule root_mark_sentences_in_list
+    ( ( ws* [,.] / ws ) ws* root_mark_sentence_in_list )+
+  end
+
+  rule root_mark_sentence_in_list
+    mark ws* root_sentence_open
   end
 
 end

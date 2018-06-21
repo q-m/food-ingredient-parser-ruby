@@ -3,13 +3,14 @@ grammar IngredientSimple
   include Amount
 
   rule ingredient_simple
-    name:( word ( ws+ !amount word )* ) <IngredientNode>
+    name:( word ( ws+ !amount word )* ) ws? mark:mark <IngredientNode> /
+    name:( word ( ws+ !amount word )* )               <IngredientNode>
   end
 
   rule ingredient_simple_with_amount
-    amount:amount ws+ name:ingredient_simple       <IngredientNode> /
-    name:ingredient_simple ws+ amount:amount       <IngredientNode> /
-    name:ingredient_simple                         <IngredientNode>
+    amount:amount ws+ ing:ingredient_simple                  <IngredientNode> /
+    ing:ingredient_simple ws* amount:amount (ws? mark:mark)? <IngredientNode> /
+    ing:ingredient_simple                                    <IngredientNode>
   end
 
 end

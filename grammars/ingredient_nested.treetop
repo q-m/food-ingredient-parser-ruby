@@ -4,12 +4,10 @@ grammar IngredientNested
   include IngredientSimple
 
   rule ingredient_nested
-    ( amount:amount ws+ name:ingredient_simple ws*                   '(' ws* contains:list ws* '.'? ws* ')'                      <NestedIngredientNode> ) /
-    (                   name:ingredient_simple ws* amount:amount ws* '(' ws* contains:list ws* '.'? ws* ')'                      <NestedIngredientNode> ) /
-    (                   name:ingredient_simple                   ws* '(' ws* contains:list ws* '.'? ws* ')' amount:(ws* amount)? <NestedIngredientNode> ) /
-    ( amount:amount ws+ name:ingredient_simple ws*                   '[' ws* contains:list ws* '.'? ws* ']'                      <NestedIngredientNode> ) /
-    (                   name:ingredient_simple ws* amount:amount ws* '[' ws* contains:list ws* '.'? ws* ']'                      <NestedIngredientNode> ) /
-    (                   name:ingredient_simple                   ws* '[' ws* contains:list ws* '.'? ws* ']' amount:(ws* amount)? <NestedIngredientNode> )
+    ( name:ingredient_simple                  ws* '(' ws* contains:list ws* '.'? ws* ')' (ws? mark:mark)? ws* amount:amount <NestedIngredientNode> ) /
+    ( name:ingredient_simple_with_amount      ws* '(' ws* contains:list ws* '.'? ws* ')' (ws? mark:mark)?                   <NestedIngredientNode> ) /
+    ( name:ingredient_simple                  ws* '[' ws* contains:list ws* '.'? ws* ']' (ws? mark:mark)? ws* amount:amount <NestedIngredientNode> ) /
+    ( name:ingredient_simple_with_amount      ws* '[' ws* contains:list ws* '.'? ws* ']' (ws? mark:mark)?                   <NestedIngredientNode> )
   end
 
 end

@@ -22,7 +22,7 @@ We can make this 'additional info' (needs adaptation of parse output).
 
 ## Other issues
 
-- Sometimes ingredient list is enclosed by quotes.
+- `saus: (tomaat, water)` is not parsed
 - Sometimes allergens are quoted in html with `<b>...</b>` (can occur intermixed with other forms).
 - Sometimes dash is separator: `stabilisatoren: e407-e412-e415` (but not always: `kleurstof: paprika-extract`).
 - Occasionally a tab character appears as (line-trailing) whitespace.
