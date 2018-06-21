@@ -1,13 +1,13 @@
 # WiP - Food ingredient parser
 
-Ingredients listed on food products in various ways. This [Ruby](https://www.ruby-lang.org/) gem
-parses the ingredient text and returns a structured representation.
+Ingredients listed on food products in various ways. This [Ruby](https://www.ruby-lang.org/)
+program parses the ingredient text and returns a structured representation.
 
-_This is currently being developed, this project is not yet in a usable state._
+_This is under development and not yet fully finished._
 
 ## Dependencies
 
-Ruby and the gems: [treetop](http://cjheath.github.io/treetop) and pry.
+Ruby, the gem [treetop](http://cjheath.github.io/treetop), and optionally [pry](http://pryrepl.org/).
 
 ## Example
 
