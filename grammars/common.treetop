@@ -85,6 +85,7 @@ grammar Common
       'w.v'i /
       # special words and abbreviations (not auto-generated)
       'vit.'i /
+      'denat.'i /
       'N°'i /
       '°C'i
     )
