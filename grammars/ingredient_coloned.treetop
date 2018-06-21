@@ -12,7 +12,11 @@ grammar IngredientColoned
   end
 
   rule ingredient_coloned_simple
-    name:( ( !'/' char )+ ( ws+ !amount ( !'/' char )+ )* ) <IngredientNode>
+    name:( ingredient_coloned_word ( ws+ !amount ingredient_coloned_word )* ) <IngredientNode>
+  end
+
+  rule ingredient_coloned_word
+    abbrev / ( !'/' char )+
   end
 
 end

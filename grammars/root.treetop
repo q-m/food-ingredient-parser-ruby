@@ -16,7 +16,9 @@ grammar Root
       'ingredients'i / 'contains'i /
       ('ingred'i [IÏiï] [EËeë] 'n'i ( 't'i 'en'i? 'declaratie'i? )? ) / 'bevat'i / 'dit zit er in'i / 'samenstelling'i /
       'zutaten'i
-    ) ( ws* [:;.] ( ws* newline )? / ws* newline / ws ) ws*
+    )
+    ( ws* [:;.] ( ws* newline )? / ws* newline / ws ) ws*  # optional colon or other separator
+    "'"? ws*                                               # stray quote occurs sometimes
   end
 
   rule root_sentences
@@ -28,7 +30,7 @@ grammar Root
   end
 
   rule root_sentence_open
-    char ( char / ws / [,:()] / '[' / ']' )+
+    ( word / ws / [,:()%] / '[' / ']' )+
   end
 
 end

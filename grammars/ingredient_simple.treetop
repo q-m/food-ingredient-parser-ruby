@@ -3,7 +3,7 @@ grammar IngredientSimple
   include Amount
 
   rule ingredient_simple
-    name:( char+ ( ws+ !amount char+ )* ) <IngredientNode>
+    name:( word ( ws+ !amount word )* ) <IngredientNode>
   end
 
   rule ingredient_simple_with_amount
