@@ -27,7 +27,7 @@ def parse_single(s, parsed=nil, parser: nil, verbosity: 1, print: nil)
 
   if parsed
     puts(parsed.inspect) if verbosity > 1
-    pp(parsed.to_a) if verbosity > 0
+    pp(parsed.to_h) if verbosity > 0
   else
     puts "(no result: #{parser.failure_reason})" if verbosity > 0
   end

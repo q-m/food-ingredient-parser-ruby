@@ -14,29 +14,36 @@ Ruby, the gem [treetop](http://cjheath.github.io/treetop), and optionally [pry](
 ```ruby
 require_relative 'ingredients-parser'
 
-s = "Water 60%, suiker 30%, voedingszuren: citroenzuur, appelzuur, zuurteregelaar: E576/E577, " \
-    + "natuurlijke citroen-limoen aroma's 0,2%, zoetstof: steviolglycosiden."
+s = "Water* 60%, suiker 30%, voedingszuren: citroenzuur, appelzuur, zuurteregelaar: E576/E577, " \
+    + "natuurlijke citroen-limoen aroma's 0,2%, zoetstof: steviolglycosiden, * = Biologisch. " \
+    + "E = door de E.U. goedgekeurde toevoeging."
 parser = IngredientsParser.new
-puts parser.parse(s).to_a.inspect
+puts parser.parse(s).to_h.inspect
 ```
 Results in
 ```
-[
-  {:name=>"Water", :amount=>"60%"},
-  {:name=>"suiker", :amount=>"30%"},
-  {:name=>"voedingszuren", :contains=>[
-    {:name=>"citroenzuur"}
-  ]},
-  {:name=>"appelzuur"},
-  {:name=>"zuurteregelaar", :contains=>[
-    {:name=>"E576"},
-    {:name=>"E577"}
-  ]},
-  {:name=>"natuurlijke citroen-limoen aroma's", :amount=>"0,2%"},
-  {:name=>"zoetstof", :contains=>[
-    {:name=>"steviolglycosiden"}
-  ]}
-]
+{
+  :contains=>[
+    {:name=>"Water", :amount=>"60%", :mark=>"*"},
+    {:name=>"suiker", :amount=>"30%"},
+    {:name=>"voedingszuren", :contains=>[
+      {:name=>"citroenzuur"}
+    ]},
+    {:name=>"appelzuur"},
+    {:name=>"zuurteregelaar", :contains=>[
+      {:name=>"E576"},
+      {:name=>"E577"}
+    ]},
+    {:name=>"natuurlijke citroen-limoen aroma's", :amount=>"0,2%"},
+    {:name=>"zoetstof", :contains=>[
+      {:name=>"steviolglycosiden"}
+    ]}
+  ],
+  :notes=>[
+    "* = Biologisch",
+    "E = door de E.U. goedgekeurde toevoeging"
+  ]
+}
 ```
 
 ## Test tool
@@ -56,16 +63,17 @@ Usage: ./test.rb [options] --file|-f <filename>
 
 $ ./test.rb -v -s "tomato"
 "tomato"
-RootNode+Root2 offset=0, "tomato" (contains):
+RootNode+Root3 offset=0, "tomato" (contains,notes):
+  SyntaxNode offset=0, ""
   SyntaxNode offset=0, ""
   SyntaxNode offset=0, ""
   ListNode+List13 offset=0, "tomato" (contains):
     SyntaxNode+List12 offset=0, "tomato" (ingredient):
       SyntaxNode+Ingredient0 offset=0, "tomato":
         SyntaxNode offset=0, ""
-        IngredientNode+IngredientSimpleWithAmount2 offset=0, "tomato" (name):
-          IngredientNode+IngredientSimple2 offset=0, "tomato" (name):
-            SyntaxNode+IngredientSimple1 offset=0, "tomato":
+        IngredientNode+IngredientSimpleWithAmount3 offset=0, "tomato" (ing):
+          IngredientNode+IngredientSimple5 offset=0, "tomato" (name):
+            SyntaxNode+IngredientSimple4 offset=0, "tomato" (word):
               SyntaxNode offset=0, "tomato":
                 SyntaxNode offset=0, "t"
                 SyntaxNode offset=1, "o"
@@ -76,10 +84,12 @@ RootNode+Root2 offset=0, "tomato" (contains):
               SyntaxNode offset=6, ""
         SyntaxNode offset=6, ""
       SyntaxNode offset=6, ""
+  SyntaxNode+Root2 offset=6, "":
+    SyntaxNode offset=6, ""
+    SyntaxNode offset=6, ""
+    SyntaxNode offset=6, ""
   SyntaxNode offset=6, ""
-  SyntaxNode offset=6, ""
-  SyntaxNode offset=6, ""
-[{:name=>"tomato"}]
+{:contains=>[{:name=>"tomato"}]}
 
 $ ./test.rb -q -f data/test-cases
 parsed 35 (100.0%), no result 0 (0.0%)

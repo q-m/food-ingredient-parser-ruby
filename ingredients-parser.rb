@@ -5,7 +5,7 @@ class SyntaxNode < Treetop::Runtime::SyntaxNode
 
   def to_a_deep(n, cls)
     if n.is_a?(cls)
-      [n.to_h]
+      [n]
     elsif n.nonterminal?
       n.elements.map {|m| to_a_deep(m, cls) }.flatten(1).compact
     end
@@ -13,14 +13,18 @@ class SyntaxNode < Treetop::Runtime::SyntaxNode
 end
 
 class RootNode < SyntaxNode
-  def to_a
-    contains.to_a
+  def to_h
+    h = { contains: contains.to_a }
+    if notes && notes_ary = to_a_deep(notes, NoteNode)&.map(&:text_value)
+      h[:notes] = notes_ary if notes_ary.length > 0
+    end
+    h
   end
 end
 
 class ListNode < SyntaxNode
   def to_a
-    to_a_deep(contains, IngredientNode)
+    to_a_deep(contains, IngredientNode).map(&:to_h)
   end
 end
 
@@ -37,7 +41,7 @@ end
 
 class NestedIngredientNode < IngredientNode
   def to_h
-    super.merge({ contains: to_a_deep(contains, IngredientNode) })
+    super.merge({ contains: to_a_deep(contains, IngredientNode).map(&:to_h) })
   end
 end
 
@@ -45,6 +49,9 @@ class AmountNode < SyntaxNode
   def to_h
     { amount: amount.text_value }
   end
+end
+
+class NoteNode < SyntaxNode
 end
 
 Treetop.load 'grammars/common'
