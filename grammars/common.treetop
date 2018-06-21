@@ -10,9 +10,10 @@ grammar Common
 
   rule char
     [[:alnum:]] /
-    [-/\'+=_{}] /
+    [-/\'+=_{}&] /
     [®] /
     [¿] /                          # weird characters turning up in names (e.g. encoding issues)
+    [₁₂₃₄₅₆₇₈₉] /                  # can occur with vitamins
     [¹²³⁴ᵃᵇᶜᵈᵉᶠᵍªº†‡•°*#^]            # @todo parse footnotes
     #[A-Za-z0-9] / [-\'+/=?;!*#@$_%] / [#xC0-#xD6] / [#xD8-#xF6] / [#xF8-#x2FF] / [#x370-#x37D] / [#x37F-#x1FFF] / [#x200C-#x200D] / [#x2070-#x218F] / [#x2C00-#x2FEF] / [#x3001-#xD7FF] / [#xF900-#xFDCF] / [#xFDF0-#xFFFD] / [#x10000-#xEFFFF]
   end
@@ -78,7 +79,9 @@ grammar Common
       'v.s'i /
       'w.a'i /
       'w.o'i /
-      'w.v'i
+      'w.v'i /
+      # multi-letter abbreviations
+      'vit.'i
     )
     '.'? ![[:alpha:]]
   end

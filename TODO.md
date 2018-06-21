@@ -28,6 +28,9 @@ We can make this 'additional info' (needs adaptation of parse output).
 - Occasionally a tab character appears as (line-trailing) whitespace.
 - `Aqua, Alcohol denat.*`, more_ stops the ingredient list after `denat`_
 - Sometimes a dot is found in the middle of a comma-separated list, and all after that is marked as additional info.
+- Separate `74% varkensvlees waarvan 32,3% varkensseparatorvlees`? (not parsed now)
+- Check if prefix `dit zit er in` is always stripped
+- Amount with _ingredient_coloned_
 
 ## Detection of allergens
 
