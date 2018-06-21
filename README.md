@@ -90,5 +90,5 @@ parsed 35 (100.0%), no result 0 (0.0%)
 [`data/ingredient-samples-nl`](data/ingredient-samples-nl) contains about 150k
 real-world ingredient lists found on the Dutch market. Each line contains one ingredient
 list (newlines are encoded as `\n`, empty lines and those starting with `#` are ignored).
-Currently about half of them is recognized and parsed. We aim to reach at least 90%.
+Currently almost three quarter is recognized and parsed. We aim to reach at least 90%.
 

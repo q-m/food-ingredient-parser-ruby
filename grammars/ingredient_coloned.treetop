@@ -8,11 +8,18 @@ grammar IngredientColoned
   end
 
   rule ingredient_coloned_inner_list
-    contains:( ingredient_coloned_simple ws* ( '/'+ ws* ingredient_coloned_simple )* ) <ListNode>
+    contains:( ingredient_coloned_simple_with_amount ws* ( '/'+ ws* ingredient_coloned_simple_with_amount )* ) <ListNode>
   end
 
   rule ingredient_coloned_simple
-    name:( ingredient_coloned_word ( ws+ !amount ingredient_coloned_word )* ) <IngredientNode>
+    name:( ingredient_coloned_word ( ws+ !amount ingredient_coloned_word )* ) ws? mark:mark <IngredientNode> /
+    name:( ingredient_coloned_word ( ws+ !amount ingredient_coloned_word )* )               <IngredientNode>
+  end
+
+  rule ingredient_coloned_simple_with_amount
+    amount:amount ws+ ing:ingredient_coloned_simple                  <IngredientNode> /
+    ing:ingredient_coloned_simple ws* amount:amount (ws? mark:mark)? <IngredientNode> /
+    ing:ingredient_coloned_simple                                    <IngredientNode>
   end
 
   rule ingredient_coloned_word
