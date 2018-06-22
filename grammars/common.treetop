@@ -18,7 +18,8 @@ grammar Common
   end
 
   rule mark
-    [¹²³⁴ᵃᵇᶜᵈᵉᶠᵍªº†‡•°#^] / '*'+      # mark referencing a footnote
+    # mark referencing a footnote
+    [¹²³⁴⁵ᵃᵇᶜᵈᵉᶠᵍªº] '⁾'? / '⁽' [¹²³⁴⁵ᵃᵇᶜᵈᵉᶠᵍªº] '⁾' / [†‡•°#^] / '*'+
   end
 
   rule digit
