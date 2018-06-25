@@ -10,6 +10,7 @@ grammar Common
 
   rule char
     [[:alnum:]] /
+    fraction /
     [-/\'’+=_{}&] /
     [®] /
     [¿] /                          # weird characters turning up in names (e.g. encoding issues)
@@ -26,8 +27,12 @@ grammar Common
     [0-9]
   end
 
+  rule fraction
+    [½⅓⅔¼¾⅕⅖⅗⅘⅙⅚⅐⅛⅜⅝⅞⅑⅒]
+  end
+
   rule number
-    digit+ [,.] digit+ / (digit+ ws*)? [½⅓⅔¼¾⅕⅖⅗⅘⅙⅚⅐⅛⅜⅝⅞⅑⅒] / digit+
+    digit+ [,.] digit+ / digit+ ws* fraction / fraction / digit+
   end
 
   rule word
