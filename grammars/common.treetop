@@ -27,7 +27,7 @@ grammar Common
   end
 
   rule number
-    digit+ [,.] digit+ / digit+
+    digit+ [,.] digit+ / (digit+ ws*)? [½⅓⅔¼¾⅕⅖⅗⅘⅙⅚⅐⅛⅜⅝⅞⅑⅒] / digit+
   end
 
   rule word
