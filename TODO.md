@@ -8,6 +8,7 @@
 - Check if prefix `dit zit er in` is always stripped
 - Sometimes dash is separator: `stabilisatoren: e407-e412-e415` (but not always: `kleurstof: paprika-extract`).
 - `char` misses many unicode characters. Maybe it would be useful to base it on exclusions instead.
+- `and` as last separator (but watch out for `soja- en tarwe-eiwit` and `diverse kruiden en specerijen`).
 
 
 # Ideas
