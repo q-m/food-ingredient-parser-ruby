@@ -4,14 +4,14 @@ grammar IngredientNested
   include IngredientSimple
 
   rule ingredient_nested
-    ( name:ingredient_simple                  ws* '(' ws* contains:list ws* '.'? ws* ')' ws? mark:mark ws* amount:amount <NestedIngredientNode> ) /
-    ( name:ingredient_simple                  ws* '(' ws* contains:list ws* '.'? ws* ')'               ws* amount:amount <NestedIngredientNode> ) /
-    ( name:ingredient_simple_with_amount      ws* '(' ws* contains:list ws* '.'? ws* ')' ws? mark:mark                   <NestedIngredientNode> ) /
-    ( name:ingredient_simple_with_amount      ws* '(' ws* contains:list ws* '.'? ws* ')'                                 <NestedIngredientNode> ) /
-    ( name:ingredient_simple                  ws* '[' ws* contains:list ws* '.'? ws* ']' ws? mark:mark ws* amount:amount <NestedIngredientNode> ) /
-    ( name:ingredient_simple                  ws* '[' ws* contains:list ws* '.'? ws* ']'               ws* amount:amount <NestedIngredientNode> ) /
-    ( name:ingredient_simple_with_amount      ws* '[' ws* contains:list ws* '.'? ws* ']' ws? mark:mark                   <NestedIngredientNode> ) /
-    ( name:ingredient_simple_with_amount      ws* '[' ws* contains:list ws* '.'? ws* ']'                                 <NestedIngredientNode> )
+    ( ing:ingredient_simple                  ws* '(' ws* contains:list ws* '.'? ws* ')' ws? mark:mark ws* amount:amount <NestedIngredientNode> ) /
+    ( ing:ingredient_simple                  ws* '(' ws* contains:list ws* '.'? ws* ')'               ws* amount:amount <NestedIngredientNode> ) /
+    ( ing:ingredient_simple_with_amount      ws* '(' ws* contains:list ws* '.'? ws* ')' ws? mark:mark                   <NestedIngredientNode> ) /
+    ( ing:ingredient_simple_with_amount      ws* '(' ws* contains:list ws* '.'? ws* ')'                                 <NestedIngredientNode> ) /
+    ( ing:ingredient_simple                  ws* '[' ws* contains:list ws* '.'? ws* ']' ws? mark:mark ws* amount:amount <NestedIngredientNode> ) /
+    ( ing:ingredient_simple                  ws* '[' ws* contains:list ws* '.'? ws* ']'               ws* amount:amount <NestedIngredientNode> ) /
+    ( ing:ingredient_simple_with_amount      ws* '[' ws* contains:list ws* '.'? ws* ']' ws? mark:mark                   <NestedIngredientNode> ) /
+    ( ing:ingredient_simple_with_amount      ws* '[' ws* contains:list ws* '.'? ws* ']'                                 <NestedIngredientNode> )
   end
 
 end

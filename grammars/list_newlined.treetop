@@ -8,7 +8,7 @@ grammar ListNewlined
   end
 
   rule list_newlined_ingredient_nested
-    ws* name:ingredient_simple ws* ':'? ws* newline contains:list ws* '.'? <NestedIngredientNode>
+    ws* ing:ingredient_simple ws* ':'? ws* newline contains:list ws* '.'? <NestedIngredientNode>
   end
 
 end

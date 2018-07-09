@@ -14,7 +14,7 @@ grammar ListColoned
   end
 
   rule list_coloned_ingredient
-    name:ingredient_simple ws* [:;] ws* contains:list_coloned_inner_list <NestedIngredientNode>
+    ing:ingredient_simple_with_amount ws* [:;] ws* contains:list_coloned_inner_list <NestedIngredientNode>
   end
 
 end
