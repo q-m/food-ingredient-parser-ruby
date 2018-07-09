@@ -3,10 +3,10 @@ grammar List
   include Ingredient
 
   rule list
-    contains:(ingredient ws* ( '|' ws* ingredient )+ ) <ListNode> /
-    contains:(ingredient ws* ( ';' ws* ingredient )+ ) <ListNode> /
-    contains:(ingredient ws* ( ',' ws* ingredient )+ ) <ListNode> /
-    contains:(ingredient ws* ( '.' ws* ingredient )+ ) <ListNode> /
-    contains:(ingredient ws*)                          <ListNode>
+    contains:(ingredient ( ws* '|' ws* ingredient )+ ) <ListNode> /
+    contains:(ingredient ( ws* ';' ws* ingredient )+ ) <ListNode> /
+    contains:(ingredient ( ws* ',' ws* ingredient )+ ) <ListNode> /
+    contains:(ingredient ( ws* '.' ws* ingredient )+ ) <ListNode> /
+    contains:(ingredient)                              <ListNode>
   end
 end

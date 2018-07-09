@@ -6,11 +6,11 @@ grammar ListColoned
   rule list_coloned
     contains:( ( list_coloned_ingredient ws* '.' ws* )+ list_coloned_ingredient? ) <ListNode> /
     contains:( ( list_coloned_ingredient ws* ';' ws* )+ list_coloned_ingredient? ) <ListNode> /
-    contains:( ( list_coloned_ingredient ws* ) )                                   <ListNode>
+    contains:(   list_coloned_ingredient )                                         <ListNode>
   end
 
   rule list_coloned_inner_list
-    contains:( ingredient ws* ( ',' ws* ingredient )* ) <ListNode>
+    contains:( ingredient ( ws* ',' ws* ingredient )* ) <ListNode>
   end
 
   rule list_coloned_ingredient

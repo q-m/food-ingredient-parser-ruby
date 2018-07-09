@@ -4,7 +4,7 @@ grammar Ingredient
   include IngredientColoned
 
   rule ingredient
-    ws* ( ingredient_nested / ingredient_coloned / ingredient_simple_with_amount ) ws*
+    ws* ( ingredient_nested / ingredient_coloned / ingredient_simple_with_amount )
   end
 
 end
