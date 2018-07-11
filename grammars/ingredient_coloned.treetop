@@ -4,7 +4,7 @@ grammar IngredientColoned
   include IngredientSimple
 
   rule ingredient_coloned
-    ing:ingredient_simple ws* ':' ws* amount:amount post:( ws* '}' )?                              <IngredientNode> /
+    ing:ingredient_simple ws* ':' ws* amount:amount post:( ws* '}' )? !( ws* word )                <IngredientNode> /
     ing:ingredient_simple ws* ':' post:( ws* '}' )? ws* contains:( ingredient_coloned_inner_list ) <NestedIngredientNode>
   end
 
