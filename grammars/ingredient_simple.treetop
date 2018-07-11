@@ -8,9 +8,9 @@ grammar IngredientSimple
   end
 
   rule ingredient_simple_with_amount
-    amount:amount ws+ ing:ingredient_simple                  <IngredientNode> /
-    ing:ingredient_simple ws* amount:amount (ws? mark:mark)? <IngredientNode> /
-    ing:ingredient_simple                                    <IngredientNode>
+    pre:( '{' ws* )? amount:amount ws+ ing:ingredient_simple                   <IngredientNode> /
+    ing:ingredient_simple ws* amount:amount post:( ws* '}' )? (ws? mark:mark)? <IngredientNode> /
+    ing:ingredient_simple                                                      <IngredientNode>
   end
 
 end

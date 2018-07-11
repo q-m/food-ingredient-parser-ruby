@@ -4,8 +4,8 @@ grammar IngredientColoned
   include IngredientSimple
 
   rule ingredient_coloned
-    ing:ingredient_simple ws* ':' ws* amount:amount                              <IngredientNode> /
-    ing:ingredient_simple ws* ':' ws* contains:( ingredient_coloned_inner_list ) <NestedIngredientNode>
+    ing:ingredient_simple ws* ':' ws* amount:amount post:( ws* '}' )?                              <IngredientNode> /
+    ing:ingredient_simple ws* ':' post:( ws* '}' )? ws* contains:( ingredient_coloned_inner_list ) <NestedIngredientNode>
   end
 
   rule ingredient_coloned_inner_list
@@ -20,13 +20,13 @@ grammar IngredientColoned
 
   # @see IngredientSimple#ingredient_simple_with_amount
   rule ingredient_coloned_simple_with_amount
-    amount:amount ws+ ing:ingredient_coloned_simple                  <IngredientNode> /
-    ing:ingredient_coloned_simple ws* amount:amount (ws? mark:mark)? <IngredientNode> /
-    ing:ingredient_coloned_simple                                    <IngredientNode>
+    pre:( '{' ws* )? amount:amount ws+ ing:ingredient_coloned_simple                   <IngredientNode> /
+    ing:ingredient_coloned_simple ws* amount:amount post:( ws* '}' )? (ws? mark:mark)? <IngredientNode> /
+    ing:ingredient_coloned_simple                                                      <IngredientNode>
   end
 
   rule ingredient_coloned_simple_with_amount_and_nest
-    ing:ingredient_coloned_simple_with_amount ws* '(' ws* contains:ingredient_coloned_simple_with_amount ws* ')' <NestedIngredientNode> /
+    ing:ingredient_coloned_simple_with_amount ws* '(' ws* contains:ingredient_coloned_simple_with_amount ws* ')' ( ws* '}' )? <NestedIngredientNode> /
     ingredient_coloned_simple_with_amount
   end
 

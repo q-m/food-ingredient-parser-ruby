@@ -48,3 +48,8 @@ tomaat. paprika\n\nBevat groente.
 tomaat, paprika.bevat groente, en groente
 tomaat*, paprika. * = Biologisch
 tomaat*, paprika  * = Biologisch
+# curly braces
+62% {tarwebloem}, zout, {tarwegluten}
+{tarwe}bloem
+water, fruit ({50% citroen}, {kiwi (50%)})
+{Broodje (38%):} {tarwebloem}, water

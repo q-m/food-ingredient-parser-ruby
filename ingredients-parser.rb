@@ -34,6 +34,8 @@ class IngredientNode < SyntaxNode
     h.merge!(to_a_deep(ing, IngredientNode)&.first&.to_h || {}) if respond_to?(:ing)
     h.merge!(to_a_deep(amount, AmountNode)&.first&.to_h || {}) if respond_to?(:amount)
     h[:name] = name.text_value if respond_to?(:name)
+    h[:name] = pre.text_value + h[:name] if respond_to?(:pre)
+    h[:name] = h[:name] + post.text_value if respond_to?(:post)
     h[:mark] = mark.text_value if respond_to?(:mark) && mark.text_value != ''
     h
   end
