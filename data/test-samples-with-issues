@@ -1,14 +1,10 @@
 ## Ingredient lists with issues
 #
 
-# amount after colon (todo)
-suiker, WEIPOEDER (MELK), emulgator: SOJALECITHINE, aroma, Cacaogehalte: 30% minimum, Kan sporen van pinda, noten bevatten
 # first ingredient starting with colon but those following not (todo)
 Zoetstof: Maltitolen. chocolade 15% (cacaomassa. zoetstof: maltitolen. cacaoboter. emulgator: SOJAlecithinen. natuurlijk vanille-aroma). water. TARWEbloem. verstevigingsmiddelen. TARWEzetmeel en maltodextrine. bevochtigingsmiddel: glycerol. EI. zuurteregelaars: citroenzuur en natriumcitraten. geleermiddel; pectines. sinaasappelconcentraat 0.7%. koolzaadolie. rijsmiddel: ammoniumcarbonaten. emulgatoren: mono- en diglyceriden en polyglycerolesters van vetzuren. natuurlijk sinaasappelaroma. zout. kleurstof: carotenen.
 # everything after the first dot is parsed as a note instead of ingredients (todo)
 4% volle YOGHURT, suiker, 6% aarbei, 2% sinaasappelsap, gemodificeerd maïszetmeel, natuurlijk aroma, bietensapconcentraat, wortelsapconcentraat. Gekleurde chocopastilles: suiker, cacaoboter, WEIpoeder, magere cacaopoeder, volle MELKpoeder, emulgator (SOJAlecithine), glansmiddel (arabische gom, bijenwas, carnaubawas), kleurstof (caroteen, bietenrood, E101, E120, E141, E163, E171, E172).
-# `**Rijsmiddel...` is not recognized as a note (todo)
-Biologisch Volkoren Tarwemeel 30%, Biologisch Tarwemeel 30%, Biologisch Druivensapconcentraat 27%, Biologische Ongeharde Palmolie 4%, Biologische Zonnebloemolie 4%, Biologische Volkoren Havervlokken 3%, Biologische Zonnebloempitten 2%, Rijsmiddel**:Natriumbicarbonaat <1%, Thiamine (Vitamine B1)**  **Rijsmiddel Natriumbicarbonaat en Thiamine hebben geen biologische certificering. Toevoeging van thiamine is overeenkomstig wetgeving.  Geproduceerd in een fabriek waar noten worden verwerkt.
 
 # missing comma after nested ingredient
 {RIBSTER MINI} (44% mechanisch gescheiden varkensvlees, {tarwe}gluten, ketjap (water, aroma ({soja}), kleurstof: E150d) {soja}-eiwit), {KIPKORN MINI} (28% mechanisch gescheiden kippenvlees, water, {tarwe}gluten, antioxidant: ascorbinezuur, Kan sporen van {ei} bevatten.)
@@ -16,3 +12,5 @@ Biologisch Volkoren Tarwemeel 30%, Biologisch Tarwemeel 30%, Biologisch Druivens
 Cacaomassa, suiker, 16% mangovulling [suiker, glucosestroop, 1% mangopuree, volle melkpoeder, (LACTOSE, MELKEIWIT), cacaoboter, invertsuikerstroop, limoensap, 0,1% alcohol, natuurlijk aroma, emulgator, (lecithine (SOJA)), verdikkingsmiddel ( johannesbroodpitmeel, guarpitmeel, xanthaangom), kleurstof (caroteen)], 16% chilismaakvulling [suiker, palmvet, raapolie, magere cacaopoeder, cacaomassa, magere melkpoeder (LACTOSE, MELKEIWIT), Lactose (LACTOSE, MELKEIWIT), volle melkpoeder (LACTOSE, MELKEIWIT), wei-eiwit (LACTOSE, MELKEIWIT), dextrose, natuurlijk aroma, emulgator (lecithine (SOJA)), antioxidant, (E306)], cacaoboter, emulgator [lecithine (SOJA)]. 
 # confusing colons, not sure if there is a correct interpretation that is parseable
 Ingredienten: Natuurlijk mineraalwater, sappen uit geconcentreerde sappen uit: 9% sinaasappel, 1% citroen, 1% ananas, 1% mandarijn; voedingszuur: citroenzuur, aroma, zoetstof: sucralose, stevioglycosiden; verrijkt met: vitamine: C, vitamine A.
+# semicolon instead of colon
+Mix voor Lasagnesaus ; groenten (knoflook, ui, tomaat, paprika), 39% zeezout, specerijen (peper, chilies), kruiden (peterselie, basilicum, majoraan, 1% tijm, 1% oregano). Mix voor bechamesaus ; tarwezetmeel, melkpoeder, cacaoboter, tarwebloem, 8% zout, ui, natuurlijk aroma, specerijen (0,4% peper, 0,4% nootmuskaat).
