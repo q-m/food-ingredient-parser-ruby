@@ -67,4 +67,19 @@ Treetop.load 'grammars/list_coloned'
 Treetop.load 'grammars/list_newlined'
 Treetop.load 'grammars/root'
 
-class IngredientsParser < RootParser; end
+class IngredientsParser < RootParser
+  def parse(s, clean: true)
+    s = self.clean(s) if clean
+    super(s)
+  end
+
+  def clean(s)
+    s.gsub!("\u0092", "'")            # windows-1252 apostrophe - https://stackoverflow.com/a/15564279/2866660
+    s.gsub!("aÄs", "aïs")             # encoding issue for maïs
+    s.gsub!("Ã¯", "ï")                # encoding issue
+    s.gsub!("Ã«", "ë")                # encoding issue
+    s.gsub!(/\A\s*"(.*)"\s*\z/, '\1') # enclosing double quotation marks
+    s.gsub!(/\A\s*'(.*)'\s*\z/, '\1') # enclosing single quotation marks
+    s
+  end
+end
