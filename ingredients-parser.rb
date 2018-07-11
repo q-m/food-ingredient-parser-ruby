@@ -74,6 +74,7 @@ class IngredientsParser < RootParser
   end
 
   def clean(s)
+    s.gsub!("\u00ad", "")             # strip soft hyphen
     s.gsub!("\u0092", "'")            # windows-1252 apostrophe - https://stackoverflow.com/a/15564279/2866660
     s.gsub!("aÄs", "aïs")             # encoding issue for maïs
     s.gsub!("Ã¯", "ï")                # encoding issue
