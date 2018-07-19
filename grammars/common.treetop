@@ -39,6 +39,20 @@ grammar Common
     abbrev / char+
   end
 
+  rule word_nas
+    # word, but don't include the trailing '-' that may occure before an 'and'
+    abbrev / ( !andsep char )+
+  end
+
+  rule and
+    ( 'and' / 'en' / 'und' / '&' ) !char
+  end
+
+  # we want to match "a and b" but not "a- and bthing", this allows to avoid the latter
+  rule andsep
+    '-' ws+ and
+  end
+
   rule abbrev
     # These are listed explicitely to avoid incorrect interpretations, and allow missing trailing dots.
     # To get an idea of what occurs (second one omits trailing dots):
@@ -93,9 +107,42 @@ grammar Common
       'vit.'i /
       'denat.'i /
       'N°'i /
-      '°C'i
+      '°C'i /
+      # word combinations that should not be split (not auto-generated)
+      # @todo this really would benefit from matching known ingredients instead of hardcoding
+      ( 'oliën'i / 'olien'i / 'olië'i / 'olie'i ) ws+ and ws+ ( 'vetten'i / 'vet'i ) /
+      'palm'i ws+ and ws+ 'kokosvet'i /
+      color ( ws+ and ws+ color )+ /
+      color2 ( ws+ and ws+ color2 )+ /
+      'kruiden'i ws+ and ws+ 'specerijen'i /
+      'kruiden'i ws+ and ws+ 'specerij'i /
+      'specerijen'i ws+ and ws+ 'kruiden'i /
+      'vitamine'i 'n'i? ws+ and ws+ 'mineralen'i /
+      'lactose'i ws+ and ws+ 'melk'i ( 'eiwit'i 'en'i? )?  /
+      'granen'i ws+ and ws+ 'zaden'i /
+      'gekookt'i [eE]? ws+ and ws+ 'gemarineerd'i [eE]? /
+      'mono'i ws+ and ws+ 'diglyceriden'i /
+      'guarpitmeel'i ws+ and ws+ 'natriumalginaat'i /
+      'vlees'i ws+ and ws+ 'dierlijke bijproducten'i /
+      'vis'i ws+ and ws+ 'visbijproducten'i /
+      'glucose'i ws+ and ws+ 'fructosestroop'i /
+      'ijzeroxiden'i ws+ and ws+ 'hydroxiden'i /
+      char+ 'sap'i ws+ and ws+ 'overige vruchtensappen'i /
+      char* 'sap'i ( ws+ 'uit concentraat'i / ws+ 'uit sapconcentraat'i )? ws+ and ws+ 'vruchten'i? 'puree'i /
+      ( 'vit.'i / 'vitamine'i / 'vitamin' ) ws+ [a-zA-Z] [0-9]* ws+ and ws+ [a-zA-Z] [0-9]*
     )
     '.'? ![[:alpha:]]
+  end
+
+  rule color
+    # used for paprika, honey ("yellow and white honey") (nouns)
+    'red'i / 'green'i / 'yellow'i / 'white'i / 'black'i /
+    'rood'i / 'groen'i / 'geel'i / 'wit'i / 'zwart'i
+  end
+
+  rule color2
+    # adjective colors (can not occur together with noun colors in a list)
+    'rode'i / 'groene'i / 'gele'i / 'witte'i / 'zwarte'i
   end
 
 end

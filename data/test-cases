@@ -1,9 +1,12 @@
 tomaat
-# nested ingredients
 ingredienten: tomaat
 tomaat; komkommer
 tomaat, komkommer
 tomaat. komkommer
+tomaat en komkommmer
+tomaten, peren en komkommer
+tomaten- en perensap, komkommersap
+# nested ingredients
 tomaat, komkommer: groen
 rode tomaat, groene komkommer
 saus (tomaat, zout)
