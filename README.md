@@ -63,8 +63,11 @@ Usage: food_ingredient_parser [options] --file|-f <filename>
     -s, --string INGREDIENTS         Parse specified ingredient list.
     -q, --[no-]quiet                 Only show summary.
     -p, --parsed                     Only show lines that were successfully parsed.
+    -e, --escape                     Escape newlines
+    -c, --[no-]color                 Use color
     -n, --noresult                   Only show lines that had no result.
     -v, --[no-]verbose               Show more data (parsed tree).
+        --version                    Show program version.
     -h, --help                       Show this help
 
 $ food_ingredient_parser -v -s "tomato"
@@ -100,6 +103,8 @@ RootNode+Root3 offset=0, "tomato" (contains,notes):
 $ food_ingredient_parser -q -f data/test-cases
 parsed 35 (100.0%), no result 0 (0.0%)
 ```
+
+If you want to use the output in (shell)scripts, the options `-e -c` may be quite useful.
 
 ## Test data
 
