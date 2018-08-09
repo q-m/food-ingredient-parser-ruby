@@ -1,5 +1,7 @@
 # Food ingredient parser
 
+[![Gem Version](https://badge.fury.io/rb/food_ingredient_parser.svg)](https://rubygems.org/gems/food_ingredient_parser)
+
 Ingredients are listed on food products in various ways. This [Ruby](https://www.ruby-lang.org/)
 gem and program parses the ingredient text and returns a structured representation.
 
