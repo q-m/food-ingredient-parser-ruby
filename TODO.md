@@ -26,9 +26,3 @@ In various forms:
 - `..., KAAS (17%) (EDAMMER (kleurstof: bèta-caroteen, MOZZARELLA), water, ...`
 - `..., <b>melk</b>, ...`
 - ...
-
-## Namespace
-
-It would be good to put code and grammers in a namespace, so that it can be loaded in other programs.
-May be a matter of adding `module FoodIngredientParser` to some places plus some tiny tweaks.
-See also [cjheath/treetop#8](https://github.com/cjheath/treetop/issues/8).
