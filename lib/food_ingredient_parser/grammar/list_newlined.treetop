@@ -1,0 +1,16 @@
+module FoodIngredientParser::Grammar
+  grammar ListNewlined
+    include Common
+    include IngredientSimple
+    include List
+
+    rule list_newlined
+      contains:( ( list_newlined_ingredient_nested ws* newline newline )* list_newlined_ingredient_nested ) <ListNode>
+    end
+
+    rule list_newlined_ingredient_nested
+      ws* ing:ingredient_simple ws* ':'? ws* newline contains:list ( ws* '.' )? <NestedIngredientNode>
+    end
+
+  end
+end

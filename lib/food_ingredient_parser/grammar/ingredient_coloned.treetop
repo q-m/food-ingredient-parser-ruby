@@ -1,0 +1,41 @@
+module FoodIngredientParser::Grammar
+  grammar IngredientColoned
+    include Common
+    include Amount
+    include IngredientSimple
+
+    rule ingredient_coloned
+      ing:ingredient_simple ws* ':' ws* amount:amount post:( ws* '}' )? !( ws* word )                <IngredientNode> /
+      ing:ingredient_simple ws* ':' post:( ws* '}' )? ws* contains:( ingredient_coloned_inner_list ) <NestedIngredientNode>
+    end
+
+    rule ingredient_coloned_inner_list
+      contains:( ingredient_coloned_simple_with_amount_and_nest ( ws+ and ws+ ingredient_coloned_simple_with_amount_and_nest )+ )  <ListNode> /
+      contains:( ingredient_coloned_simple_with_amount_and_nest ws* ( '/'+ ws* ingredient_coloned_simple_with_amount_and_nest )* ) <ListNode>
+    end
+
+    # @see IngredientSimple#ingredient_simple
+    rule ingredient_coloned_simple
+      name:( ingredient_coloned_word_nas ( andsep? ws+ !amount !and ingredient_coloned_word_nas )* ) ws? mark:mark <IngredientNode> /
+      name:( ingredient_coloned_word_nas ( andsep? ws+ !amount !and ingredient_coloned_word_nas )* )               <IngredientNode>
+    end
+
+    # @see IngredientSimple#ingredient_simple_with_amount
+    rule ingredient_coloned_simple_with_amount
+      pre:( '{' ws* )? amount:amount ws+ ing:ingredient_coloned_simple                   <IngredientNode> /
+      ing:ingredient_coloned_simple ws* amount:amount post:( ws* '}' )? (ws? mark:mark)? <IngredientNode> /
+      ing:ingredient_coloned_simple                                                      <IngredientNode>
+    end
+
+    rule ingredient_coloned_simple_with_amount_and_nest
+      ing:ingredient_coloned_simple_with_amount ws* '(' ws* contains:ingredient_coloned_simple_with_amount ws* ')' ( ws* '}' )? <NestedIngredientNode> /
+      ingredient_coloned_simple_with_amount
+    end
+
+    # @see Common#word
+    rule ingredient_coloned_word_nas
+      abbrev / ( !'/' !andsep char )+
+    end
+
+  end
+end

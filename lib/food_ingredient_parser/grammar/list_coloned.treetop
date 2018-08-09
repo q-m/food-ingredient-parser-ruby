@@ -1,0 +1,23 @@
+module FoodIngredientParser::Grammar
+  grammar ListColoned
+    include Common
+    include IngredientSimple
+    include Ingredient
+
+    rule list_coloned
+      contains:( ( list_coloned_ingredient ws* '.' ws* )+ list_coloned_ingredient? ) <ListNode> /
+      contains:( ( list_coloned_ingredient ws* ';' ws* )+ list_coloned_ingredient? ) <ListNode> /
+      contains:(   list_coloned_ingredient )                                         <ListNode>
+    end
+
+    rule list_coloned_inner_list
+      contains:( ingredient ( ws* ',' ws* ingredient )* ) <ListNode>
+    end
+
+    rule list_coloned_ingredient
+      ing:ingredient_simple_with_amount ws* ':' ws* amount:amount post:( ws* '}' )?                    <IngredientNode> /
+      ing:ingredient_simple_with_amount ws* ':' post:( ws* '}' )? ws* contains:list_coloned_inner_list <NestedIngredientNode>
+    end
+
+  end
+end

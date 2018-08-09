@@ -1,0 +1,12 @@
+module FoodIngredientParser::Grammar
+  grammar Ingredient
+    include IngredientSimple
+    include IngredientNested
+    include IngredientColoned
+
+    rule ingredient
+      ws* ( ingredient_nested / ingredient_coloned / ingredient_simple_with_amount )
+    end
+
+  end
+end

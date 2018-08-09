@@ -3,7 +3,9 @@
 # Parser for food ingredient lists.
 #
 require 'optparse'
-require_relative 'ingredients-parser'
+
+$:.push(File.expand_path(File.dirname(__FILE__) + "/../lib"))
+require 'food_ingredient_parser'
 
 begin
   require 'pry'
@@ -14,7 +16,7 @@ begin
       puts(o.inspect)
     end
   end
-rescue loaderror
+rescue LoadError
   # fallback without color printing
   def pp(o, color: nil)
     puts(o.inspect)
@@ -30,7 +32,7 @@ def colorize(color, s)
 end
 
 def parse_single(s, parsed=nil, parser: nil, verbosity: 1, print: nil, escape: false, color: false)
-  parser ||= IngredientsParser.new
+  parser ||= FoodIngredientParser::Parser.new
   parsed ||= parser.parse(s)
 
   return unless print.nil? || (parsed && print == :parsed) || (!parsed && print == :noresult)
@@ -86,6 +88,10 @@ OptionParser.new do |opts|
   opts.on("-c", "--[no-]color", "Use color") {|e| color = !!e }
   opts.on("-n", "--noresult", "Only show lines that had no result.") {|p| print = :noresult }
   opts.on("-v", "--[no-]verbose", "Show more data (parsed tree).") {|v| verbosity = v ? 2 : 1 }
+  opts.on(      "--version", "Show program version.") do
+    puts("food_ingredient_parser v#{FoodIngredientParser::VERSION}")
+    exit
+  end
   opts.on("-h", "--help", "Show this help") do
     puts(opts)
     exit
@@ -93,7 +99,7 @@ OptionParser.new do |opts|
 end.parse!
 
 if strings.any? || files.any?
-  parser = IngredientsParser.new
+  parser = FoodIngredientParser::Parser.new
   strings.each {|s| parse_single(s, parser: parser, verbosity: verbosity, print: print, escape: escape, color: color) }
   files.each   {|f| parse_file(f, parser: parser, verbosity: verbosity, print: print, escape: escape, color: color) }
 else

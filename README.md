@@ -1,23 +1,26 @@
-# WiP - Food ingredient parser
+# Food ingredient parser
 
-Ingredients listed on food products in various ways. This [Ruby](https://www.ruby-lang.org/)
-program parses the ingredient text and returns a structured representation.
+Ingredients are listed on food products in various ways. This [Ruby](https://www.ruby-lang.org/)
+gem and program parses the ingredient text and returns a structured representation.
 
-_This is under development and not yet fully finished._
+## Installation
 
-## Dependencies
+```
+gem install food_ingredient_parser
+```
 
-Ruby, the gem [treetop](http://cjheath.github.io/treetop), and optionally [pry](http://pryrepl.org/).
+This will also install the dependency [treetop](http://cjheath.github.io/treetop).
+If you want colored output for the test program, also install [pry](http://pryrepl.org/): `gem install pry`.
 
 ## Example
 
 ```ruby
-require_relative 'ingredients-parser'
+require 'food_ingredient_parser'
 
 s = "Water* 60%, suiker 30%, voedingszuren: citroenzuur, appelzuur, zuurteregelaar: E576/E577, " \
     + "natuurlijke citroen-limoen aroma's 0,2%, zoetstof: steviolglycosiden, * = Biologisch. " \
     + "E = door de E.U. goedgekeurde toevoeging."
-parser = IngredientsParser.new
+parser = FoodIngredientParser::Parser.new
 puts parser.parse(s).to_h.inspect
 ```
 Results in
@@ -48,10 +51,13 @@ Results in
 
 ## Test tool
 
+The executable `food_ingredient_parser` is available after installing the gem. If you're
+running this from the source tree, use `bin/food_ingredient_parser` instead.
+
 ```
-$ ./test.rb -h
-Usage: ./test.rb [options] --file|-f <filename>
-       ./test.rb [options] --string|-s <ingredients>
+$ food_ingredient_parser -h
+Usage: food_ingredient_parser [options] --file|-f <filename>
+       food_ingredient_parser [options] --string|-s <ingredients>
 
     -f, --file FILE                  Parse all lines of the file as ingredient lists.
     -s, --string INGREDIENTS         Parse specified ingredient list.
@@ -61,7 +67,7 @@ Usage: ./test.rb [options] --file|-f <filename>
     -v, --[no-]verbose               Show more data (parsed tree).
     -h, --help                       Show this help
 
-$ ./test.rb -v -s "tomato"
+$ food_ingredient_parser -v -s "tomato"
 "tomato"
 RootNode+Root3 offset=0, "tomato" (contains,notes):
   SyntaxNode offset=0, ""
@@ -91,7 +97,7 @@ RootNode+Root3 offset=0, "tomato" (contains,notes):
   SyntaxNode offset=6, ""
 {:contains=>[{:name=>"tomato"}]}
 
-$ ./test.rb -q -f data/test-cases
+$ food_ingredient_parser -q -f data/test-cases
 parsed 35 (100.0%), no result 0 (0.0%)
 ```
 

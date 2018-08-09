@@ -1,0 +1,14 @@
+module FoodIngredientParser::Grammar
+  grammar List
+    include Common
+    include Ingredient
+
+    rule list
+      contains:(ingredient ( ws* '|' ws* ingredient )+ ( ws+ and ws+ ingredient )? ) <ListNode> /
+      contains:(ingredient ( ws* ';' ws* ingredient )+ ( ws+ and ws+ ingredient )? ) <ListNode> /
+      contains:(ingredient ( ws* ',' ws* ingredient )+ ( ws+ and ws+ ingredient )? ) <ListNode> /
+      contains:(ingredient ( ws* '.' ws* ingredient )+ ( ws+ and ws+ ingredient )? ) <ListNode> /
+      contains:(ingredient ( ws+ and ws+ ingredient )? )                             <ListNode>
+    end
+  end
+end

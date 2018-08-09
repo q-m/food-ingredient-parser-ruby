@@ -1,0 +1,30 @@
+module FoodIngredientParser::Grammar
+  grammar Amount
+    include Common
+
+    rule amount
+      '(' ws* amount:simple_amount ws* ')' <AmountNode> /
+      '[' ws* amount:simple_amount ws* ']' <AmountNode> /
+      '{' ws* amount:simple_amount ws* '}' <AmountNode> /
+      amount:simple_amount                 <AmountNode>
+    end
+
+    rule simple_amount
+      ( (
+        'of which' / 'at least' /
+        'waarvan' / 'ten minste' / 'tenminste' / 'minimaal'
+      ) ws* )?
+      [<>]? ws*
+      simple_amount_quantity
+      ( ws+ (
+        'minimum' /
+        'minimaal' / 'minimum'
+      ) )?
+    end
+
+    rule simple_amount_quantity
+      number ( ws* '-' ws* number )? ws* ( '%' / 'g' / 'mg' / 'gram' / 'ml' )
+    end
+
+  end
+end
