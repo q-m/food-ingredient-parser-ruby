@@ -3,6 +3,10 @@ require_relative 'grammar'
 module FoodIngredientParser
   class Parser
 
+    # @!attribute [r] parser
+    #   @return [Treetop::Runtime::CompiledParser] low-level parser object
+    attr_reader :parser
+
     # Create a new food ingredient parser
     # @return [FoodIngredientParser]
     def initialize

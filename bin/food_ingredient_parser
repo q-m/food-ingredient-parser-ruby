@@ -43,7 +43,7 @@ def parse_single(s, parsed=nil, parser: nil, verbosity: 1, print: nil, escape: f
     puts(parsed.inspect) if verbosity > 1
     pp(parsed.to_h, color: color) if verbosity > 0
   else
-    puts "(no result: #{parser.failure_reason})" if verbosity > 0
+    puts "(no result: #{parser.parser.failure_reason})" if verbosity > 0
   end
 end
 
