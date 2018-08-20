@@ -130,7 +130,8 @@ module FoodIngredientParser::Grammar
         'ijzeroxiden'i ws+ and ws+ 'hydroxiden'i /
         char+ 'sap'i ws+ and ws+ 'overige vruchtensappen'i /
         char* 'sap'i ( ws+ 'uit concentraat'i / ws+ 'uit sapconcentraat'i )? ws+ and ws+ 'vruchten'i? 'puree'i /
-        ( 'vit.'i / 'vitamine'i / 'vitamin' ) ws+ [a-zA-Z] [0-9]* ws+ and ws+ [a-zA-Z] [0-9]*
+        ( 'vit.'i / 'vitamine'i / 'vitamin' ) ws+ [a-zA-Z] [0-9]* ws+ and ws+ [a-zA-Z] [0-9]* /
+        ( 'ijzer'i / 'chroom'i / 'koper'i ) ws* '(' 'I'+ ')' ws* [[:alnum:]]+
       )
       '.'? ![[:alpha:]]
     end
