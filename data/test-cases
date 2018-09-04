@@ -44,6 +44,17 @@ saus (50%) (tomaat)
 saus 50% (waarvan 20% tomaat)
 saus 50% (ten minste 20% tomaat)
 saus (50%): tomaat
+# marks
+tomaat*
+tomaat***
+tomaat(*)
+tomaat ( * )
+tomaat²
+tomaat•
+tomaat†
+tomaat#
+tomaat¹⁾
+tomaat⁽¹⁾
 # extra info at the end
 tomaat*  * = Biologisch
 tomaat, paprika. Bevat groente
