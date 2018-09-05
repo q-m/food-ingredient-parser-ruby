@@ -108,6 +108,28 @@ parsed 35 (100.0%), no result 0 (0.0%)
 
 If you want to use the output in (shell)scripts, the options `-e -c` may be quite useful.
 
+## `to_html`
+
+When ingredient lists are entered manually, it can be very useful to show how the text is
+recognized. This can help understanding why a certain ingredients list cannot be parsed.
+
+For this you can use the `to_html` method on the parsed output, which returns the original
+text, augmented with CSS classes for different parts.
+
+```ruby
+require 'food_ingredient_parser'
+
+parsed = FoodIngredientParser::Parser.new.parse("Saus (10% tomaat*, zout). * = bio")
+puts parsed.to_html
+```
+
+```html
+<span class='name'>Saus</span> (<span class='amount'>10%</span>
+<span class='name'>tomaat</span><span class='mark'>*</span>,
+<span class='name'>zout</span>). <span class='note'>* = bio</span>
+```
+
+
 ## Test data
 
 [`data/ingredient-samples-nl`](data/ingredient-samples-nl) contains about 150k

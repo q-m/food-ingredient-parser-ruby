@@ -1,4 +1,5 @@
 require 'treetop/runtime'
+require_relative 'to_html'
 
 # Needs to be in grammar namespace so Treetop can find the nodes.
 module FoodIngredientParser::Grammar
@@ -18,6 +19,8 @@ module FoodIngredientParser::Grammar
 
   # Root object, contains everything else.
   class RootNode < SyntaxNode
+    include FoodIngredientParser::ToHtml
+
     def to_h
       h = { contains: contains.to_a }
       if notes && notes_ary = to_a_deep(notes, NoteNode)&.map(&:text_value)
