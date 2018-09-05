@@ -1,3 +1,9 @@
+# 1.0.0.pre.4 (2018-09-05)
+
+* Add method to generate HTML output of original text
+* Pass parse options to Treetop (unstable interface)
+* Parsing improvements for amount and mark
+
 # 1.0.0.pre.3 (2018-08-31)
 
 * Parsing improvements

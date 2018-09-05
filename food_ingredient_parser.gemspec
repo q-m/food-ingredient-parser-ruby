@@ -4,7 +4,7 @@ require 'food_ingredient_parser/version'
 Gem::Specification.new do |s|
   s.name             = 'food_ingredient_parser'
   s.version          = FoodIngredientParser::VERSION
-  s.date             = '2018-08-31'
+  s.date             = '2018-09-05'
   s.summary          = 'Parser for ingredient lists found on food products.'
   s.authors          = ['wvengen']
   s.email            = ['dev-ruby@willem.engen.nl']
