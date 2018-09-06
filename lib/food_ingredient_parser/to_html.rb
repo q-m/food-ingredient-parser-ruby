@@ -18,7 +18,7 @@ module FoodIngredientParser::ToHtml
 
   private
 
-  def node_to_html(node, cls=nil)
+  def node_to_html(node, cls=nil, depth=0)
     el_cls = {}               # map of node instances to class names for contained elements
     terminal = node.terminal? # whether to look at children elements or not
 
@@ -30,12 +30,21 @@ module FoodIngredientParser::ToHtml
     elsif node.is_a?(FoodIngredientParser::Grammar::IngredientNode)
       el_cls[node.name] = "name" if node.respond_to?(:name)
       el_cls[node.mark] = "mark" if node.respond_to?(:mark)
+      if node.respond_to?(:contains)
+        el_cls[node.contains] = "contains depth#{depth}"
+        depth += 1
+      end
+    elsif node.is_a?(FoodIngredientParser::Grammar::RootNode)
+      if node.respond_to?(:contains)
+        el_cls[node.contains] = "depth#{depth}"
+        depth += 1
+      end
     end
 
     val = if terminal
       CGI.escapeHTML(node.text_value)
     else
-      node.elements.map {|el| node_to_html(el, el_cls[el]) }.join("")
+      node.elements.map {|el| node_to_html(el, el_cls[el], depth) }.join("")
     end
 
     cls ? "<span class='#{cls}'>#{val}</span>" : val

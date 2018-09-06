@@ -124,9 +124,14 @@ puts parsed.to_html
 ```
 
 ```html
-<span class='name'>Saus</span> (<span class='amount'>10%</span>
-<span class='name'>tomaat</span><span class='mark'>*</span>,
-<span class='name'>zout</span>). <span class='note'>* = bio</span>
+<span class='depth0'>
+  <span class='name'>Saus</span> (
+  <span class='contains depth1'>
+    <span class='amount'>10%</span> <span class='name'>tomaat</span><span class='mark'>*</span>,
+    <span class='name'>zout</span>
+  </span>)
+</span>.
+<span class='note'>* = bio</span>
 ```
 
 For an example of an interactive editor, see [examples/editor.rb](examples/editor.rb).
@@ -139,4 +144,3 @@ For an example of an interactive editor, see [examples/editor.rb](examples/edito
 real-world ingredient lists found on the Dutch market. Each line contains one ingredient
 list (newlines are encoded as `\n`, empty lines and those starting with `#` are ignored).
 Currently almost three quarter is recognized and parsed. We aim to reach at least 90%.
-

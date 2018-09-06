@@ -2,7 +2,7 @@
 #
 # Web-based editor for ingredient lists, with real-time validation.
 #
-# 1. Install sinatra: gem install sinatra
+# 1. Install dependencies: gem install treetop sinatra
 # 2. Run this: ruby editor.rb
 # 3. Open your browser at: http://localhost:4567/
 # 4. Type an ingredient list in the textbox.

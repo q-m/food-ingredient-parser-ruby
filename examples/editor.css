@@ -72,11 +72,15 @@ p.error {
   border-radius: 4px;
 }
 
-.highlight span.name    { background-color: #bbffbb; }
-.highlight span.amount  { background-color: #ddddff; }
-.highlight span.mark    { background-color: #ffffbb; }
-.highlight span.note    { background-color: #ffffbb; }
-.highlight span.error   { background-color: #ee4444; }
+.highlight span.amount          { background-color: #eebbff; }
+.highlight span.mark            { background-color: #ffffbb; }
+.highlight span.note            { background-color: #ffffbb; }
+.highlight span.error           { background-color: #ee4444; }
+
+.highlight .depth0 > span.name  { background-color: #ccffcc; }
+.highlight .depth1 > span.name  { background-color: #aaddbb; }
+.highlight .depth2 > span.name  { background-color: #99bb88; }
+.highlight           span.name  { background-color: #77bb66; }
 
 textarea {
   display: block !important;
