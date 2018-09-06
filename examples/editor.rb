@@ -24,16 +24,36 @@ get '/editor.css' do
 end
 
 post '/render' do
-  # Don't consume all input, because it will help finding the error location.
-  # Please note that this option may not remain present in future releases, so take care.
-  parsed = parser.parse(params[:text], consume_all_input: false)
-  # Even for an HTML fragment - https://stackoverflow.com/a/48277672/2866660
-  headers "Content-Type" => "text/html; charset=utf-8"
-  body parsed&.to_html
+  input = params[:text]
+  parsed = parser.parse(input)
+  if parsed
+    error = nil
+    result = parsed.to_html
+  elsif input.strip != ''
+    # If parsing failed, add error and try partial parsing to return the part that can be parsed.
+    # This is currently an undocumented way to retrieve the error location, so take care.
+    error = {
+      reason: parser.parser.failure_reason,
+      index: parser.parser.failure_index,
+      line: parser.parser.failure_line,
+      column: parser.parser.failure_column
+    }
+    # Please note that consume_all_input may not remain present in all future releases.
+    parsed = parser.parse(input, consume_all_input: false)
+    result = parsed&.to_html || ''
+    result += input[parsed.interval.last .. (error[:index]-1)]
+    result += "<span class='error'>#{input[error[:index]] || ' '}</span>"
+  end
+
+  headers("Content-Type" => "application/json; charset=utf-8")
+  body({
+    html: result,
+    error: error
+  }.to_json)
 end
 
 post '/parse' do
   parsed = parser.parse(params[:text])
-  headers "Content-Type" => "application/json; charset=utf-8"
-  body r&.to_h.to_json
+  headers("Content-Type" => "application/json; charset=utf-8")
+  body(parsed&.to_h.to_json)
 end

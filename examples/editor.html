@@ -8,8 +8,8 @@
     <h1>Food Ingredient Parser <small>Interactive Editor Example</small></h1>
 
     <p>
-      <em>Type an ingredients list in the area below.</em>
-      <em>Load sample <a href="#" id="sA">A</a>, <a href="#" id="sB">B</a>, or <a href="#" id ="sClear">clear</a>.</em>
+      Type an ingredients list in the area below.
+      Load sample <a href="#" id="sA">A</a>, <a href="#" id="sB">B</a>, or <a href="#" id ="sClear">clear</a>.
     </p>
 
     <div class="container">
@@ -18,12 +18,19 @@
       </div>
       <textarea></textarea>
     </div>
+    <p class="error"></p>
 
     <script type="application/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"
       integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script type="application/javascript">
       var $textarea = $('textarea');
       var $highlight = $('.highlight');
+      var $error = $('.error');
+
+      function error(msg) {
+        $error.text(msg || '');
+        $textarea.toggleClass('error', !!msg);
+      }
 
       function render() {
         $.ajax({
@@ -31,10 +38,12 @@
           method: 'POST',
           data: { text: $textarea.val() },
           success: function(data) {
-            $highlight.html(data);
+            $highlight.html(data.html);
+            data.error ? error(data.error.reason) : error();
           },
           error: function() {
             $highlight.html('');
+            error();
           }
         });
       }

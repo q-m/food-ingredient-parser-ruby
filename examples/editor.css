@@ -18,6 +18,16 @@ h1 > small {
   font-size: 18px;
 }
 
+p {
+  font-style: italic;
+}
+
+p.error {
+  font-style: normal;
+  font-size: 9pt;
+  color: #880000;
+}
+
 /* see also https://github.com/lonekorean/highlight-within-textarea/blob/master/jquery.highlight-within-textarea.css */
 
 .container {
@@ -66,6 +76,7 @@ h1 > small {
 .highlight span.amount  { background-color: #ddddff; }
 .highlight span.mark    { background-color: #ffffbb; }
 .highlight span.note    { background-color: #ffffbb; }
+.highlight span.error   { background-color: #ee4444; }
 
 textarea {
   display: block !important;
@@ -85,4 +96,8 @@ textarea {
   background: none transparent !important;
   width: 600px;
   height: 20ex;
+}
+
+textarea.error {
+  border-color: #ee4444;
 }
