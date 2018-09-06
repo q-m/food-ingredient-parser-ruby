@@ -129,6 +129,9 @@ puts parsed.to_html
 <span class='name'>zout</span>). <span class='note'>* = bio</span>
 ```
 
+For an example of an interactive editor, see [examples/editor.rb](examples/editor.rb).
+
+![editor example screenshot](examples/editor-screenshot.png)
 
 ## Test data
 

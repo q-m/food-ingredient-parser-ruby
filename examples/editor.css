@@ -1,0 +1,88 @@
+body {
+  max-width: 600px;
+  margin: auto;
+  margin-top: 25px;
+}
+
+h1 {
+  font-family: serif;
+  font-weight: bold;
+  font-size: 30px;
+}
+
+h1 > small {
+  display: block;
+  color: #666;
+  font-family: serif;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+/* see also https://github.com/lonekorean/highlight-within-textarea/blob/master/jquery.highlight-within-textarea.css */
+
+.container {
+  display: inline-block;
+  position: relative;
+  overflow: hidden !important;
+  -webkit-text-size-adjust: none !important;
+}
+
+.backdrop {
+  position: absolute !important;
+  top: 0 !important;
+  right: -99px !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  padding-right: 99px !important;
+  overflow-x: hidden !important;
+  overflow-y: hidden !important;
+
+  background-color: #ffffff;
+  font-family: monospace;
+  font-size: 14pt;
+  line-height: 1.5;
+}
+
+.highlight {
+  width: auto !important;
+  height: auto !important;
+  white-space: pre-wrap !important;
+  word-wrap: break-word !important;
+  color: transparent !important;
+  overflow: hidden !important;
+
+  border: 2px solid transparent;
+  border-radius: 4px;
+}
+
+.highlight span {
+  color: inherit;
+  padding: 0 !important;
+
+  border-radius: 4px;
+}
+
+.highlight span.name    { background-color: #bbffbb; }
+.highlight span.amount  { background-color: #ddddff; }
+.highlight span.mark    { background-color: #ffffbb; }
+.highlight span.note    { background-color: #ffffbb; }
+
+textarea {
+  display: block !important;
+  position: relative !important;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+
+  border: 2px solid #888888;
+  border-radius: 4px;
+
+  font-family: monospace;
+  font-size: 14pt;
+  line-height: 1.5;
+  color: #000000;
+  background: none transparent !important;
+  width: 600px;
+  height: 20ex;
+}

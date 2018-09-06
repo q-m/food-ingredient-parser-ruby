@@ -1,0 +1,57 @@
+<!DOCTYPE html5>
+<html>
+  <head>
+    <title>Food Ingredient Parser - Interactive Editor Example</title>
+    <link rel="stylesheet" type="text/css" href="editor.css">
+  </head>
+  <body>
+    <h1>Food Ingredient Parser <small>Interactive Editor Example</small></h1>
+
+    <p>
+      <em>Type an ingredients list in the area below.</em>
+      <em>Load sample <a href="#" id="sA">A</a>, <a href="#" id="sB">B</a>, or <a href="#" id ="sClear">clear</a>.</em>
+    </p>
+
+    <div class="container">
+      <div class="backdrop">
+        <div class="highlight"><!-- rendered text will be put here --></div>
+      </div>
+      <textarea></textarea>
+    </div>
+
+    <script type="application/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script type="application/javascript">
+      var $textarea = $('textarea');
+      var $highlight = $('.highlight');
+
+      function render() {
+        $.ajax({
+          url: '/render',
+          method: 'POST',
+          data: { text: $textarea.val() },
+          success: function(data) {
+            $highlight.html(data);
+          },
+          error: function() {
+            $highlight.html('');
+          }
+        });
+      }
+
+      $textarea.on('input propertychange', render);
+      $(render);
+
+      var samples = {
+        sA: 'Gekookte kikkererwten* 56%, zonnebloemolie*, SESAMpasta* 16%, water, melkzuur (uit rietsuiker), zeezout, knoflook*, komijn*, * = Biologisch',
+        sB: '80% spruiten, 13% rode ui, 7% kruidencrème [BOTER, plantaardige olie (palm, raap, kokos), kruiden (bevat SELDERIJ), gedroogde knoflook, peper, zout, MELKeiwit, TARWEzetmeel, citroensap], Spek: 94% varkensvlees, zout, glucosestroop, rookaroma, conserveermiddel (E250, E252), antioxidant (E301).',
+        sClear: ''
+      };
+
+      $('#sA, #sB, #sClear').on('click', function() {
+        $textarea.val(samples[this.id]);
+        render();
+      });
+    </script>
+  </body>
+</html>
