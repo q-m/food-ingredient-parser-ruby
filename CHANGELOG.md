@@ -1,3 +1,8 @@
+# 1.0.0.pre.5 (2018-09-07)
+
+* Add depth to HTML output
+* Interactive editor example
+
 # 1.0.0.pre.4 (2018-09-05)
 
 * Add method to generate HTML output of original text
