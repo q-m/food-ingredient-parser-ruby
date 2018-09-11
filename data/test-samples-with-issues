@@ -1,8 +1,12 @@
 ## Ingredient lists with issues
 #
 
+# 'en' is not recognized in the middle
+tomaat, peper en zout, suiker
 # first ingredient starting with colon but those following not (todo)
 Zoetstof: Maltitolen. chocolade 15% (cacaomassa. zoetstof: maltitolen. cacaoboter. emulgator: SOJAlecithinen. natuurlijk vanille-aroma). water. TARWEbloem. verstevigingsmiddelen. TARWEzetmeel en maltodextrine. bevochtigingsmiddel: glycerol. EI. zuurteregelaars: citroenzuur en natriumcitraten. geleermiddel; pectines. sinaasappelconcentraat 0.7%. koolzaadolie. rijsmiddel: ammoniumcarbonaten. emulgatoren: mono- en diglyceriden en polyglycerolesters van vetzuren. natuurlijk sinaasappelaroma. zout. kleurstof: carotenen.
+# "a; b: b1, b2" doesn't recognize b2 as part of b
+Suiker; slagroom 20% (melk); magere melk; scharrelei; tarwebloem; plantaardige oliën (raapzaad, palm, palmpit, geheel geharde palmpit, koolzaad, zonnebloem); framboos; glucosestroop; hazelnoot; dextrose; cacaoboter; volle melkpoeder; water; tarwezetmeel; emulgatoren: zonnebloemlecithine, sojalecithine, E433 (plantaardig), E471 (plantaardig), E472a (plantaardig) en E477 (plantaardig); palmvet; rode bessen; cacaomassa; gemodificeerd tarwezetmeel; magere melkpoeder; weipoeder (melk); karamelsuiker; zuurteregelaars: citroenzuur en E331; sojazetmeel; geleermiddel: pectinen; conserveermiddel: E202; lactose (melk); aroma's (hazelnoot); stabilisator: E407; scharreleigeel; verdikkingsmiddelen: E412, arabische gom en E415; kleurstoffen: carotenen, karamel, E171 en E172; natuurlijk vanille-aroma; rijstzetmeel; zout; E= door de EU goedgekeurde hulpstof.
 # everything after the first dot is parsed as a note instead of ingredients (todo)
 4% volle YOGHURT, suiker, 6% aarbei, 2% sinaasappelsap, gemodificeerd maïszetmeel, natuurlijk aroma, bietensapconcentraat, wortelsapconcentraat. Gekleurde chocopastilles: suiker, cacaoboter, WEIpoeder, magere cacaopoeder, volle MELKpoeder, emulgator (SOJAlecithine), glansmiddel (arabische gom, bijenwas, carnaubawas), kleurstof (caroteen, bietenrood, E101, E120, E141, E163, E171, E172).
 
