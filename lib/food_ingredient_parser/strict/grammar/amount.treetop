@@ -1,4 +1,4 @@
-module FoodIngredientParser::Grammar
+module FoodIngredientParser::Strict::Grammar
   grammar Amount
     include Common
 

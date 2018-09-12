@@ -22,11 +22,11 @@ require 'food_ingredient_parser'
 s = "Water* 60%, suiker 30%, voedingszuren: citroenzuur, appelzuur, zuurteregelaar: E576/E577, " \
     + "natuurlijke citroen-limoen aroma's 0,2%, zoetstof: steviolglycosiden, * = Biologisch. " \
     + "E = door de E.U. goedgekeurde toevoeging."
-parser = FoodIngredientParser::Parser.new
+parser = FoodIngredientParser::Strict::Parser.new
 puts parser.parse(s).to_h.inspect
 ```
 Results in
-```
+```ruby
 {
   :contains=>[
     {:name=>"Water", :amount=>"60%", :mark=>"*"},
@@ -58,14 +58,15 @@ running this from the source tree, use `bin/food_ingredient_parser` instead.
 
 ```
 $ food_ingredient_parser -h
-Usage: food_ingredient_parser [options] --file|-f <filename>
-       food_ingredient_parser [options] --string|-s <ingredients>
+Usage: bin/food_ingredient_parser [options] --file|-f <filename>
+       bin/food_ingredient_parser [options] --string|-s <ingredients>
 
     -f, --file FILE                  Parse all lines of the file as ingredient lists.
     -s, --string INGREDIENTS         Parse specified ingredient list.
     -q, --[no-]quiet                 Only show summary.
     -p, --parsed                     Only show lines that were successfully parsed.
-    -e, --escape                     Escape newlines
+    -r, --parser PARSER              Use specific parser (strict, loose).
+    -e, --[no-]escape                Escape newlines
     -c, --[no-]color                 Use color
     -n, --noresult                   Only show lines that had no result.
     -v, --[no-]verbose               Show more data (parsed tree).
@@ -102,6 +103,12 @@ RootNode+Root3 offset=0, "tomato" (contains,notes):
   SyntaxNode offset=6, ""
 {:contains=>[{:name=>"tomato"}]}
 
+$ food_ingredient_parser -v -r loose -s "tomato"
+"tomato"
+Node interval=0..5
+  Node interval=0..5, name="tomato"
+{:contains=>[{:name=>"tomato"}]}
+
 $ food_ingredient_parser -q -f data/test-cases
 parsed 35 (100.0%), no result 0 (0.0%)
 ```
@@ -114,12 +121,12 @@ When ingredient lists are entered manually, it can be very useful to show how th
 recognized. This can help understanding why a certain ingredients list cannot be parsed.
 
 For this you can use the `to_html` method on the parsed output, which returns the original
-text, augmented with CSS classes for different parts.
+text, augmented with CSS classes for different parts. (Available for strict parser only.)
 
 ```ruby
 require 'food_ingredient_parser'
 
-parsed = FoodIngredientParser::Parser.new.parse("Saus (10% tomaat*, zout). * = bio")
+parsed = FoodIngredientParser::Strict::Parser.new.parse("Saus (10% tomaat*, zout). * = bio")
 puts parsed.to_html
 ```
 
@@ -138,9 +145,38 @@ For an example of an interactive editor, see [examples/editor.rb](examples/edito
 
 ![editor example screenshot](examples/editor-screenshot.png)
 
+## Loose parser
+
+The strict parser only parses ingredient lists that conform to one of the many different
+formats expected. If you'd like to return a result always, even if that is not necessarily
+completely correct, you can use the _loose_ parser. This does not use Treetop, but looks
+at the input character for character and tries to make the best of it. Nevertheless, if you
+just want to have _some_ result, this can still be very useful.
+
+```ruby
+require 'food_ingredient_parser'
+
+parsed = FoodIngredientParser::Loose::Parser.new.parse("Saus [10% tomaat*, (zout); peper.")
+puts parsed.to_h
+```
+
+Even though the strict parser would not give a result, the loose parser returns:
+```ruby
+{
+  :contains=>[
+    {:name=>"Saus", :contains=>[
+      {:name=>"10% tomaat", :mark=>"*"},
+      {:contains=>[{:name=>"zout"}]},
+      {:name=>"peper"}
+    ]}
+  ]
+}
+```
+
 ## Test data
 
 [`data/ingredient-samples-nl`](data/ingredient-samples-nl) contains about 150k
 real-world ingredient lists found on the Dutch market. Each line contains one ingredient
 list (newlines are encoded as `\n`, empty lines and those starting with `#` are ignored).
-Currently almost three quarter is recognized and parsed. We aim to reach at least 90%.
+The strict parser currently parses about three quarter, while the loose parser returns
+something for all of them.

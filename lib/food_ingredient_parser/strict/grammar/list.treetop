@@ -1,4 +1,4 @@
-module FoodIngredientParser::Grammar
+module FoodIngredientParser::Strict::Grammar
   grammar List
     include Common
     include Ingredient

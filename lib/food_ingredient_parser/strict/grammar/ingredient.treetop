@@ -1,4 +1,4 @@
-module FoodIngredientParser::Grammar
+module FoodIngredientParser::Strict::Grammar
   grammar Ingredient
     include IngredientSimple
     include IngredientNested

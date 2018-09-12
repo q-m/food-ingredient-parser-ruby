@@ -13,9 +13,9 @@ require 'json'
 require 'sinatra'
 require_relative '../lib/food_ingredient_parser'
 
-parser = FoodIngredientParser::Parser.new
+parser = FoodIngredientParser::Strict::Parser.new
 
-get '/' do 
+get '/' do
   send_file 'editor.html'
 end
 

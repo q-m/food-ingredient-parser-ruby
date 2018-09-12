@@ -1,6 +1,7 @@
 require_relative 'grammar'
+require_relative '../cleaner'
 
-module FoodIngredientParser
+module FoodIngredientParser::Strict
   class Parser
 
     # @!attribute [r] parser
@@ -20,21 +21,8 @@ module FoodIngredientParser
     # @return [FoodIngredientParser::Grammar::RootNode] structured representation of food ingredients
     # @note Unrecognized options are passed to Treetop, but this is not guarenteed to remain so forever.
     def parse(s, clean: true, **options)
-      s = clean(s) if clean
+      s = FoodIngredientParser::Cleaner.clean(s) if clean
       @parser.parse(s, **options)
-    end
-
-    private
-
-    def clean(s)
-      s.gsub!("\u00ad", "")             # strip soft hyphen
-      s.gsub!("\u0092", "'")            # windows-1252 apostrophe - https://stackoverflow.com/a/15564279/2866660
-      s.gsub!("aÄs", "aïs")             # encoding issue for maïs
-      s.gsub!("Ã¯", "ï")                # encoding issue
-      s.gsub!("Ã«", "ë")                # encoding issue
-      s.gsub!(/\A\s*"(.*)"\s*\z/, '\1') # enclosing double quotation marks
-      s.gsub!(/\A\s*'(.*)'\s*\z/, '\1') # enclosing single quotation marks
-      s
     end
 
   end

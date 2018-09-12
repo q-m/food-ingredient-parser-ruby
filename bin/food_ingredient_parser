@@ -31,8 +31,7 @@ def colorize(color, s)
   end
 end
 
-def parse_single(s, parsed=nil, parser: nil, verbosity: 1, print: nil, escape: false, color: false)
-  parser ||= FoodIngredientParser::Parser.new
+def parse_single(s, parsed=nil, parser:, verbosity: 1, print: nil, escape: false, color: false)
   parsed ||= parser.parse(s)
 
   return unless print.nil? || (parsed && print == :parsed) || (!parsed && print == :noresult)
@@ -47,7 +46,7 @@ def parse_single(s, parsed=nil, parser: nil, verbosity: 1, print: nil, escape: f
   end
 end
 
-def parse_file(path, parser: nil, verbosity: 1, print: nil, escape: false, color: false)
+def parse_file(path, parser:, verbosity: 1, print: nil, escape: false, color: false)
   count_parsed = count_noresult = 0
   File.foreach(path) do |line|
     next if line =~ /^#/    # comment
@@ -70,8 +69,13 @@ verbosity = 1
 files = []
 strings = []
 print = nil
+parser_name = :strict
 escape = false
 color = true
+PARSERS = {
+  strict: FoodIngredientParser::Strict::Parser,
+  loose:  FoodIngredientParser::Loose::Parser
+}
 OptionParser.new do |opts|
   opts.banner = <<-EOF.gsub(/^    /, '')
     Usage: #{$0} [options] --file|-f <filename>
@@ -84,7 +88,8 @@ OptionParser.new do |opts|
 
   opts.on("-q", "--[no-]quiet", "Only show summary.") {|q| verbosity = q ? 0 : 1 }
   opts.on("-p", "--parsed", "Only show lines that were successfully parsed.") {|p| print = :parsed }
-  opts.on("-e", "--escape", "Escape newlines") {|e| escape = true }
+  opts.on("-r", "--parser PARSER", "Use specific parser (#{PARSERS.keys.join(", ")}).") {|p| parser_name = p&.downcase&.to_sym }
+  opts.on("-e", "--[no-]escape", "Escape newlines") {|e| escape = !!e }
   opts.on("-c", "--[no-]color", "Use color") {|e| color = !!e }
   opts.on("-n", "--noresult", "Only show lines that had no result.") {|p| print = :noresult }
   opts.on("-v", "--[no-]verbose", "Show more data (parsed tree).") {|v| verbosity = v ? 2 : 1 }
@@ -99,7 +104,10 @@ OptionParser.new do |opts|
 end.parse!
 
 if strings.any? || files.any?
-  parser = FoodIngredientParser::Parser.new
+  unless parser = PARSERS[parser_name]&.new
+    STDERR.puts("Please specify one of the known parsers: #{PARSERS.keys.join(", ")}.")
+    exit(1)
+  end
   strings.each {|s| parse_single(s, parser: parser, verbosity: verbosity, print: print, escape: escape, color: color) }
   files.each   {|f| parse_file(f, parser: parser, verbosity: verbosity, print: print, escape: escape, color: color) }
 else
