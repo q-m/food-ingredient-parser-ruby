@@ -2,11 +2,19 @@ require_relative 'node'
 
 module FoodIngredientParser::Loose
   class Scanner
+
+    SEP_CHARS  = "|;,.".freeze
+    MARK_CHARS = "¹²³⁴⁵ᵃᵇᶜᵈᵉᶠᵍªº⁽⁾†‡•°#^*".freeze
+    PREFIX_RE  = /\A\s*(ingredients|contains|ingred[iï][eë]nt(en)?(declaratie)?|bevat|dit zit er\s?in|samenstelling|zutaten)\s*[:;.]\s*/i.freeze
+    NOTE_RE    = /\A\b(dit product kan\b|kan sporen\b.*?\bbevatten\b|voor allergenen\b|allergenen\b|E\s*=|gemaakt in\b|geproduceerd in\b|bevat mogelijk\b|kijk voor meer\b|allergie-info|in de fabriek\b|in dit bedrijf\b)/i.freeze
+
     def initialize(s, index: 0)
-      @s = s
-      @i = index
-      @ancestors = [Node.new(@s, @i)]
-      @iterator = :beginning
+      @s = s                           # input string
+      @i = index                       # current index in string
+      @cur = nil                       # current node we're populating
+      @ancestors = [Node.new(@s, @i)]  # nesting hierarchy
+      @iterator = :beginning           # scan_iteration_<iterator> to use for parsing
+      @dest = :contains                # append current node to this attribute on parent
     end
 
     def scan
@@ -14,11 +22,7 @@ module FoodIngredientParser::Loose
         method(:"scan_iteration_#{@iterator}").call
       end
 
-      while @ancestors.count > 1
-        add_child
-        close_parent
-      end
-      add_child
+      close_all_ancestors
       @ancestors.first.ends(@i-1)
       @ancestors.first
     end
@@ -33,7 +37,7 @@ module FoodIngredientParser::Loose
 
     def scan_iteration_beginning
       # skip over some common prefixes
-      m = @s[@i .. -1].match(/\A\s*(ingredients|contains|ingred[iï][eë]nt(en)?(declaratie)?|bevat|dit zit er\s?in|samenstelling|zutaten)\s*[:;.]\s*/i)
+      m = @s[@i .. -1].match(PREFIX_RE)
       @i += m.offset(0).last if m
       # now continue with the standard parsing
       @iterator = :standard
@@ -46,6 +50,10 @@ module FoodIngredientParser::Loose
       elsif ")]".include?(c)      # close nesting
         add_child
         close_parent
+      elsif is_notes_start?       # usually a dot marks the start of notes
+        close_all_ancestors
+        @iterator = :notes
+        @dest = :notes
       elsif is_sep?               # separator
         add_child
       elsif ":".include?(c)       # another open nesting
@@ -54,12 +62,9 @@ module FoodIngredientParser::Loose
         @iterator = :colon
       elsif is_mark? && !cur.mark # mark after ingredient
         name_until_here
-        cur.mark = Node.new(@s, @i)
-        while is_mark?
-          cur.mark.ends(@i)
-          @i += 1
-        end
-        @i -= 1
+        len = mark_len
+        cur.mark = Node.new(@s, @i .. @i+len-1)
+        @i += len - 1
       else
         cur # reference to record starting position
       end
@@ -84,6 +89,14 @@ module FoodIngredientParser::Loose
       end
     end
 
+    def scan_iteration_notes
+      if is_sep?(chars: ".")    # dot means new note
+        add_child
+      else
+        cur
+      end
+    end
+
     def c
       @s[@i]
     end
@@ -97,17 +110,40 @@ module FoodIngredientParser::Loose
     end
 
     def is_mark?
-      @s[@i] && "¹²³⁴⁵ᵃᵇᶜᵈᵉᶠᵍªº⁽⁾†‡•°#^*".include?(@s[@i]) && @s[@i+1..-1] !~ /^°[CF]/
+      mark_len > 0 && @s[@i..@i+1] !~ /\A°[CF]/
     end
 
-    def is_sep?
-      ";,.".include?(@s[@i]) && @s[@i-1..@i+1] !~ /\d.\d/
+    def is_sep?(chars: SEP_CHARS)
+      chars.include?(c) && @s[@i-1..@i+1] !~ /\A\d.\d\z/
+    end
+
+    def mark_len
+      i = @i
+      while @s[i] && MARK_CHARS.include?(@s[i])
+        i += 1
+      end
+      i - @i
+    end
+
+    def is_notes_start?
+      # @todo use more heuristics: don't assume dot is notes when separator is a dot, and only toplevel?
+      if ( is_mark? && @s[@i+mark_len..-1] =~ /\A\s*=/ ) ||     # "* = Biologisch"
+         ( is_mark? && @s[@i-2..@i-1] =~ /\A\s\s/ ) ||          # "  **Biologisch"
+         ( @s[@i..-1] =~ NOTE_RE )                              # "E=", "Kan sporen van", ...
+        @i -= 1 # we want to include the mark in the note
+        true
+      # End of sentence
+      elsif dot_is_not_sep? && is_sep?(chars: ".")
+        true
+      else
+        false
+      end
     end
 
     def add_child
       cur.ends(@i-1)
       cur.name ||= Node.new(@s, cur.interval)
-      parent << cur
+      parent.send(@dest) << cur
       @cur = nil
     end
 
@@ -126,8 +162,30 @@ module FoodIngredientParser::Loose
       end
     end
 
+    def close_all_ancestors
+      while @ancestors.count > 1
+        add_child
+        close_parent
+      end
+      add_child
+    end
+
     def name_until_here
       cur.name ||= Node.new(@s, cur.interval.first .. @i-1)
+    end
+
+    def dot_is_not_sep?
+      # if separator is dot ".", don't use it for note detection
+      if @dot_is_not_sep.nil?
+        @dot_is_not_sep = begin
+          # @todo if another separator is found more often, dot is not a separator
+          num_words = @s.split(/\s+/).count
+          num_dots = @s.count(".")
+          # heuristic: 1/4+ of the words has a dot, with at least five words
+          num_words < 5 || 4 * num_dots < num_words
+        end
+      end
+      @dot_is_not_sep
     end
   end
 end

@@ -1,0 +1,13 @@
+module FoodIngredientParser::Loose::Transform
+  grammar AmountFromName
+    include FoodIngredientParser::Strict::Grammar::Common
+    include FoodIngredientParser::Strict::Grammar::Amount
+
+    rule amount_from_name
+      # just amount, amount in front or at the end
+      ws* amount:amount ws+ name:(.*) /
+      ws* amount:amount ws* /
+      ws* name:( !amount word ( ws+ !amount word )* )+ ws* amount:amount ws*
+    end
+  end
+end

@@ -1,5 +1,6 @@
 require_relative '../cleaner'
 require_relative 'scanner'
+require_relative 'transform/amount'
 
 module FoodIngredientParser::Loose
   class Parser
@@ -15,7 +16,9 @@ module FoodIngredientParser::Loose
     # @return [FoodIngredientParser::Loose::Node] structured representation of food ingredients
     def parse(s, clean: true, **options)
       s = FoodIngredientParser::Cleaner.clean(s) if clean
-      Scanner.new(s).scan
+      n = Scanner.new(s).scan
+      n = Transform::Amount.transform!(n) if n
+      n
     end
   end
 end
