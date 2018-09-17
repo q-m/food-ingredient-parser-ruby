@@ -1,3 +1,10 @@
+# 1.0.0.pre.6 (2018-09-17)
+
+* Add a loose parser
+
+This version is not fully backwards compatible: the strict parser has been
+renamed from `FoodIngredientParser::Parser` to `FoodIngredientParser::Strict::Parser`.
+
 # 1.0.0.pre.5 (2018-09-07)
 
 * Add depth to HTML output
