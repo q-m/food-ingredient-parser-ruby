@@ -39,6 +39,10 @@ module FoodIngredientParser::Strict::Grammar
       abbrev / char+
     end
 
+    rule and
+      ( 'and' / 'en' / 'und' / '&' ) !char
+    end
+
     rule abbrev
       # These are listed explicitely to avoid incorrect interpretations, and allow missing trailing dots.
       # To get an idea of what occurs (second one omits trailing dots):
