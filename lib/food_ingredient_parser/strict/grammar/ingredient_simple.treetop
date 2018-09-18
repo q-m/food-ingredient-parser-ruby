@@ -4,11 +4,8 @@ module FoodIngredientParser::Strict::Grammar
     include Amount
 
     rule ingredient_simple
-      name:( word_nas ( andsep? ws+ !amount !and word_nas )* ) ws? mark:mark <IngredientNode> /
-      name:( word_nas ( andsep? ws+ !amount !and word_nas )* )               <IngredientNode> /
-      # We've tried to omit 'and' from the ingredient, but if it doesn't work out, do it anyway.
-      name:( word_nas ( andsep? ws+ !amount      word_nas )* ) ws? mark:mark <IngredientNode> /
-      name:( word_nas ( andsep? ws+ !amount      word_nas )* )               <IngredientNode>
+      name:( word ( ws+ !amount word )* ) ws? mark:mark <IngredientNode> /
+      name:( word ( ws+ !amount word )* )               <IngredientNode>
     end
 
     rule ingredient_simple_with_amount

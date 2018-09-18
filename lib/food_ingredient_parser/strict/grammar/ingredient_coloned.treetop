@@ -10,14 +10,13 @@ module FoodIngredientParser::Strict::Grammar
     end
 
     rule ingredient_coloned_inner_list
-      contains:( ingredient_coloned_simple_with_amount_and_nest ( ws+ and ws+ ingredient_coloned_simple_with_amount_and_nest )+ )  <ListNode> /
       contains:( ingredient_coloned_simple_with_amount_and_nest ws* ( '/'+ ws* ingredient_coloned_simple_with_amount_and_nest )* ) <ListNode>
     end
 
     # @see IngredientSimple#ingredient_simple
     rule ingredient_coloned_simple
-      name:( ingredient_coloned_word_nas ( andsep? ws+ !amount !and ingredient_coloned_word_nas )* ) ws? mark:mark <IngredientNode> /
-      name:( ingredient_coloned_word_nas ( andsep? ws+ !amount !and ingredient_coloned_word_nas )* )               <IngredientNode>
+      name:( ingredient_coloned_word ( ws+ !amount ingredient_coloned_word )* ) ws? mark:mark <IngredientNode> /
+      name:( ingredient_coloned_word ( ws+ !amount ingredient_coloned_word )* )               <IngredientNode>
     end
 
     # @see IngredientSimple#ingredient_simple_with_amount
@@ -33,8 +32,8 @@ module FoodIngredientParser::Strict::Grammar
     end
 
     # @see Common#word
-    rule ingredient_coloned_word_nas
-      abbrev / ( !'/' !andsep char )+
+    rule ingredient_coloned_word
+      abbrev / ( !'/' char )+
     end
 
   end
