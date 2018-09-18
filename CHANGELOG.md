@@ -1,3 +1,7 @@
+# 1.0.0.pre.7 (2018-09-18)
+
+* Fix colon nesting
+
 # 1.0.0.pre.6 (2018-09-17)
 
 * Add a loose parser
