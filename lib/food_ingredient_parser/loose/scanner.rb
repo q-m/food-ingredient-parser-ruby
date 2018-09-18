@@ -57,7 +57,6 @@ module FoodIngredientParser::Loose
       elsif is_sep?               # separator
         add_child
       elsif ":".include?(c)       # another open nesting
-        add_child
         open_parent(auto_close: true)
         @iterator = :colon
       elsif is_mark? && !cur.mark # mark after ingredient
