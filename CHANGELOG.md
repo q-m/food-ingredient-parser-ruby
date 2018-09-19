@@ -1,3 +1,8 @@
+# 1.0.0.pre.8 (2018-09-19)
+
+* Only recognize 'and' as separator when required for parsing
+* Improve note parsing and recognition
+
 # 1.0.0.pre.7 (2018-09-18)
 
 * Fix colon nesting
