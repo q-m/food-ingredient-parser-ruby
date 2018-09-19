@@ -165,8 +165,9 @@ Even though the strict parser would not give a result, the loose parser returns:
 {
   :contains=>[
     {:name=>"Saus", :contains=>[
-      {:name=>"tomaat", :marks=>["*"], :amount=>"10%"},
-      {:contains=>[{:name=>"zout"}]},
+      {:name=>"tomaat", :marks=>["*"], :amount=>"10%", {
+        :contains=>[{:name=>"zout"}
+      ]},
       {:name=>"peper"}
     ]}
   ]
