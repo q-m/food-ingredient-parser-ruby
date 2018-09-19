@@ -3,34 +3,34 @@ module FoodIngredientParser::Strict::Grammar
     include Common
 
     rule amount
-      '(' ws* amount:simple_amount ws* ')' <AmountNode> /
-      '[' ws* amount:simple_amount ws* ']' <AmountNode> /
-      '{' ws* amount:simple_amount ws* '}' <AmountNode> /
-      amount:simple_amount                 <AmountNode>
+      '(' ws* amount:amount_simple ws* ')' <AmountNode> /
+      '[' ws* amount:amount_simple ws* ']' <AmountNode> /
+      '{' ws* amount:amount_simple ws* '}' <AmountNode> /
+      amount:amount_simple                 <AmountNode>
     end
 
-    rule simple_amount
+    rule amount_simple
       ( (
         'of which'i / 'at least'i / 'minimal'i / 'maximal'i / 'less than'i / 'more than'i /
         'waarvan'i / 'ten minste'i / 'tenminste'i / 'minimaal'i / 'maximaal'i / 'minder dan'i / 'meer dan'i /
         'min.'i / 'min'i / 'max.'i / 'max'i
       ) ws* )?
-      simple_amount_quantity
+      amount_simple_quantity
       ( ws+ (
         'minimaal'i / 'minimum'i / 'van het uitlekgewicht'i / 'van het geheel'i /
         'min.'i / 'min'i / 'max.'i / 'max'i
       ) )?
     end
 
-    rule simple_amount_quantity
-      simple_amount_number ( ws* simple_amount_unit? ws* dash ws* simple_amount_number )? ws* simple_amount_unit
+    rule amount_simple_quantity
+      amount_simple_number ( ws* amount_simple_unit? ws* dash ws* amount_simple_number )? ws* amount_simple_unit
     end
 
-    rule simple_amount_number
+    rule amount_simple_number
       ( [±∓~∼∽≂≃≈≲≤<>≥≳] ws* )? number
     end
 
-    rule simple_amount_unit
+    rule amount_simple_unit
       ( percent / ( ( 'procent' / 'percent' / 'gram'i / 'ml'i / 'mg'i / 'gr'i / 'g'i ) !char ) )
     end
   end
