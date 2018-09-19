@@ -28,7 +28,7 @@ module FoodIngredientParser::Loose
     def to_h
       r = {}
       r[:name] = name.text_value.strip if name && name.text_value.strip != ''
-      r[:mark] = mark.text_value.strip if mark
+      r[:marks] = [mark.text_value.strip] if mark
       r[:amount] = amount.text_value.strip if amount
       r[:contains] = contains.map(&:to_h).reject {|c| c == {} } if contains.any?
       r[:notes] = notes.map{|n| n.text_value.strip }.reject {|c| c == '' } if notes.any?

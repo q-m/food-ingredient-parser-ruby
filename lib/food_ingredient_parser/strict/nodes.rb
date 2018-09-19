@@ -47,7 +47,7 @@ module FoodIngredientParser::Strict
         h[:name] = name.text_value if respond_to?(:name)
         h[:name] = pre.text_value + h[:name] if respond_to?(:pre)
         h[:name] = h[:name] + post.text_value if respond_to?(:post)
-        h[:mark] = mark.text_value if respond_to?(:mark) && mark.text_value != ''
+        h[:marks] = [mark.text_value] if respond_to?(:mark) && mark.text_value != ''
         h
       end
     end
