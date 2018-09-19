@@ -53,12 +53,14 @@ tomaat#
 tomaat¹⁾
 tomaat⁽¹⁾
 # extra info at the end
+tomaat* * = Biologisch
 tomaat*  * = Biologisch
 tomaat, paprika. Bevat groente
 tomaat. paprika\n\nBevat groente.
 tomaat, paprika.bevat groente, en groente
 tomaat*, paprika. * = Biologisch
 tomaat*, paprika  * = Biologisch
+saus: tomaat, paprika; * = Biologisch
 # curly braces
 62% {tarwebloem}, zout, {tarwegluten}
 {tarwe}bloem

@@ -127,7 +127,7 @@ module FoodIngredientParser::Loose
     def is_notes_start?
       # @todo use more heuristics: don't assume dot is notes when separator is a dot, and only toplevel?
       if ( is_mark? && @s[@i+mark_len..-1] =~ /\A\s*=/ ) ||     # "* = Biologisch"
-         ( is_mark? && @s[@i-2..@i-1] =~ /\A\s\s/ ) ||          # "  **Biologisch"
+         ( is_mark? && @s[@i-1] =~ /\s/ ) ||                    # " **Biologisch"
          ( @s[@i..-1] =~ NOTE_RE )                              # "E=", "Kan sporen van", ...
         @i -= 1 # we want to include the mark in the note
         true

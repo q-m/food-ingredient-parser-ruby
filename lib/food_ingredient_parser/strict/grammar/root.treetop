@@ -11,7 +11,7 @@ module FoodIngredientParser::Strict::Grammar
       contains:( list_newlined / list_coloned / list )
       notes:(
         root_mark_sentences_in_list? ws*
-        ( ( '.' ws* newline* / '.'?  ws* newline+ ) ws* root_sentences? ws* )?
+        ( ( [.;] ws* newline* / [.;]?  ws* newline+ ) ws* root_sentences? ws* )?
       )
       '"'?
       <RootNode>
