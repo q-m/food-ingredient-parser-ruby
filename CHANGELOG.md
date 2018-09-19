@@ -1,3 +1,12 @@
+# 1.0.0.pre.9 (2018-09-19)
+
+* Some small parsing improvements for both parsers
+* The loose parser doesn't return empty names anymore (unless you use the `normalize: true` option)
+* Prepare for returning multiple marks
+* Allow colon before a bracket
+
+This version is not fully backwards compatible, as marks are now returned as an array in `to_h`.
+
 # 1.0.0.pre.8 (2018-09-19)
 
 * Only recognize 'and' as separator when required for parsing
