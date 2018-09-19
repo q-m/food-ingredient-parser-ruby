@@ -5,7 +5,7 @@ module FoodIngredientParser::Loose
 
     SEP_CHARS  = "|;,.".freeze
     MARK_CHARS = "¹²³⁴⁵ᵃᵇᶜᵈᵉᶠᵍªº⁽⁾†‡•°#^*".freeze
-    PREFIX_RE  = /\A\s*(ingredients|contains|ingred[iï][eë]nt(en)?(declaratie)?|bevat|dit zit er\s?in|samenstelling|zutaten)\s*[:;.]\s*/i.freeze
+    PREFIX_RE  = /\A\s*(ingredients|contains|ingred[iï][eë]nt(en)?(declaratie)?|bevat|dit zit er\s?in|samenstelling|zutaten)\b\s*[:;.]?\s*/i.freeze
     NOTE_RE    = /\A\b(dit product kan\b|kan sporen\b.*?\bbevatten\b|voor allergenen\b|allergenen\b|E\s*=|gemaakt in\b|geproduceerd in\b|bevat mogelijk\b|kijk voor meer\b|allergie-info|in de fabriek\b|in dit bedrijf\b)/i.freeze
 
     def initialize(s, index: 0)
