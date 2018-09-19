@@ -31,8 +31,16 @@ module FoodIngredientParser::Strict::Grammar
       [½⅓⅔¼¾⅕⅖⅗⅘⅙⅚⅐⅛⅜⅝⅞⅑⅒]
     end
 
+    rule percent
+      [%٪⁒％﹪]
+    end
+
     rule number
       digit+ [,.] digit+ / digit+ ws* fraction / fraction / digit+
+    end
+
+    rule dash
+      [-֊ ‐ ‑ ‒ – — ― ﹘﹣－]
     end
 
     rule word

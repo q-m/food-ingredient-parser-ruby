@@ -15,7 +15,6 @@ module FoodIngredientParser::Strict::Grammar
         'waarvan'i / 'ten minste'i / 'tenminste'i / 'minimaal'i / 'maximaal'i / 'minder dan'i / 'meer dan'i /
         'min.'i / 'min'i / 'max.'i / 'max'i
       ) ws* )?
-      [±∓~∼∽≂≃≈≲≤<>≥≳]? ws*
       simple_amount_quantity
       ( ws+ (
         'minimaal'i / 'minimum'i / 'van het uitlekgewicht'i / 'van het geheel'i /
@@ -24,8 +23,15 @@ module FoodIngredientParser::Strict::Grammar
     end
 
     rule simple_amount_quantity
-      number ( ws* '-' ws* number )? ws* ( [%٪⁒％﹪] / ( ( 'procent' / 'percent' / 'gram'i / 'ml'i / 'mg'i / 'gr'i / 'g'i ) !char ) )
+      simple_amount_number ( ws* simple_amount_unit? ws* dash ws* simple_amount_number )? ws* simple_amount_unit
     end
 
+    rule simple_amount_number
+      ( [±∓~∼∽≂≃≈≲≤<>≥≳] ws* )? number
+    end
+
+    rule simple_amount_unit
+      ( percent / ( ( 'procent' / 'percent' / 'gram'i / 'ml'i / 'mg'i / 'gr'i / 'g'i ) !char ) )
+    end
   end
 end
