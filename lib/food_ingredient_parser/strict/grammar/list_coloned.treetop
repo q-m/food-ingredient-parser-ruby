@@ -5,9 +5,11 @@ module FoodIngredientParser::Strict::Grammar
     include Ingredient
 
     rule list_coloned
-      contains:( ( ws* list_coloned_ingredient ws* '.' )+ list_coloned_ingredient? ) <ListNode> /
-      contains:( ( ws* list_coloned_ingredient ws* ';' )+ list_coloned_ingredient? ) <ListNode> /
-      contains:(   ws* list_coloned_ingredient )                                     <ListNode>
+      contains:( ( ws* list_coloned_ingredient ws* '.' )+ ws* list_coloned_ingredient ) <ListNode> /
+      contains:( ( ws* list_coloned_ingredient ws* '.' )+                             ) <ListNode> /
+      contains:( ( ws* list_coloned_ingredient ws* ';' )+ ws* list_coloned_ingredient ) <ListNode> /
+      contains:( ( ws* list_coloned_ingredient ws* ';' )+                             ) <ListNode> /
+      contains:(   ws* list_coloned_ingredient )                                        <ListNode>
     end
 
     rule list_coloned_inner_list
