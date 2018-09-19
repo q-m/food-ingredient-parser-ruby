@@ -58,6 +58,9 @@ module FoodIngredientParser::Strict::Grammar
       #   cat data/ingredient-samples-nl | perl -ne '$_=lc($_); /\b(([a-z]\.)+[a-z])\W/ && print "$1\n"' | sort | uniq -c | sort -rn
       # Finally, you can generate the full list using this command:
       #   cat data/ingredient-samples-nl | perl -ne '$_=lc($_); /\b(([a-z]\.)+[a-z])\W/ && print "$1\n"' | sort | uniq | sed "s/^/'/;s/$/'i \//"
+      #
+      # Keep this list in sync with {FoodIngredientParser::Loose::Scanner#ABBREVS}.
+      # too bad we can't use a shared array for this - https://groups.google.com/d/msg/treetop-dev/f3NveVHi7Aw/0uUogmLMb8wJ
       (
         'a.o.p'i /
         'b.g.a'i /

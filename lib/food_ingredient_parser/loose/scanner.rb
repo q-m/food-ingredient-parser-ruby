@@ -7,6 +7,13 @@ module FoodIngredientParser::Loose
     MARK_CHARS = "¹²³⁴⁵ᵃᵇᶜᵈᵉᶠᵍªº⁽⁾†‡•°#^*".freeze
     PREFIX_RE  = /\A\s*(ingredients|contains|ingred[iï][eë]nt(en)?(declaratie)?|bevat|dit zit er\s?in|samenstelling|zutaten)\b\s*[:;.]?\s*/i.freeze
     NOTE_RE    = /\A\b(dit product kan\b|kan sporen\b.*?\bbevatten\b|voor allergenen\b|allergenen\b|E\s*=|gemaakt in\b|geproduceerd in\b|bevat mogelijk\b|kijk voor meer\b|allergie-info|in de fabriek\b|in dit bedrijf\b)/i.freeze
+    # Keep in sync with +abbrev+ in the +Common+ grammar, plus relevant ones from the +Amount+ grammar.
+    ABBREV_RE  = Regexp.union(%w[
+      a.o.p b.g.a b.o.b c.a c.i d.e d.m.v d.o.c d.o.p d.s e.a e.g e.u f.i.l f.o.s i.a
+      i.d i.e i.g.m.e i.g.p i.m.v i.o i.v.m l.s.l n.a n.b n.o n.v.t o.a o.b.v p.d.o
+      p.g.i q.s s.l s.s t.o.v u.h.t v.g v.s w.a w.o w.v vit denat N° °C
+      min max ca
+    ].map {|s| /\A#{Regexp.escape(s)}\b\.?/})
 
     def initialize(s, index: 0)
       @s = s                           # input string
@@ -45,7 +52,10 @@ module FoodIngredientParser::Loose
     end
 
     def scan_iteration_standard
-      if "([".include?(c)         # open nesting
+      if (len = abbrev_len) > 0   # defer iterations until after any abbreviation
+        cur # reference to record starting position
+        @i += len - 1
+      elsif "([".include?(c)      # open nesting
         open_parent
       elsif ")]".include?(c)      # close nesting
         add_child
@@ -74,7 +84,10 @@ module FoodIngredientParser::Loose
     end
 
     def scan_iteration_colon
-      if "/".include?(c)        # slash separator in colon nesting only
+      if (len = abbrev_len) > 0 # defer iterations until after any abbreviation
+        cur # reference to record starting position
+        @i += len - 1
+      elsif "/".include?(c)     # slash separator in colon nesting only
         add_child
       elsif is_sep?             # regular separator indicates end of colon nesting
         add_child
@@ -112,12 +125,12 @@ module FoodIngredientParser::Loose
       @cur ||= Node.new(@s, @i)
     end
 
-    def is_mark?
-      mark_len > 0 && @s[@i..@i+1] !~ /\A°[CF]/
-    end
-
     def is_sep?(chars: SEP_CHARS)
       chars.include?(c) && @s[@i-1..@i+1] !~ /\A\d.\d\z/
+    end
+
+    def is_mark?
+      mark_len > 0 && @s[@i..@i+1] !~ /\A°[CF]/
     end
 
     def mark_len
@@ -126,6 +139,11 @@ module FoodIngredientParser::Loose
         i += 1
       end
       i - @i
+    end
+
+    def abbrev_len
+      m = @s[@i .. -1].match(ABBREV_RE)
+      m ? m.offset(0).last : 0
     end
 
     def is_notes_start?
