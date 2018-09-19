@@ -13,7 +13,7 @@ module FoodIngredientParser::Strict::Grammar
       ( (
         'of which'i / 'at least'i / 'minimal'i / 'maximal'i / 'less than'i / 'more than'i /
         'waarvan'i / 'ten minste'i / 'tenminste'i / 'minimaal'i / 'maximaal'i / 'minder dan'i / 'meer dan'i /
-        'min.'i / 'min'i / 'max.'i / 'max'i
+        'min.'i / 'min'i / 'max.'i / 'max'i / 'c.a.'i / 'ca.'i / 'ca'i
       ) ws* )?
       amount_simple_quantity
       ( ws+ (
