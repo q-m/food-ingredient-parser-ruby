@@ -8,6 +8,7 @@ tomaat, komkommer: groen
 rode tomaat, groene komkommer
 saus (tomaat, zout)
 saus [tomaat, zout]
+saus: [tomaat, zout]
 saus (tomaat, zout), water
 p (a, b), q(c)
 p (a, b (r)), q(c)

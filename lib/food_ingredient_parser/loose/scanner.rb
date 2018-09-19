@@ -57,8 +57,12 @@ module FoodIngredientParser::Loose
       elsif is_sep?               # separator
         add_child
       elsif ":".include?(c)       # another open nesting
-        open_parent(auto_close: true)
-        @iterator = :colon
+        if @s[@i+1..-1] =~ /\A\s*(\(|\[)/
+          # ignore if before an open bracket, then it's a regular nesting
+        else
+          open_parent(auto_close: true)
+          @iterator = :colon
+        end
       elsif is_mark? && !cur.mark # mark after ingredient
         name_until_here
         len = mark_len
