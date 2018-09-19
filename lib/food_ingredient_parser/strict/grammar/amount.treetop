@@ -24,7 +24,7 @@ module FoodIngredientParser::Strict::Grammar
     end
 
     rule simple_amount_quantity
-      number ( ws* '-' ws* number )? ws* ( [%٪⁒％﹪] / ( ( 'procent' / 'percent' / 'gram'i / 'ml'i / 'mg'i / 'g'i ) !char ) )
+      number ( ws* '-' ws* number )? ws* ( [%٪⁒％﹪] / ( ( 'procent' / 'percent' / 'gram'i / 'ml'i / 'mg'i / 'gr'i / 'g'i ) !char ) )
     end
 
   end
