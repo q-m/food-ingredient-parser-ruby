@@ -6,7 +6,7 @@ module FoodIngredientParser::Loose
     SEP_CHARS  = "|;,.".freeze
     MARK_CHARS = "¹²³⁴⁵ᵃᵇᶜᵈᵉᶠᵍªº⁽⁾†‡•°#^*".freeze
     PREFIX_RE  = /\A\s*(ingredients|contains|ingred[iï][eë]nt(en)?(declaratie)?|bevat|dit zit er\s?in|samenstelling|zutaten)\b\s*[:;.]?\s*/i.freeze
-    NOTE_RE    = /\A\b(dit product kan\b|kan sporen\b.*?\bbevatten\b|voor allergenen\b|allergenen\b|E\s*=|gemaakt in\b|geproduceerd in\b|bevat mogelijk\b|kijk voor meer\b|allergie-info|in de fabriek\b|in dit bedrijf\b)/i.freeze
+    NOTE_RE    = /\A\b(dit product kan\b|deze verpakking kan\b|kan sporen\b.*?\bbevatten\b|voor allergenen\b|allergenen\b|E\s*=|gemaakt in\b|geproduceerd in\b|bevat mogelijk\b|kijk voor meer\b|allergie-info|in de fabriek\b|in dit bedrijf\b)/i.freeze
     # Keep in sync with +abbrev+ in the +Common+ grammar, plus relevant ones from the +Amount+ grammar.
     ABBREV_RE  = Regexp.union(%w[
       a.o.p b.g.a b.o.b c.a c.i d.e d.m.v d.o.c d.o.p d.s e.a e.g e.u f.i.l f.o.s i.a
