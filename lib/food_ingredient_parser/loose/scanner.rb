@@ -68,7 +68,8 @@ module FoodIngredientParser::Loose
         add_child
       elsif ":".include?(c)       # another open nesting
         if @s[@i+1..-1] =~ /\A\s*(\(|\[)/
-          # ignore if before an open bracket, then it's a regular nesting
+          # ignore colon before an open bracket, then it's a regular nesting
+          name_until_here
         else
           open_parent(auto_close: true)
           @iterator = :colon
