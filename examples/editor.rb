@@ -13,7 +13,8 @@ require 'json'
 require 'sinatra'
 require_relative '../lib/food_ingredient_parser'
 
-parser = FoodIngredientParser::Strict::Parser.new
+parser_strict = FoodIngredientParser::Strict::Parser.new
+parser_loose  = FoodIngredientParser::Loose::Parser.new
 
 get '/' do
   send_file 'editor.html'
@@ -23,9 +24,9 @@ get '/editor.css' do
   send_file 'editor.css'
 end
 
-post '/render' do
+post '/strict/render' do
   input = params[:text]
-  parsed = parser.parse(input)
+  parsed = parser_strict.parse(input)
   if parsed
     error = nil
     result = parsed.to_html
@@ -33,13 +34,13 @@ post '/render' do
     # If parsing failed, add error and try partial parsing to return the part that can be parsed.
     # This is currently an undocumented way to retrieve the error location, so take care.
     error = {
-      reason: parser.parser.failure_reason,
-      index: parser.parser.failure_index,
-      line: parser.parser.failure_line,
-      column: parser.parser.failure_column
+      reason: parser_strict.parser.failure_reason,
+      index: parser_strict.parser.failure_index,
+      line: parser_strict.parser.failure_line,
+      column: parser_strict.parser.failure_column
     }
     # Please note that consume_all_input may not remain present in all future releases.
-    parsed = parser.parse(input, consume_all_input: false)
+    parsed = parser_strict.parse(input, consume_all_input: false)
     result = parsed&.to_html || ''
     result += input[parsed.interval.last .. (error[:index]-1)]
     result += "<span class='error'>#{input[error[:index]] || ' '}</span>"
@@ -52,8 +53,24 @@ post '/render' do
   }.to_json)
 end
 
-post '/parse' do
-  parsed = parser.parse(params[:text])
+post '/loose/render' do
+  input = params[:text]
+  parsed = parser_loose.parse(input)
+
+  headers("Content-Type" => "application/json; charset=utf-8")
+  body({
+    html: parsed&.to_html
+  }.to_json)
+end
+
+post '/strict/parse' do
+  parsed = parser_strict.parse(params[:text])
+  headers("Content-Type" => "application/json; charset=utf-8")
+  body(parsed&.to_h.to_json)
+end
+
+post '/loose/parse' do
+  parsed = parser_loose.parse(params[:text])
   headers("Content-Type" => "application/json; charset=utf-8")
   body(parsed&.to_h.to_json)
 end

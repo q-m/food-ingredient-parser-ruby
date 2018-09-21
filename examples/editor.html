@@ -9,7 +9,13 @@
 
     <p>
       Type an ingredients list in the area below.
+      <br>
       Load sample <a href="#" id="sA">A</a>, <a href="#" id="sB">B</a>, or <a href="#" id ="sClear">clear</a>.
+      Use the
+      <label for="strict"><input type="radio" id="strict" name="parser" value="strict" checked="checked"> strict</option></label>
+      or
+      <label for="loose"><input type="radio" id="loose" name="parser" value="loose"> loose</option></label>
+      parser.
     </p>
 
     <div class="container">
@@ -23,6 +29,7 @@
     <script type="application/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"
       integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script type="application/javascript">
+      var $parser = $('input[name=parser]');
       var $textarea = $('textarea');
       var $highlight = $('.highlight');
       var $error = $('.error');
@@ -34,7 +41,7 @@
 
       function render() {
         $.ajax({
-          url: '/render',
+          url: '/' + $parser.filter(':checked').val() + '/render',
           method: 'POST',
           data: { text: $textarea.val() },
           success: function(data) {
@@ -49,6 +56,7 @@
       }
 
       $textarea.on('input propertychange', render);
+      $parser.on('change', render);
       $(render);
 
       var samples = {

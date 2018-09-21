@@ -1,6 +1,10 @@
+require_relative 'to_html'
+
 module FoodIngredientParser::Loose
   # Parsing result.
   class Node
+    include ToHtml
+
     attr_accessor :name, :mark, :amount, :contains, :notes
     attr_reader :input, :interval, :auto_close
 
