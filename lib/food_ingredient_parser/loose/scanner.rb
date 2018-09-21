@@ -130,16 +130,16 @@ module FoodIngredientParser::Loose
       chars.include?(c) && @s[@i-1..@i+1] !~ /\A\d.\d\z/
     end
 
-    def is_mark?
-      mark_len > 0 && @s[@i..@i+1] !~ /\A°[CF]/
+    def is_mark?(i = @i)
+      mark_len(i) > 0 && @s[i..i+1] !~ /\A°[CF]/
     end
 
-    def mark_len
-      i = @i
-      while @s[i] && MARK_CHARS.include?(@s[i])
-        i += 1
+    def mark_len(i = @i)
+      j = i
+      while @s[j] && MARK_CHARS.include?(@s[j])
+        j += 1
       end
-      i - @i
+      j - i
     end
 
     def abbrev_len
@@ -163,8 +163,8 @@ module FoodIngredientParser::Loose
     end
 
     def add_child
+      name_until_here
       cur.ends(@i-1)
-      cur.name ||= Node.new(@s, cur.interval)
       parent.send(@dest) << cur
       @cur = nil
     end
@@ -193,7 +193,11 @@ module FoodIngredientParser::Loose
     end
 
     def name_until_here
-      cur.name ||= Node.new(@s, cur.interval.first .. @i-1)
+      cur.name ||= begin
+        i, j = cur.interval.first, @i - 1
+        i += mark_len(i) # skip any mark in front
+        Node.new(@s, i .. j) if j > i
+      end
     end
 
     def dot_is_not_sep?
