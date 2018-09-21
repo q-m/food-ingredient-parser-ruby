@@ -8,7 +8,9 @@ module FoodIngredientParser::Loose
     #
     # When a contained node is found which doesn't have a name:
     # * For the amount (if any): ignore it (as it's often ambiguous which ingredient it belongs to)
-    # * For the marks (if any): ignore it (we might instead add it to the containing ingredients)
+    # * For the marks (if any)
+    #   - if the node has no siblings and no containing ingredients, add the mark to the parent (if any)
+    #   - else ignore it (we might instead add it to the containing ingredients)
     # * For the containing ingredients (if any):
     #   - if the previous ingredient is present and doesn't contain ingredients already,
     #     assume the current contained ingredients are actually part of the previous ingredient.
@@ -45,6 +47,9 @@ module FoodIngredientParser::Loose
             if prev
               # there is a previous ingredient: move children to new parent
               prev.contains.push(*child.contains)
+            elsif child.mark && !node.mark && child.contains.empty? && !child.amount
+              # this is just a mark without siblings: it's a mark for its parent
+              node.mark = child.mark
             else
               # there is no previous ingredient: move children one level up
               new_contains.push(*child.contains)
