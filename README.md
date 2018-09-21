@@ -174,6 +174,17 @@ Even though the strict parser would not give a result, the loose parser returns:
 }
 ```
 
+## Compatibility
+
+From the 1.0.0 release, the main interface will be stable. This comprises the two parser's `parse`
+methods (incl. documented options), its `nil` result when parsing failed, and the parsed output's
+`to_h` and `to_html` methods (where available). Please note that parsed node trees may be subject to
+change, even within a major release. Within a minor release, node trees are expected to remain stable.
+
+So if you only use the stable interface (`parse`, `to_h` and `to_html`), you can lock your version
+to e.g. `~> 1.0`. If you depend on more, lock your version against e.g. `~> 1.0.0` and test when you
+upgrade to `1.1`.
+
 ## Test data
 
 [`data/ingredient-samples-nl`](data/ingredient-samples-nl) contains about 150k

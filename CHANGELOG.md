@@ -1,3 +1,7 @@
+# 1.0.0 (2018-09-21)
+
+* Small parsing improvements
+
 # 1.0.0.pre.9 (2018-09-19)
 
 * Some small parsing improvements for both parsers
