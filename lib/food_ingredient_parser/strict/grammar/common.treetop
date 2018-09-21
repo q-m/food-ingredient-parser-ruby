@@ -44,7 +44,7 @@ module FoodIngredientParser::Strict::Grammar
     end
 
     rule word
-      abbrev / char+
+      abbrev / word_complex / char+
     end
 
     rule and
@@ -104,13 +104,20 @@ module FoodIngredientParser::Strict::Grammar
         'w.a'i /
         'w.o'i /
         'w.v'i /
-        # special words and abbreviations (not auto-generated)
-        'vit.'i /
-        'denat.'i /
-        'N°'i /
-        '°C'i
+        # not auto-generated additions
+        'vit'i /
+        'denat'i
       )
       '.'? ![[:alpha:]]
+    end
+
+    rule word_complex
+      # Complex words that contain characters that would otherwise be considered non-words.
+      (
+        'N°'i /
+        '°C'i /
+        ( 'ijzer'i / 'chroom'i / 'koper'i ) ws* '(' 'I'i+ ')' ws* [[:alnum:]]+
+      ) ![[:alpha:]]
     end
   end
 end

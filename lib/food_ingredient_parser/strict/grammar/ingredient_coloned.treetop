@@ -33,7 +33,7 @@ module FoodIngredientParser::Strict::Grammar
 
     # @see Common#word
     rule ingredient_coloned_word
-      abbrev / ( !'/' char )+
+      abbrev / word_complex / ( !'/' char )+
     end
 
   end
