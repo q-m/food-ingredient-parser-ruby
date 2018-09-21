@@ -121,7 +121,7 @@ When ingredient lists are entered manually, it can be very useful to show how th
 recognized. This can help understanding why a certain ingredients list cannot be parsed.
 
 For this you can use the `to_html` method on the parsed output, which returns the original
-text, augmented with CSS classes for different parts. (Available for strict parser only.)
+text, augmented with CSS classes for different parts.
 
 ```ruby
 require 'food_ingredient_parser'
@@ -178,8 +178,8 @@ Even though the strict parser would not give a result, the loose parser returns:
 
 From the 1.0.0 release, the main interface will be stable. This comprises the two parser's `parse`
 methods (incl. documented options), its `nil` result when parsing failed, and the parsed output's
-`to_h` and `to_html` methods (where available). Please note that parsed node trees may be subject to
-change, even within a major release. Within a minor release, node trees are expected to remain stable.
+`to_h` and `to_html` methods. Please note that parsed node trees may be subject to change, even within
+a major release. Within a minor release, node trees are expected to remain stable.
 
 So if you only use the stable interface (`parse`, `to_h` and `to_html`), you can lock your version
 to e.g. `~> 1.0`. If you depend on more, lock your version against e.g. `~> 1.0.0` and test when you
