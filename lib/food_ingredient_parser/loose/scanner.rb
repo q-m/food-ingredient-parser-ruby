@@ -196,7 +196,7 @@ module FoodIngredientParser::Loose
       cur.name ||= begin
         i, j = cur.interval.first, @i - 1
         i += mark_len(i) # skip any mark in front
-        Node.new(@s, i .. j) if j > i
+        Node.new(@s, i .. j) if j >= i
       end
     end
 
