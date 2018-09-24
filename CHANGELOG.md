@@ -1,3 +1,9 @@
+# 1.1.0 (2018-09-24)
+
+* Parsing improvements
+* Add `to_html` to the loose parser
+* Include loose parser in example
+
 # 1.0.0 (2018-09-21)
 
 * Small parsing improvements
