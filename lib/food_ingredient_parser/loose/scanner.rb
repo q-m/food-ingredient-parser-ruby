@@ -200,7 +200,12 @@ module FoodIngredientParser::Loose
       cur.name ||= begin
         i, j = cur.interval.first, @i - 1
         i += mark_len(i) # skip any mark in front
-        Node.new(@s, i .. j) if j >= i
+        # Set name if there is any. There is one corner-case that needs to be avoided when
+        # a nesting was opened without a name, which would set the name to the nesting text.
+        # In this case, the name starts with an open-nesting symbol, which should never happen.
+        if j >= i && !"([:".include?(@s[i])
+          Node.new(@s, i .. j)
+        end
       end
     end
 
