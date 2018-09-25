@@ -107,7 +107,10 @@ module FoodIngredientParser::Loose
     end
 
     def scan_iteration_notes
-      if is_sep?(chars: ".")    # dot means new note
+      if (len = abbrev_len) > 0 # defer iterations until after any abbreviation
+        cur # reference to record starting position
+        @i += len - 1
+      elsif is_sep?(chars: ".")    # dot means new note
         add_child
       else
         cur
