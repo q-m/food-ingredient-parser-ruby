@@ -88,10 +88,10 @@ OptionParser.new do |opts|
 
   opts.on("-q", "--[no-]quiet", "Only show summary.") {|q| verbosity = q ? 0 : 1 }
   opts.on("-p", "--parsed", "Only show lines that were successfully parsed.") {|p| print = :parsed }
+  opts.on("-n", "--noresult", "Only show lines that had no result.") {|p| print = :noresult }
   opts.on("-r", "--parser PARSER", "Use specific parser (#{PARSERS.keys.join(", ")}).") {|p| parser_name = p&.downcase&.to_sym }
   opts.on("-e", "--[no-]escape", "Escape newlines") {|e| escape = !!e }
   opts.on("-c", "--[no-]color", "Use color") {|e| color = !!e }
-  opts.on("-n", "--noresult", "Only show lines that had no result.") {|p| print = :noresult }
   opts.on("-v", "--[no-]verbose", "Show more data (parsed tree).") {|v| verbosity = v ? 2 : 1 }
   opts.on(      "--version", "Show program version.") do
     puts("food_ingredient_parser v#{FoodIngredientParser::VERSION}")

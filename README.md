@@ -65,10 +65,10 @@ Usage: bin/food_ingredient_parser [options] --file|-f <filename>
     -s, --string INGREDIENTS         Parse specified ingredient list.
     -q, --[no-]quiet                 Only show summary.
     -p, --parsed                     Only show lines that were successfully parsed.
+    -n, --noresult                   Only show lines that had no result.
     -r, --parser PARSER              Use specific parser (strict, loose).
     -e, --[no-]escape                Escape newlines
     -c, --[no-]color                 Use color
-    -n, --noresult                   Only show lines that had no result.
     -v, --[no-]verbose               Show more data (parsed tree).
         --version                    Show program version.
     -h, --help                       Show this help
@@ -190,5 +190,4 @@ upgrade to `1.1`.
 [`data/ingredient-samples-nl`](data/ingredient-samples-nl) contains about 150k
 real-world ingredient lists found on the Dutch market. Each line contains one ingredient
 list (newlines are encoded as `\n`, empty lines and those starting with `#` are ignored).
-The strict parser currently parses about three quarter, while the loose parser returns
-something for all of them.
+The strict parser currently parses 80%, while the loose parser returns something for all of them.
