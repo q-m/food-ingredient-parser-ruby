@@ -1,8 +1,6 @@
 ## Ingredient lists with issues
 #
 
-# 'en' is not recognized in the middle
-tomaat, peper en zout, suiker
 # first ingredient starting with colon but those following not (todo)
 Zoetstof: Maltitolen. chocolade 15% (cacaomassa. zoetstof: maltitolen. cacaoboter. emulgator: SOJAlecithinen. natuurlijk vanille-aroma). water. TARWEbloem. verstevigingsmiddelen. TARWEzetmeel en maltodextrine. bevochtigingsmiddel: glycerol. EI. zuurteregelaars: citroenzuur en natriumcitraten. geleermiddel; pectines. sinaasappelconcentraat 0.7%. koolzaadolie. rijsmiddel: ammoniumcarbonaten. emulgatoren: mono- en diglyceriden en polyglycerolesters van vetzuren. natuurlijk sinaasappelaroma. zout. kleurstof: carotenen.
 # "a; b: b1, b2" doesn't recognize b2 as part of b
