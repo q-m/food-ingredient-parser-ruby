@@ -15,10 +15,12 @@ p (a, b), q(c)
 p (a, b (r)), q(c)
 p: a, b. q: c
 p: a, b. q: c.
+p: e123i-E124
 o, p: a/b, q: c
 o, p: a/b//d
 o, p: a(r)
 o, p: a/b (r)
+o, p: e123-E124a
 p\na, b\n\nq\nc
 # amounts
 tomaat (30%)

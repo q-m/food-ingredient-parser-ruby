@@ -10,7 +10,8 @@ module FoodIngredientParser::Strict::Grammar
     end
 
     rule ingredient_coloned_inner_list
-      contains:( ingredient_coloned_simple_with_amount_and_nest ws* ( '/'+ ws* ingredient_coloned_simple_with_amount_and_nest )* ) <ListNode>
+      contains:( ingredient_simple_e_number ( ws* dash ws* ingredient_simple_e_number )+ ) <ListNode> /
+      contains:( ingredient_coloned_simple_with_amount_and_nest ( ws* '/'+ ws* ingredient_coloned_simple_with_amount_and_nest )* ) <ListNode>
     end
 
     # @see IngredientSimple#ingredient_simple

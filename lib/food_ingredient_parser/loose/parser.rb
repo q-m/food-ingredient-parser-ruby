@@ -2,6 +2,7 @@ require_relative '../cleaner'
 require_relative 'scanner'
 require_relative 'transform/amount'
 require_relative 'transform/handle_missing_name'
+require_relative 'transform/split_e_numbers'
 
 module FoodIngredientParser::Loose
   class Parser
@@ -20,6 +21,7 @@ module FoodIngredientParser::Loose
       s = FoodIngredientParser::Cleaner.clean(s) if clean
       n = Scanner.new(s).scan
       n = Transform::Amount.transform!(n) if n
+      n = Transform::SplitENumbers.transform!(n) if n
       n = Transform::HandleMissingName.transform!(n) if n && normalize
       n
     end
