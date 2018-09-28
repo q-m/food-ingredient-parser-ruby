@@ -1,3 +1,11 @@
+# 1.1.2 (2018-09-28)
+
+* Parsing improvements (split E-numbers when separated by dashes)
+
+# 1.1.1 (2018-09-25)
+
+* Parsing improvements
+
 # 1.1.0 (2018-09-24)
 
 * Parsing improvements
