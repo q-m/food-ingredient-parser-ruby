@@ -185,9 +185,20 @@ So if you only use the stable interface (`parse`, `to_h` and `to_html`), you can
 to e.g. `~> 1.0`. If you depend on more, lock your version against e.g. `~> 1.0.0` and test when you
 upgrade to `1.1`.
 
+## Languages
+
+While most of the parsing is language-independent, some parts need knowledge about certain words
+(like abbreviations and amount specifiers). The gem was developed with ingredient lists in Dutch (nl),
+plus a bit of English and German. Support for other languages is welcomed, starting with a corpus of
+ingredient lists to work with.
+
 ## Test data
 
-[`data/ingredient-samples-nl`](data/ingredient-samples-nl) contains about 150k
+[`data/ingredient-samples-qm-nl`](data/ingredient-samples-qm-nl) contains about 150k
 real-world ingredient lists found on the Dutch market. Each line contains one ingredient
 list (newlines are encoded as `\n`, empty lines and those starting with `#` are ignored).
 The strict parser currently parses 80%, while the loose parser returns something for all of them.
+
+## License
+
+This software is distributed under the [MIT license](LICENSE). Data may have a [different license](data/README.md).
