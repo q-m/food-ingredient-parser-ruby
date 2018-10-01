@@ -189,8 +189,11 @@ upgrade to `1.1`.
 
 While most of the parsing is language-independent, some parts need knowledge about certain words
 (like abbreviations and amount specifiers). The gem was developed with ingredient lists in Dutch (nl),
-plus a bit of English and German. Support for other languages is welcomed, starting with a corpus of
-ingredient lists to work with.
+plus a bit of English and German. Support for other languages is already good, but lacks in certain
+areas: improvements are welcome (starting with a corpus in [data/](data/)).
+
+Many ingredient lists from the USA are structured a bit differently than those from Europe, they
+parse less well (that that's a matter of tine-tuning).
 
 ## Test data
 

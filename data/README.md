@@ -12,3 +12,16 @@ These files are licensed under the same license as the software.
 
 The files `ingredient-samples-qm-*` are contributed by [Questionmark](https://www.thequestionmark.org/) and
 available under the terms of the Creative Commons License [CC-BY-SA](https://creativecommons.org/licenses/by-nc/4.0/).
+
+## Open Food Facts
+
+The files `ingredient-samples-off-*` are obtained from [Open Food Facts](https://world.openfoodfacts.org/data).
+Splitting per country is done with a command like the following (adapt for different countries):
+
+```
+tail -n +1 en.openfoodfacts.org.products.csv | \
+  cut -f 34,35 | grep '^Germany' | cut -f 2 | \
+  sort | uniq > ingredient-samples-off-de
+```
+
+This data is licensed under the [Open Database License](https://opendatacommons.org/licenses/odbl/1.0/).
