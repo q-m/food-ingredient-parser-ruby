@@ -48,7 +48,7 @@ module FoodIngredientParser::Strict::Grammar
     end
 
     rule and
-      ( 'and' / 'en' / 'und' / '&' ) !char
+      ( 'and' / 'en' / 'und' ) !char / '&'
     end
 
     rule abbrev

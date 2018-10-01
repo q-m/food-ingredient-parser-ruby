@@ -21,7 +21,7 @@ module FoodIngredientParser::Strict::Grammar
 
     rule ingredient_nested_contains
       'contains'i /
-      'bevat'i
+      'bevat'i / 'bevat o.a.'i
     end
 
   end
