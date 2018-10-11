@@ -33,6 +33,7 @@ module FoodIngredientParser::Strict::Grammar
 
     rule amount_simple_unit
       ( percent / ( ( 'procent' / 'percent' / 'gram'i / 'ml'i / 'mg'i / 'gr'i / 'g'i ) !char ) )
+      ( ws 'vol'i ( !char / '.' ) )?
     end
   end
 end
