@@ -120,6 +120,7 @@ module FoodIngredientParser::Strict::Grammar
         '°C'i /
         ( 'ijzer'i / 'chroom'i / 'koper'i ) ws* '(' 'I'i+ ')' ws* [[:alnum:]]+ /
         'L(+)-' [[:alnum:]]+ /
+        'L.' ws+ 'rhamnosus'i ws+ 'gorbach'i /
         'type'i ws+ '"' [0-9]+ '"'
       ) ![[:alpha:]]
     end
