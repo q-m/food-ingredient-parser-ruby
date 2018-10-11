@@ -108,7 +108,8 @@ module FoodIngredientParser::Strict::Grammar
         'vit'i /
         'denat'i /
         'alc'i /
-        'vol'i
+        'vol'i /
+        'conc'i
       )
       '.'? ![[:alpha:]]
     end
