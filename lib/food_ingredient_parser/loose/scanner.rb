@@ -8,12 +8,23 @@ module FoodIngredientParser::Loose
     PREFIX_RE  = /\A\s*(ingredients|contains|ingred[iï][eë]nt(en)?(declaratie)?|bevat|dit zit er\s?in|samenstelling|zutaten)\b\s*[:;.]?\s*/i.freeze
     NOTE_RE    = /\A\b(dit product kan\b|deze verpakking kan\b|kan sporen\b.*?\bbevatten\b|voor allergenen\b|allergenen\b|E\s*=|gemaakt in\b|geproduceerd in\b|bevat mogelijk\b|kijk voor meer\b|allergie-info|in de fabriek\b|in dit bedrijf\b|voor [0-9,.]+ (g\.?|gr\.?|ram|ml).*\bis [0-9,.]+ (g\.?|gr\.?|ram|ml).*\bgebruikt\b)/i.freeze
     # Keep in sync with +abbrev+ in the +Common+ grammar, plus relevant ones from the +Amount+ grammar.
-    ABBREV_RE  = Regexp.union(/\A(N°|°C|(ijzer|chroom|koper)\s*\(I+\)\s*[[:alnum:]]+|L\(\+\)-[[:alnum:]]+|type\s+"\d+"|L\.\s+rhamnosus\s+gorbach)\b/i, *%w[
-      a.o.p b.g.a b.o.b c.a c.i d.e d.m.v d.o.c d.o.p d.s e.a e.g e.u f.i.l f.o.s i.a
-      i.d i.e i.g.m.e i.g.p i.m.v i.o i.v.m l.s.l n.a n.b n.o n.v.t o.a o.b.v p.d.o
-      p.g.i q.s s.l s.s t.o.v u.h.t v.g v.s w.a w.o w.v vit denat alc vol conc
-      min max ca
-    ].map {|s| /\A#{Regexp.escape(s)}\b\.?/i}).freeze
+    ABBREV_RE  = Regexp.union(
+      /\A(
+        N°\b |
+        °C\b |
+        (ijzer|chroom|koper)\s*\(I+\)\s*[[:alnum:]]+\b |
+        L\(\+\)-[[:alnum:]]+\b |
+        type\s+"\d+" |
+        L\.\s+rhamnosus\s+gorbach\b |
+        E\d{3}[a-z]?\s*\(i+\)
+      )/xi,
+      *%w[
+        a.o.p b.g.a b.o.b c.a c.i d.e d.m.v d.o.c d.o.p d.s e.a e.g e.u f.i.l f.o.s i.a
+        i.d i.e i.g.m.e i.g.p i.m.v i.o i.v.m l.s.l n.a n.b n.o n.v.t o.a o.b.v p.d.o
+        p.g.i q.s s.l s.s t.o.v u.h.t v.g v.s w.a w.o w.v vit denat alc vol conc
+        min max ca
+      ].map {|s| /\A#{Regexp.escape(s)}\b\.?/i}
+    ).freeze
 
     def initialize(s, index: 0)
       @s = s                           # input string

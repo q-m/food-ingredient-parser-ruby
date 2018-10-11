@@ -122,7 +122,8 @@ module FoodIngredientParser::Strict::Grammar
         ( 'ijzer'i / 'chroom'i / 'koper'i ) ws* '(' 'I'i+ ')' ws* [[:alnum:]]+ /
         'L(+)-' [[:alnum:]]+ /
         'L.' ws+ 'rhamnosus'i ws+ 'gorbach'i /
-        'type'i ws+ '"' [0-9]+ '"'
+        'type'i ws+ '"' [0-9]+ '"' /
+        'E'i [0-9] [0-9] [0-9] [[:alpha:]]? ws* '(' 'i'i+ ')' # e.g. "E450 (iii)"
       ) ![[:alpha:]]
     end
   end

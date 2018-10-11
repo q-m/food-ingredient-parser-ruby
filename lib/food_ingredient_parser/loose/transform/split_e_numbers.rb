@@ -7,8 +7,9 @@ module FoodIngredientParser::Loose
       #
       # @note mark and amount is lost, this is not expected on e-numbers
 
-      SPLIT_RE = /\s*-\s*/.freeze
-      MATCH_RE = /\A\s*(e[0-9]{3}[a-z]?)(?:#{SPLIT_RE}(e[0-9]{3}[a-z]?))+\s*\z/i.freeze
+      SPLIT_RE  = /\s*-\s*/.freeze
+      SINGLE_RE = /e\d{3}[a-z]?(?:\s*\(i+\))?/i.freeze
+      MATCH_RE  = /\A\s*(#{SINGLE_RE})(?:#{SPLIT_RE}(#{SINGLE_RE}))+\s*\z/i.freeze
 
       def self.transform!(node)
         new(node).transform!
