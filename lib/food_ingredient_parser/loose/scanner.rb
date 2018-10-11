@@ -16,7 +16,7 @@ module FoodIngredientParser::Loose
         L\(\+\)-[[:alnum:]]+\b |
         type\s+"\d+" |
         L\.\s+rhamnosus\s+gorbach\b |
-        E\d{3}[a-z]?\s*\(i+\)
+        E-e?\d{3}[a-z]?\s*\(i+\)
       )/xi,
       *%w[
         a.o.p b.g.a b.o.b c.a c.i d.e d.m.v d.o.c d.o.p d.s e.a e.g e.u f.i.l f.o.s i.a
