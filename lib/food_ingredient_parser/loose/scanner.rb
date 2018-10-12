@@ -15,13 +15,13 @@ module FoodIngredientParser::Loose
         (ijzer|chroom|koper)\s*\(I+\)\s*[[:alnum:]]+\b |
         L\(\+\)-[[:alnum:]]+\b |
         type\s+"\d+" |
-        L\.\s+rhamnosus\s+gorbach\b |
+        L\.\s+rhamnosus\b | L\.\s+acidophilus\b | L\.\s+casei\b | B\.\s+lactis | A\.\s+oryzae
         E-e?\d{3}[a-z]?\s*\(i+\)
       )/xi,
       *%w[
         a.o.p b.g.a b.o.b c.a c.i d.e d.m.v d.o.c d.o.p d.s e.a e.g e.u f.i.l f.o.s i.a
         i.d i.e i.g.m.e i.g.p i.m.v i.o i.v.m l.s.l n.a n.b n.o n.v.t o.a o.b.v p.d.o
-        p.g.i q.s s.l s.s t.o.v u.h.t v.g v.s w.a w.o w.v vit denat alc vol conc
+        p.g.i q.s s.l s.s t.o.v u.h.t v.g v.s w.a w.o w.v vit denat alc vol conc subsp
         min max ca
       ].map {|s| /\A#{Regexp.escape(s)}\b\.?/i}
     ).freeze

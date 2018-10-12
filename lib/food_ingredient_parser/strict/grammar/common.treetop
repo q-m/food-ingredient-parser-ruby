@@ -105,11 +105,12 @@ module FoodIngredientParser::Strict::Grammar
         'w.o'i /
         'w.v'i /
         # not auto-generated additions
-        'vit'i /
-        'denat'i /
-        'alc'i /
-        'vol'i /
-        'conc'i
+        'vit'i /   # vitamin
+        'denat'i / # denaturated
+        'alc'i /   # alcohol
+        'vol'i /   # volume
+        'conc'i /  # concentration
+        'subsp'i   # subspecies
       )
       '.'? ![[:alpha:]]
     end
@@ -121,7 +122,7 @@ module FoodIngredientParser::Strict::Grammar
         '°C'i /
         ( 'ijzer'i / 'chroom'i / 'koper'i ) ws* '(' 'I'i+ ')' ws* [[:alnum:]]+ /
         'L(+)-' [[:alnum:]]+ /
-        'L.' ws+ 'rhamnosus'i ws+ 'gorbach'i /
+        'L.' ws+ 'rhamnosus'i / 'L.' ws+ 'acidophilus'i / 'L.' ws+ 'casei' / 'B.'i ws+ 'lactis'i / 'A.'i ws+ 'oryzae'i /
         'type'i ws+ '"' [0-9]+ '"' /
         'E'i '-'? [0-9] [0-9] [0-9] [[:alpha:]]? ws* '(' 'i'i+ ')' # e.g. "E450 (iii)"
       ) ![[:alpha:]]
