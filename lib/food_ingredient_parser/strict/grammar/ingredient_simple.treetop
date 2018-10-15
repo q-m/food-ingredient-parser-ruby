@@ -15,7 +15,7 @@ module FoodIngredientParser::Strict::Grammar
     end
 
     rule ingredient_simple_e_number
-      name:( [Ee] [0-9] [0-9] [0-9] [a-zA-Z]? ) ![a-zA-Z0-9] <IngredientNode>
+      name:e_number <IngredientNode>
     end
 
   end

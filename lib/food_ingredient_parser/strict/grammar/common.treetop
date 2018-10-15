@@ -51,6 +51,11 @@ module FoodIngredientParser::Strict::Grammar
       ( 'and' / 'en' / 'und' ) !char / '&'
     end
 
+    rule e_number
+      ( 'E'i '-'? [0-9] [0-9] [0-9] [[:alpha:]]? )
+      ![[:alnum:]] / ( ws* '(' 'i'i+ ')' ) # e.g. "E450 (iii)"
+    end
+
     rule abbrev
       # These are listed explicitely to avoid incorrect interpretations, and allow missing trailing dots.
       # To get an idea of what occurs (second one omits trailing dots):
@@ -124,7 +129,7 @@ module FoodIngredientParser::Strict::Grammar
         'L(+)-' [[:alnum:]]+ /
         'L.' ws+ 'rhamnosus'i / 'L.' ws+ 'acidophilus'i / 'L.' ws+ 'casei' / 'B.'i ws+ 'lactis'i / 'A.'i ws+ 'oryzae'i /
         'type'i ws+ '"' [0-9]+ '"' /
-        'E'i '-'? [0-9] [0-9] [0-9] [[:alpha:]]? ws* '(' 'i'i+ ')' # e.g. "E450 (iii)"
+        e_number
       ) ![[:alpha:]]
     end
   end
