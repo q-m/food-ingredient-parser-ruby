@@ -9,6 +9,10 @@ module FoodIngredientParser::Strict::Grammar
       amount:amount_simple                 <AmountNode>
     end
 
+    rule amount_simple_percent
+      amount:(amount_simple_number ws* percent) <AmountNode>
+    end
+
     rule amount_simple
       ( (
         'of which'i / 'at least'i / 'minimal'i / 'maximal'i / 'less than'i / 'more than'i /

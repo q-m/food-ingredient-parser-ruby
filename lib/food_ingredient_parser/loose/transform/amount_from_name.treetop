@@ -5,8 +5,9 @@ module FoodIngredientParser::Loose::Transform
 
     rule amount_from_name
       # just amount, amount in front or at the end
-      ws* amount:amount ws+ name:(.*) /
-      ws* amount:amount ws* /
+      ws* amount:amount                ws+ name:(.*) /
+      ws* amount:amount_simple_percent ws* name:(.*) /
+      ws* amount:amount                ws* /
       ws* name:( !amount word ( ws+ !amount word )* )+ ws* amount:amount ws*
     end
   end
