@@ -11,7 +11,7 @@ These files are licensed under the same license as the software.
 ## Questionmark
 
 The files `ingredient-samples-qm-*` are contributed by [Questionmark](https://www.thequestionmark.org/) and
-available under the terms of the Creative Commons License [CC-BY-SA](https://creativecommons.org/licenses/by-nc/4.0/).
+available under the terms of the Creative Commons License [CC-BY-NC](https://creativecommons.org/licenses/by-nc/4.0/).
 
 ## Open Food Facts
 
