@@ -10,7 +10,7 @@ module FoodIngredientParser::Strict::Grammar
     end
 
     rule char
-      [[:alnum:]] /
+      !mark [[:alnum:]] /
       fraction /
       [-/\`'´’+=_{}&] /
       [®™] /
