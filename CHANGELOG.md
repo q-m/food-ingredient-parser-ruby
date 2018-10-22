@@ -1,4 +1,10 @@
-# 1.1.3 (2018-19-12)
+# 1.1.4 (2018-10-22)
+
+* Fix alphabetic mark detection
+* Recognize percentage followed by name without space
+* Improve e-number handling
+
+# 1.1.3 (2018-10-12)
 
 * Parsing improvements
 
