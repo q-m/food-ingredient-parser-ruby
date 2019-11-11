@@ -12,7 +12,7 @@ module FoodIngredientParser::Strict::Grammar
     rule char
       !mark [[:alnum:]] /
       fraction /
-      [-/\`'´’+=_{}&] /
+      [-/\`'´‘’+=_{}&] /
       [®™] /
       [¿?] /                         # weird characters turning up in names (e.g. encoding issues)
       [₁₂₃₄₅₆₇₈₉]                    # can occur with vitamins
@@ -20,7 +20,7 @@ module FoodIngredientParser::Strict::Grammar
 
     rule mark
       # mark referencing a footnote
-      [¹²³⁴⁵ᵃᵇᶜᵈᵉᶠᵍªº] '⁾'? / '⁽' [¹²³⁴⁵ᵃᵇᶜᵈᵉᶠᵍªº] '⁾' / [†‡•°#^] / '*'+ / '(' ws* ( [†‡•°#^] / '*'+ ) ws* ')'
+      [¹²³⁴⁵ᵃᵇᶜᵈᵉᶠᵍªº] '⁾'? / '⁽' [¹²³⁴⁵ᵃᵇᶜᵈᵉᶠᵍªº] '⁾' / [†‡•°▪◊#^] / '*'+ / '(' ws* ( [†‡•°▪◊#^] / '*'+ ) ws* ')'
     end
 
     rule digit
@@ -115,7 +115,8 @@ module FoodIngredientParser::Strict::Grammar
         'alc'i /   # alcohol
         'vol'i /   # volume
         'conc'i /  # concentration
-        'subsp'i   # subspecies
+        'subsp'i / # subspecies
+        'www.'i [-_\/:%.A-Za-z0-9]+
       )
       '.'? ![[:alpha:]]
     end
@@ -126,8 +127,10 @@ module FoodIngredientParser::Strict::Grammar
         'N°'i /
         '°C'i /
         ( 'ijzer'i / 'chroom'i / 'koper'i ) ws* '(' 'I'i+ ')' ws* [[:alnum:]]+ /
-        'L(+)-' [[:alnum:]]+ /
+        'L(+)' ('-' / ws) [[:alnum:]]+ /
         'L.' ws+ 'rhamnosus'i / 'L.' ws+ 'acidophilus'i / 'L.' ws+ 'casei' / 'B.'i ws+ 'lactis'i / 'A.'i ws+ 'oryzae'i /
+        'S.' ws+ 'thermophilus'i / 'L.' ws+ 'bulgaricus'i /
+        'T.' ws* 'aestivum'i (ws+ 'vitt.'i)? /
         'type'i ws+ '"' [0-9]+ '"' /
         e_number
       ) ![[:alpha:]]
