@@ -1,4 +1,4 @@
 module FoodIngredientParser
-  VERSION      = '1.1.4'
-  VERSION_DATE = '2018-10-22'
+  VERSION      = '1.1.5'
+  VERSION_DATE = '2019-11-14'
 end
