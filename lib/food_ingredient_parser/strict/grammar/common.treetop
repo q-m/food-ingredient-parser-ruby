@@ -131,6 +131,7 @@ module FoodIngredientParser::Strict::Grammar
         'L.' ws+ 'rhamnosus'i / 'L.' ws+ 'acidophilus'i / 'L.' ws+ 'casei' / 'B.'i ws+ 'lactis'i / 'A.'i ws+ 'oryzae'i /
         'S.' ws+ 'thermophilus'i / 'L.' ws+ 'bulgaricus'i /
         'T.' ws* 'aestivum'i (ws+ 'vitt.'i)? /
+        'nucifera' ws+ 'L.'i /
         'type'i ws+ '"' [0-9]+ '"' /
         e_number
       ) ![[:alpha:]]

@@ -17,6 +17,7 @@ module FoodIngredientParser::Loose
         L\.\s+rhamnosus\b | L\.\s+acidophilus\b | L\.\s+casei\b | B\.\s+lactis | A\.\s+oryzae |
         S\.\s+thermophilus\b | L\.\sbulgaricus\b |
         T\.\s*aestivum\b(\s+vitt\.)? |
+        nucifera\s+L\. |
         type\s+"\d+" |
         E-e?\d{3}[a-z]?\s*\(i+\) |
         www\.[-_\/:%.A-Za-z0-9]+
