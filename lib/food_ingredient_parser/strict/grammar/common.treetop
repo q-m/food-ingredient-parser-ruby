@@ -20,7 +20,12 @@ module FoodIngredientParser::Strict::Grammar
 
     rule mark
       # mark referencing a footnote
-      [¹²³⁴⁵ᵃᵇᶜᵈᵉᶠᵍªº] '⁾'? / '⁽' [¹²³⁴⁵ᵃᵇᶜᵈᵉᶠᵍªº] '⁾' / [†‡•°▪◊#^] / '*'+ / '(' ws* ( [†‡•°▪◊#^] / '*'+ ) ws* ')'
+      [¹²³⁴⁵ᵃᵇᶜᵈᵉᶠᵍªº] '⁾'? /
+      '⁽' [¹²³⁴⁵ᵃᵇᶜᵈᵉᶠᵍªº] '⁾' /
+      [˄^] digit /
+      [†‡•°▪◊#˄^] /
+      '*'+ /
+      '(' ws* ( [†‡•°▪◊#˄^] / '*'+ ) ws* ')'
     end
 
     rule digit

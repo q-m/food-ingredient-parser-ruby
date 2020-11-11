@@ -4,7 +4,7 @@ module FoodIngredientParser::Loose
   class Scanner
 
     SEP_CHARS  = "|;,.".freeze
-    MARK_CHARS = "¹²³⁴⁵ᵃᵇᶜᵈᵉᶠᵍªº⁽⁾†‡•°▪◊#^*".freeze
+    MARK_CHARS = "¹²³⁴⁵ᵃᵇᶜᵈᵉᶠᵍªº⁽⁾†‡•°▪◊#^˄*".freeze
     PREFIX_RE  = /\A\s*(ingredients|contains|ingred[iï][eë]nt(en)?(declaratie)?|bevat|dit zit er\s?in|samenstelling|zutaten)\b\s*[:;.]?\s*/i.freeze
     NOTE_RE    = /\A\b(dit product kan\b|deze verpakking kan\b|kan sporen\b.*?\bbevatten\b|voor allergenen\b|allergenen\b|allergie[- ]informatie(\s*:|\b)|E\s*=|gemaakt in\b|geproduceerd in\b|bevat mogelijk\b|kijk voor meer\b|allergie-info|in de fabriek\b|in dit bedrijf\b|voor [0-9,.]+ (g\.?|gr\.?|ram|ml).*\bis [0-9,.]+ (g\.?|gr\.?|ram|ml).*\bgebruikt\b)/i.freeze
     # Keep in sync with +abbrev+ in the +Common+ grammar, plus relevant ones from the +Amount+ grammar.
