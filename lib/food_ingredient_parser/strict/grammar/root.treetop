@@ -40,7 +40,7 @@ module FoodIngredientParser::Strict::Grammar
     end
 
     rule root_mark_sentences_in_list
-      ( ( ws* [,.;] / ws ) ws* root_mark_sentence_in_list )+
+      ( ( ws* [,.;] / ws )+ root_mark_sentence_in_list )+
     end
 
     rule root_mark_sentence_in_list
