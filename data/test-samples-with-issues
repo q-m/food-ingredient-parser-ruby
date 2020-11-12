@@ -11,6 +11,8 @@ Suiker; slagroom 20% (melk); magere melk; scharrelei; tarwebloem; plantaardige o
 Ingrediënten: wijn (alc. 11% vol) (89,2%), gecertificeerde geconcentreerde druivenmost (5,4%), wijnalcohol (alc. 96% vol) (5,4%), conserveermiddel: kaliumwaterstofsulfiet; voedingszuur: L(+)-wijnsteenzuur; kleustof: sulfiet-ammoniakkaramel.
 # "L. rhamnosus Gurbach" parses, but the bracketed expression in the middle isn't recognized (todo)
 YOGHURT (0,9% vet) met L. rhamnosus Gorbach & Goldin, suiker, oligofructose, fructose, 1% perziksap, voedingszuur: citroenzuur, aroma, vitamine B11 en D.
+# semicolon after colon
+Water; plantaardige oliën (zonnebloem 15,2%, raapzaad 6%, lijnzaad 4,8%, palm, palmpit, geheel geharde palmpit, geheel geharde palm); mineraal: calciumzouten van orthofosforzuur; gemodificeerd maïszetmeel; palmstearine; emulgatoren: E471 (niet dierlijk) en zonnebloemlecithine; zout 0,2%; conserveermiddel: E202; voedingszuur: citroenzuur; antioxidant: E385; aroma; vitaminen: A, thiamine (B1), riboflavine (B2), B6, foliumzuur (B11), B12 en D2; kleurstof: carotenen
 
 # missing comma after nested ingredient
 {RIBSTER MINI} (44% mechanisch gescheiden varkensvlees, {tarwe}gluten, ketjap (water, aroma ({soja}), kleurstof: E150d) {soja}-eiwit), {KIPKORN MINI} (28% mechanisch gescheiden kippenvlees, water, {tarwe}gluten, antioxidant: ascorbinezuur, Kan sporen van {ei} bevatten.)
