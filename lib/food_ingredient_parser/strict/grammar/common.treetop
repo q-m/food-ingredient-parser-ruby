@@ -12,7 +12,7 @@ module FoodIngredientParser::Strict::Grammar
     rule char
       !mark [[:alnum:]] /
       fraction /
-      [-/\`'´‘’+=_{}&] /
+      [-/\`'"´‘’+=_{}&] /
       [®™] /
       [¿?] /                         # weird characters turning up in names (e.g. encoding issues)
       [₁₂₃₄₅₆₇₈₉]                    # can occur with vitamins
