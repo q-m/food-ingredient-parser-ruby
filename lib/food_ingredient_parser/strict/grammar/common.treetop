@@ -13,8 +13,8 @@ module FoodIngredientParser::Strict::Grammar
       !mark [[:alnum:]] /
       fraction /
       [-/\`'"´‘’+=_{}&] /
-      [®™] /
-      [¿?] /                         # weird characters turning up in names (e.g. encoding issues)
+      [®©™♣] /
+      [¿?¯] /                        # weird characters turning up in names (e.g. encoding issues)
       [₁₂₃₄₅₆₇₈₉]                    # can occur with vitamins
     end
 
@@ -23,9 +23,9 @@ module FoodIngredientParser::Strict::Grammar
       [¹²³⁴⁵ᵃᵇᶜᵈᵉᶠᵍªº] '⁾'? /
       '⁽' [¹²³⁴⁵ᵃᵇᶜᵈᵉᶠᵍªº] '⁾' /
       [˄^] digit /
-      [†‡•°▪◊#˄^~] /
+      [†‡•°▪◊#˄^~˛] /
       '*'+ /
-      '(' ws* ( [†‡•°▪◊#˄^~] / '*'+ ) ws* ')'
+      '(' ws* ( [†‡•°▪◊#˄^~˛] / '*'+ ) ws* ')'
     end
 
     rule digit
