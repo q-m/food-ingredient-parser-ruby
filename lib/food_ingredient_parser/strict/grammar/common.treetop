@@ -62,6 +62,20 @@ module FoodIngredientParser::Strict::Grammar
       ![[:alnum:]] / ( ws* '(' 'i'i+ ')' ) # e.g. "E450 (iii)"
     end
 
+    rule chem_systematic_name
+      ( chem_systematic_name_num dash ) ( chem_systematic_name_word dash chem_systematic_name_num dash ws? )* chem_systematic_name_word /
+      ( chem_systematic_name_word dash chem_systematic_name_num dash ws? )+ chem_systematic_name_word
+    end
+
+    rule chem_systematic_name_word
+      [A-Za-z]+ ( dash [A-Za-z]+ dash [A-Za-z]+ )*
+    end
+
+    rule chem_systematic_name_num
+      digit+ [RH] /
+      digit+ ( ',' digit+ )* '\''?
+    end
+
     rule abbrev
       # These are listed explicitely to avoid incorrect interpretations, and allow missing trailing dots.
       # To get an idea of what occurs (second one omits trailing dots):
@@ -139,7 +153,8 @@ module FoodIngredientParser::Strict::Grammar
         'T.' ws* 'aestivum'i (ws+ 'vitt.'i)? /
         'nucifera' ws+ 'L.'i /
         'type'i ws+ '"' [0-9]+ '"' /
-        e_number
+        e_number /
+        chem_systematic_name
       ) ![[:alpha:]]
     end
   end
