@@ -32,11 +32,17 @@ module FoodIngredientParser::Strict::Grammar
     end
 
     rule amount_simple_number
-      ( [±∓~∼∽≂≃≈≲≤<>≥≳] ws* )? number
+      ( amount_simple_comparator ws* )? number
+    end
+
+    rule amount_simple_comparator
+      '=' ws* [<>] /
+      [<>] ws* ( '=' / 'of gelijk aan'i !char / 'or equal to'i !char ) /
+      [±∓~∼∽≂≃≈≲≤<>≥≳] / '+/-' / '-/+'
     end
 
     rule amount_simple_unit
-      ( percent / ( ( 'procent' / 'percent' / 'gram'i / 'ml'i / 'mg'i / 'gr'i / 'g'i ) !char ) )
+      ( percent / ( ( 'procent' / 'percent' / 'gram'i / 'ml'i / 'mg'i / 'gr'i / 'g'i / 'ppm'i ) !char ) )
       ( ws 'vol'i ( !char / '.' ) )?
       ( ws* '℮' )?
     end
