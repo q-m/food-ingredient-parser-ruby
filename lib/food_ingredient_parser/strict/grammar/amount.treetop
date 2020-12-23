@@ -21,14 +21,14 @@ module FoodIngredientParser::Strict::Grammar
       ) ws* )?
       amount_simple_quantity
       ( ws+ (
-        'of'i / 'or less of'i / 'or more of'i /
-        'minimaal'i / 'minimum'i / 'van het uitlekgewicht'i / 'van het geheel'i /
+        'of a'i / 'of'i / 'or less of'i / 'or more of'i /
+        'van een'i / 'minimaal'i / 'minimum'i / 'van het uitlekgewicht'i / 'van het geheel'i /
         'min.'i / 'min'i / 'max.'i / 'max'i
       ) )?
     end
 
     rule amount_simple_quantity
-      amount_simple_number ( ws* amount_simple_unit? ws* dash ws* amount_simple_number )? ws* amount_simple_unit
+      amount_simple_number ( ws* amount_simple_unit? ws* dash ws* amount_simple_number )? ( ws* amount_simple_unit )?
     end
 
     rule amount_simple_number

@@ -33,7 +33,8 @@ module FoodIngredientParser::Strict::Grammar
     end
 
     rule fraction
-      [½⅓⅔¼¾⅕⅖⅗⅘⅙⅚⅐⅛⅜⅝⅞⅑⅒]
+      [½⅓⅔¼¾⅕⅖⅗⅘⅙⅚⅐⅛⅜⅝⅞⅑⅒] /
+      digit+ '/' digit+
     end
 
     rule percent
