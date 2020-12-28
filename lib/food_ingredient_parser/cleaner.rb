@@ -8,8 +8,7 @@ module FoodIngredientParser
       s.gsub!("aÄs", "aïs")             # encoding issue for maïs
       s.gsub!("Ã¯", "ï")                # encoding issue
       s.gsub!("Ã«", "ë")                # encoding issue
-      s.gsub!(/\A\s*"(.*)"\s*\z/, '\1') # enclosing double quotation marks
-      s.gsub!(/\A\s*'(.*)'\s*\z/, '\1') # enclosing single quotation marks
+      s.gsub!(/\A\s*(["']+)(.*)\1\s*\z/, '\2') # enclosing quotation marks
       s
     end
 
