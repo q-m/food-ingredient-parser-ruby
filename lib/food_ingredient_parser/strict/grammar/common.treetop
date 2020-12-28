@@ -130,6 +130,7 @@ module FoodIngredientParser::Strict::Grammar
         'w.o'i /
         'w.v'i /
         # not auto-generated additions
+        'nr.'i /
         'vit'i /   # vitamin
         'denat'i / # denaturated
         'alc'i /   # alcohol
