@@ -1,3 +1,17 @@
+# 1.1.7 (2020-12-28)
+
+* Keep chemical ingredient names together
+* Support more variates of amount
+* Small parsing and cleaning improvements
+
+# 1.1.6 (2020-11-19)
+
+* Parsing improvements
+
+# 1.1.5 (2019-11-14)
+
+* Small parsing improvements
+
 # 1.1.4 (2018-10-22)
 
 * Fix alphabetic mark detection
