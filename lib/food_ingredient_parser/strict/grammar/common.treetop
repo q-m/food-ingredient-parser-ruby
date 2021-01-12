@@ -58,8 +58,8 @@ module FoodIngredientParser::Strict::Grammar
     end
 
     rule e_number
-      ( 'E'i '-'? [0-9] [0-9] [0-9] [[:alpha:]]? )
-      ( ( ws* '(' [iIvV]+ ')' ) / ![[:alnum:]] ) # e.g. "E450 (iii)"
+      ( 'E'i ( '-' / ws+ )? [0-9] [0-9] [0-9] [[:alpha:]]? )
+      ( ( ws* '(' [iIvV]+ ')' ) / ( ws* '[' [iIvV]+ ']' ) / ![[:alnum:]] ) # e.g. "E450 (iii)"
     end
 
     rule chem_systematic_name

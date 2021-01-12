@@ -19,7 +19,7 @@ module FoodIngredientParser::Loose
         T\.\s*aestivum\b(\s+vitt\.)? |
         nucifera\s+L\. |
         type\s+"\d+" |
-        E[- ]?\d{3}[a-z]?\s*\([iv]+\) |
+        E(-|\s+)?\d{3}[a-z]?\s*(\([iv]+\)|\[[iv]+\]) |
         www\.[-_\/:%.A-Za-z0-9]+
       )/xi,
       *%w[
