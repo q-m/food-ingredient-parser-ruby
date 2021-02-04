@@ -2,6 +2,7 @@
 #
 # Parser for food ingredient lists.
 #
+require 'cgi'
 require 'optparse'
 
 $:.push(File.expand_path(File.dirname(__FILE__) + "/../lib"))
@@ -31,24 +32,31 @@ def colorize(color, s)
   end
 end
 
-def parse_single(s, parsed=nil, parser:, verbosity: 1, print: nil, escape: false, color: false)
+def parse_single(s, parsed=nil, parser:, verbosity: 1, print: nil, escape: false, color: false, html: false)
   parsed ||= parser.parse(s)
 
   return unless print.nil? || (parsed && print == :parsed) || (!parsed && print == :noresult)
 
-  puts colorize(color && "0;32", escape ? s.gsub("\n", "\\n") : s) if verbosity > 0
+  puts colorize(color && "0;32", escape ? s.gsub("\n", "\\n") : s) if !html && verbosity > 0
 
-  if parsed
+  if !html && parsed
     puts(parsed.inspect) if verbosity > 1
     pp(parsed.to_h, color: color) if verbosity > 0
-    return true
-  else
+
+  elsif !html && !parsed
     puts "(no result: #{parser.parser.failure_reason})" if verbosity > 0
-    return false
+
+  elsif html && parsed
+    puts('<div class="root">' + parsed.to_html + '</div>') if verbosity > 0
+
+  else
+    puts('<div class="root">' + CGI.escapeHTML(parsed) + '</div>') if verbosity > 0
   end
+
+  return !!parsed
 end
 
-def parse_file(path, parser:, verbosity: 1, print: nil, escape: false, color: false)
+def parse_file(path, parser:, verbosity: 1, print: nil, escape: false, color: false, html: false)
   count_parsed = count_noresult = 0
   File.foreach(path) do |line|
     next if line =~ /^#/    # comment
@@ -59,7 +67,7 @@ def parse_file(path, parser:, verbosity: 1, print: nil, escape: false, color: fa
     count_parsed += 1 if parsed
     count_noresult += 1 unless parsed
 
-    parse_single(line, parsed, parser: parser, verbosity: verbosity, print: print, escape: escape, color: color)
+    parse_single(line, parsed, parser: parser, verbosity: verbosity, print: print, escape: escape, color: color, html: html)
   end
 
   pct_parsed   = 100.0 * count_parsed / (count_parsed + count_noresult)
@@ -75,6 +83,7 @@ print = nil
 parser_name = :strict
 escape = false
 color = true
+html = false
 PARSERS = {
   strict: FoodIngredientParser::Strict::Parser,
   loose:  FoodIngredientParser::Loose::Parser
@@ -95,6 +104,7 @@ OptionParser.new do |opts|
   opts.on("-r", "--parser PARSER", "Use specific parser (#{PARSERS.keys.join(", ")}).") {|p| parser_name = p&.downcase&.to_sym }
   opts.on("-e", "--[no-]escape", "Escape newlines") {|e| escape = !!e }
   opts.on("-c", "--[no-]color", "Use color") {|e| color = !!e }
+  opts.on(      "--[no-]html", "Print as HTML with parsing markup") {|e| html = !!e }
   opts.on("-v", "--[no-]verbose", "Show more data (parsed tree).") {|v| verbosity = v ? 2 : 1 }
   opts.on(      "--version", "Show program version.") do
     puts("food_ingredient_parser v#{FoodIngredientParser::VERSION}")
@@ -112,8 +122,8 @@ if strings.any? || files.any?
     exit(1)
   end
   success = true
-  strings.each {|s| success &= parse_single(s, parser: parser, verbosity: verbosity, print: print, escape: escape, color: color) }
-  files.each   {|f| success &= parse_file(f, parser: parser, verbosity: verbosity, print: print, escape: escape, color: color) == 0 }
+  strings.each {|s| success &= parse_single(s, parser: parser, verbosity: verbosity, print: print, escape: escape, color: color, html: html) }
+  files.each   {|f| success &= parse_file(f, parser: parser, verbosity: verbosity, print: print, escape: escape, color: color, html: html) == 0 }
   success or exit(1)
 else
   STDERR.puts("Please specify one or more --file or --string arguments (see --help).")
