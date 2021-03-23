@@ -197,7 +197,7 @@ plus a bit of English and German. Support for other languages is already good, b
 areas: improvements are welcome (starting with a corpus in [data/](data/)).
 
 Many ingredient lists from the USA are structured a bit differently than those from Europe, they
-parse less well (that that's a matter of tine-tuning).
+parse less well (that is probably a matter of tine-tuning).
 
 ## Test data
 
