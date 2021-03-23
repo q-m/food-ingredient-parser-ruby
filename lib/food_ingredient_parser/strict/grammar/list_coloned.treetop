@@ -5,15 +5,15 @@ module FoodIngredientParser::Strict::Grammar
     include Ingredient
 
     rule list_coloned
-      contains:( ( ws* list_coloned_ingredient ws* '.,')+ ws* list_coloned_ingredient ) <ListNode> /
-      contains:( ( ws* list_coloned_ingredient ws* '.,')+                             ) <ListNode> /
-      contains:( ( ws* list_coloned_ingredient ws* '.' )+ ws* list_coloned_ingredient ) <ListNode> /
-      contains:( ( ws* list_coloned_ingredient ws* '.' )+                             ) <ListNode> /
-      contains:( ( ws* list_coloned_ingredient ws* ';,')+ ws* list_coloned_ingredient ) <ListNode> /
-      contains:( ( ws* list_coloned_ingredient ws* ';,')+                             ) <ListNode> /
-      contains:( ( ws* list_coloned_ingredient ws* ';' )+ ws* list_coloned_ingredient ) <ListNode> /
-      contains:( ( ws* list_coloned_ingredient ws* ';' )+                             ) <ListNode> /
-      contains:(   ws* list_coloned_ingredient )                                        <ListNode>
+      contains:( ( ws* list_coloned_ingredient ws* '.' ws* ',' )+ ws* list_coloned_ingredient ) <ListNode> /
+      contains:( ( ws* list_coloned_ingredient ws* '.' ws* ',' )+                             ) <ListNode> /
+      contains:( ( ws* list_coloned_ingredient ws* '.'         )+ ws* list_coloned_ingredient ) <ListNode> /
+      contains:( ( ws* list_coloned_ingredient ws* '.'         )+                             ) <ListNode> /
+      contains:( ( ws* list_coloned_ingredient ws* ';' ws* ',' )+ ws* list_coloned_ingredient ) <ListNode> /
+      contains:( ( ws* list_coloned_ingredient ws* ';' ws* ',' )+                             ) <ListNode> /
+      contains:( ( ws* list_coloned_ingredient ws* ';'         )+ ws* list_coloned_ingredient ) <ListNode> /
+      contains:( ( ws* list_coloned_ingredient ws* ';'         )+                             ) <ListNode> /
+      contains:(   ws* list_coloned_ingredient )                                                <ListNode>
     end
 
     rule list_coloned_inner_list
@@ -22,7 +22,7 @@ module FoodIngredientParser::Strict::Grammar
     end
 
     rule list_coloned_ingredient
-      ing:ingredient_simple_with_amount ws* ':' ws* amount:amount post:( ws* '}' )?                    <IngredientNode> /
+      ing:ingredient_simple_with_amount ws* ':' ws* amount:amount post:( ws* '}' )? !( ws* word )      <IngredientNode> /
       ing:ingredient_simple_with_amount ws* ':' post:( ws* '}' )? ws* contains:list_coloned_inner_list <NestedIngredientNode>
     end
 
