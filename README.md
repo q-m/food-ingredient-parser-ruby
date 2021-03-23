@@ -104,7 +104,7 @@ RootNode+Root3 offset=0, "tomato" (contains,notes):
   SyntaxNode offset=6, ""
 {:contains=>[{:name=>"tomato"}]}
 
-$ bin/food_ingredient_parser --html -s "tomato"
+$ food_ingredient_parser --html -s "tomato"
 <div class="root"><span class='depth0'><span class='name'>tomato</span></span></div>
 
 $ food_ingredient_parser -v -r loose -s "tomato"
