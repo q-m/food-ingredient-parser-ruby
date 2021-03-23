@@ -69,6 +69,7 @@ Usage: bin/food_ingredient_parser [options] --file|-f <filename>
     -r, --parser PARSER              Use specific parser (strict, loose).
     -e, --[no-]escape                Escape newlines
     -c, --[no-]color                 Use color
+        --[no-]html                  Print as HTML with parsing markup
     -v, --[no-]verbose               Show more data (parsed tree).
         --version                    Show program version.
     -h, --help                       Show this help
@@ -102,6 +103,9 @@ RootNode+Root3 offset=0, "tomato" (contains,notes):
     SyntaxNode offset=6, ""
   SyntaxNode offset=6, ""
 {:contains=>[{:name=>"tomato"}]}
+
+$ bin/food_ingredient_parser --html -s "tomato"
+<div class="root"><span class='depth0'><span class='name'>tomato</span></span></div>
 
 $ food_ingredient_parser -v -r loose -s "tomato"
 "tomato"
