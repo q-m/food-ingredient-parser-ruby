@@ -102,6 +102,7 @@ module FoodIngredientParser::Strict::Grammar
         'e.u'i /
         'f.i.l'i /
         'f.o.s'i /
+        'h.o.h'i /
         'i.a'i /
         'i.d'i /
         'i.e'i /
