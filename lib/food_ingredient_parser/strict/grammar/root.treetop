@@ -19,9 +19,10 @@ module FoodIngredientParser::Strict::Grammar
 
     rule root_prefix
       (
-        'ingredients'i / 'contains'i /
+        'ingredients'i ( ws+ 'list'i )? / 'contains'i /
         ('ingred'i [IÏiï] [EËeë] 'n'i ( 't'i 'en'i? 'declaratie'i? )? ) / 'bevat'i / 'dit zit er in'i / 'samenstelling'i /
-        'zutaten'i
+        'zutaten'i /
+        'ingredienser'i
       )
       ( ws* [:;.] ( ws* newline )? / ws* newline / ws ) ws*  # optional colon or other separator
       "'"? ws*                                               # stray quote occurs sometimes
