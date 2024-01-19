@@ -22,6 +22,8 @@ saus (tomaat, zout)
 saus [tomaat, zout]
 saus: [tomaat, zout]
 saus (tomaat, zout), water
+saus (tomaat, zout) en water
+saus (tomaat, zout) en pasta, water
 p (a, b), q(c)
 p (a, b (r)), q(c)
 p: a, b. q: c
