@@ -1,3 +1,17 @@
+# 1.1.10 (2021-03-23)
+
+* Fix amount after nesting colon
+* Add HTML output to CLI tool
+* Improve E-number matching
+
+# 1.1.9 (2021-01-12)
+
+* Improve E-number matching
+
+# 1.1.8 (2021-01-12)
+
+* Improve E-number matching
+
 # 1.1.7 (2020-12-28)
 
 * Keep chemical ingredient names together
