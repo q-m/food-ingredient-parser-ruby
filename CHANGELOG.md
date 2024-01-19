@@ -1,3 +1,9 @@
+# 1.2.0 (2024-01-19)
+
+* Add abbreviation "half om half"
+* Recognize "ingredient list" as ingredient prefix
+* Recognize "and" after brackets as separator
+
 # 1.1.10 (2021-03-23)
 
 * Fix amount after nesting colon
