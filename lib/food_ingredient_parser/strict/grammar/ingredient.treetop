@@ -5,7 +5,12 @@ module FoodIngredientParser::Strict::Grammar
     include IngredientColoned
 
     rule ingredient
-      ws* ( ingredient_nested / ingredient_coloned / ingredient_simple_with_amount )
+      ws*
+      (
+        ingredient_nested ( ws* and ws+ ingredient )? /
+        ingredient_coloned /
+        ingredient_simple_with_amount
+      )
     end
 
   end

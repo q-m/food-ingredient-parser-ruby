@@ -4,6 +4,7 @@ module FoodIngredientParser::Loose
   class Scanner
 
     SEP_CHARS  = "|;,.".freeze
+    AND_SEP_RE = /\A\s*(and|en|und)\s+/i.freeze
     MARK_CHARS = "¹²³⁴⁵ᵃᵇᶜᵈᵉᶠᵍªº⁽⁾†‡⁺•°▪◊#^˄*~".freeze
     PREFIX_RE  = /\A\s*(ingredients(\s*list)?|contains|ingred[iï][eë]nt(en)?(declaratie)?|bevat|dit zit er\s?in|samenstelling|zutaten)\b\s*[:;.]?\s*/i.freeze
     NOTE_RE    = /\A\b(dit product kan\b|deze verpakking kan\b|kan sporen\b.*?\bbevatten\b|voor allergenen\b|allergenen\b|allergie[- ]informatie(\s*:|\b)|E\s*=|gemaakt in\b|geproduceerd in\b|bevat mogelijk\b|kijk voor meer\b|allergie-info|in de fabriek\b|in dit bedrijf\b|voor [0-9,.]+ (g\.?|gr\.?|ram|ml).*\bis [0-9,.]+ (g\.?|gr\.?|ram|ml).*\bgebruikt\b)/i.freeze
@@ -75,6 +76,11 @@ module FoodIngredientParser::Loose
       elsif ")]".include?(c)      # close nesting
         add_child
         close_parent
+        # after bracket check for 'and' to not lose text
+        if is_and_sep?(@i+1)
+          @i += and_sep_len(@i+1)
+          add_child
+        end
       elsif is_notes_start?       # usually a dot marks the start of notes
         close_all_ancestors
         @iterator = :notes
@@ -146,6 +152,15 @@ module FoodIngredientParser::Loose
 
     def is_sep?(chars: SEP_CHARS)
       chars.include?(c) && @s[@i-1..@i+1] !~ /\A\d.\d\z/
+    end
+
+    def is_and_sep?(i = @i)
+      and_sep_len(i) > 0
+    end
+
+    def and_sep_len(i = @i)
+      m = @s[i..-1].match(AND_SEP_RE)
+      m ? m.offset(0).last : 0
     end
 
     def is_mark?(i = @i)
