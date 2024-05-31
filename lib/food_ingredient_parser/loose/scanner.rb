@@ -33,8 +33,9 @@ module FoodIngredientParser::Loose
 
     def initialize(s, index: 0)
       @s = s                           # input string
-      @i = index                       # current index in string
+      @i = index                       # current index in string, the iterator looks at this character
       @cur = nil                       # current node we're populating
+      @curifree = nil                  # last index in string for current node that we haven't added to a child node yet
       @ancestors = [Node.new(@s, @i)]  # nesting hierarchy
       @iterator = :beginning           # scan_iteration_<iterator> to use for parsing
       @dest = :contains                # append current node to this attribute on parent
@@ -79,6 +80,7 @@ module FoodIngredientParser::Loose
         # after bracket check for 'and' to not lose text
         if is_and_sep?(@i+1)
           @i += and_sep_len(@i+1)
+          @curifree = @i # don't include 'and' in cur name
           add_child
         end
       elsif is_notes_start?       # usually a dot marks the start of notes
@@ -147,7 +149,11 @@ module FoodIngredientParser::Loose
     end
 
     def cur
-      @cur ||= Node.new(@s, @i)
+      if !@cur
+        @cur ||= Node.new(@s, @i)
+        @curifree = @i
+      end
+      @cur
     end
 
     def is_sep?(chars: SEP_CHARS)
@@ -201,16 +207,19 @@ module FoodIngredientParser::Loose
       cur.ends(@i-1)
       parent.send(@dest) << cur
       @cur = nil
+      @curifree = nil
     end
 
     def open_parent(**options)
       name_until_here
       @ancestors << cur
       @cur = Node.new(@s, @i + 1, **options)
+      @curifree = @i + 1
     end
 
     def close_parent
       return unless @ancestors.count > 1
+      @curifree = @i + 1
       @cur = @ancestors.pop
       while @cur.auto_close
         add_child
@@ -227,15 +236,15 @@ module FoodIngredientParser::Loose
     end
 
     def name_until_here
-      cur.name ||= begin
-        i, j = cur.interval.first, @i - 1
-        i += mark_len(i) # skip any mark in front
-        # Set name if there is any. There is one corner-case that needs to be avoided when
-        # a nesting was opened without a name, which would set the name to the nesting text.
-        # In this case, the name starts with an open-nesting symbol, which should never happen.
-        if j >= i && !"([:".include?(@s[i])
-          Node.new(@s, i .. j)
-        end
+      return unless @curifree # no cur started yet
+      i, j = @curifree, @i - 1
+      i += mark_len(i) # skip any mark in front
+      # Set name if there is any. There is one corner-case that needs to be avoided when
+      # a nesting was opened without a name, which would set the name to the nesting text.
+      # In this case, the name starts with an open-nesting symbol, which should never happen.
+      if j >= i && !"([:".include?(@s[i])
+        cur.name_parts << Node.new(@s, i .. j)
+        @curifree = @i
       end
     end
 

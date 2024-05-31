@@ -29,21 +29,27 @@ module FoodIngredientParser::Loose
       def transform_node!(node)
         if node.contains.any?
           node.contains.each {|n| transform_node!(n) }
-        elsif node.name && m = MATCH_RE.match(node.name.text_value)
-          i = 0
-          while m = node.name.text_value.match(SPLIT_RE, i)
-            node.contains << new_node(node, i, m.begin(0)-1)
-            i = m.end(0)
+        else
+          node.name_parts.each_with_index do |name, name_index|
+            if m = MATCH_RE.match(name.text_value)
+              i = 0
+              while m = name.text_value.match(SPLIT_RE, i)
+                node.contains << new_node(name, i, m.begin(0)-1)
+                i = m.end(0)
+              end
+              node.contains << new_node(name, i, name.interval.last) if i <= name.interval.last
+              node.name_parts[name_index] = nil
+            end
           end
-          node.contains << new_node(node, i, node.name.interval.last) if i <= node.name.interval.last
-          node.name = nil
+          # remove cleared name parts
+          node.name_parts.reject!(&:nil?)
         end
       end
 
-      def new_node(node, begins, ends)
-        offset = node.name.interval.first
-        new_node = Node.new(node.input, offset + begins .. offset + ends)
-        new_node.name = Node.new(node.input, new_node.interval)
+      def new_node(name, begins, ends)
+        offset = name.interval.first
+        new_node = Node.new(name.input, offset + begins .. offset + ends)
+        new_node.name_parts = [Node.new(name.input, new_node.interval)]
         new_node
       end
     end

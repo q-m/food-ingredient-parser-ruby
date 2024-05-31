@@ -29,18 +29,26 @@ module FoodIngredientParser::Loose
 
       # Extract amount from name, if any.
       def transform_name(node = @node)
-        if !node.amount && parsed = parse_amount(node.name&.text_value)
-          offset = node.name.interval.first
+        if !node.amount
+          node.name_parts.each_with_index do |name, i|
+            parsed = parse_amount(name.text_value)
+            next unless parsed
+            offset = name.interval.first
 
-          amount = parsed.amount.amount
-          node.amount = Node.new(node.input, offset + amount.interval.first .. offset + amount.interval.last - 1)
+            amount = parsed.amount.amount
+            node.amount = Node.new(node.input, offset + amount.interval.first .. offset + amount.interval.last - 1)
 
-          name = parsed.respond_to?(:name) && parsed.name
-          if name && name.interval.count > 0
-            node.name = Node.new(node.input, offset + name.interval.first .. offset + name.interval.last - 1)
-          else
-            node.name = nil
+            name = parsed.respond_to?(:name) && parsed.name
+            node.name_parts[i] = if name && name.interval.count > 0
+              Node.new(node.input, offset + name.interval.first .. offset + name.interval.last - 1)
+            else
+              nil
+            end
+            # found an amount, stop looking in other parts
+            break
           end
+          # remove cleared name parts
+          node.name_parts.reject!(&:nil?)
         end
 
         # recursively transform contained nodes

@@ -5,7 +5,7 @@ module FoodIngredientParser::Loose
   class Node
     include ToHtml
 
-    attr_accessor :name, :mark, :amount, :contains, :notes
+    attr_accessor :name_parts, :mark, :amount, :contains, :notes
     attr_reader :input, :interval, :auto_close
 
     def initialize(input, interval, auto_close: false)
@@ -14,7 +14,8 @@ module FoodIngredientParser::Loose
       @auto_close = auto_close
       @contains = []
       @notes = []
-      @name = @mark = @amount = nil
+      @name_parts = []
+      @mark = @amount = nil
     end
 
     def ends(index)
@@ -31,12 +32,18 @@ module FoodIngredientParser::Loose
 
     def to_h
       r = {}
-      r[:name] = name.text_value.strip if name && name.text_value.strip != ''
+      _name = name
+      r[:name] = _name if _name
       r[:marks] = [mark.text_value.strip] if mark
       r[:amount] = amount.text_value.strip if amount
       r[:contains] = contains.map(&:to_h).reject {|c| c == {} } if contains.any?
       r[:notes] = notes.map{|n| n.text_value.strip }.reject {|c| c == '' } if notes.any?
       r
+    end
+
+    def name
+      strings = name_parts.map {|n| n.text_value.strip }.reject {|n| n == nil || n == '' }
+      return strings.any? ? strings.join(" ") : nil
     end
 
     def inspect(indent="", variant="")
@@ -47,7 +54,7 @@ module FoodIngredientParser::Loose
     def inspect_self(indent="", variant="")
       [
         indent + "Node#{variant} interval=#{@interval}",
-        name ? "name=#{name.text_value.strip.inspect}" : nil,
+        name ? "name=#{name.inspect}" : nil,
         mark ? "mark=#{mark.text_value.strip.inspect}" : nil,
         amount ? "amount=#{amount.text_value.strip.inspect}" : nil,
         auto_close ? "auto_close" : nil

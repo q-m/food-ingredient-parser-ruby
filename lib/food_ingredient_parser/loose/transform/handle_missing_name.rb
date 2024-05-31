@@ -42,7 +42,8 @@ module FoodIngredientParser::Loose
           # Apply recursively. Do it before processing to handle multiple depth levels of missing names.
           transform_children!(child) if child.contains.any?
 
-          if child.name.nil? || child.name.text_value.strip == ''
+          name = child.name
+          if name.nil? || name == ''
             # Name is empty, we need to do something.
             if prev
               # there is a previous ingredient: move children to new parent
