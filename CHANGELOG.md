@@ -1,3 +1,8 @@
+# 1.3.0 (2024-06-13)
+
+* Support names with multiple parts in loose parser
+* Support slash as separator with E-numbers
+
 # 1.2.0 (2024-01-19)
 
 * Add abbreviation "half om half"
