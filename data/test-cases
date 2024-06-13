@@ -26,6 +26,7 @@ saus (tomaat, zout) en water
 saus (tomaat, zout) en pasta, water
 p (a, b), q(c)
 p (a, b (r)), q(c)
+p (E123/E124)
 p: a, b. q: c
 p: a, b. q: c.
 p: e123i-E124

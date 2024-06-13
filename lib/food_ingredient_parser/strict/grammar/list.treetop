@@ -4,11 +4,17 @@ module FoodIngredientParser::Strict::Grammar
     include Ingredient
 
     rule list
-      contains:(ingredient ( ws* '|' ws* ingredient )+ ( ws+ and ws+ ingredient )? ) <ListNode> /
-      contains:(ingredient ( ws* ';' ws* ingredient )+ ( ws+ and ws+ ingredient )? ) <ListNode> /
-      contains:(ingredient ( ws* ',' ws* ingredient )+ ( ws+ and ws+ ingredient )? ) <ListNode> /
-      contains:(ingredient ( ws* '.' ws* ingredient )+ ( ws+ and ws+ ingredient )? ) <ListNode> /
-      contains:(ingredient ( ws+ and ws+ ingredient )? )                             <ListNode>
+      contains:(ingredient ( ws* '|' ws* ingredient )+ ( ws+ and ws+ ingredient )? )      <ListNode> /
+      contains:(ingredient ( ws* ';' ws* ingredient )+ ( ws+ and ws+ ingredient )? )      <ListNode> /
+      contains:(ingredient ( ws* ',' ws* ingredient )+ ( ws+ and ws+ ingredient )? )      <ListNode> /
+      contains:(ingredient ( ws* '.' ws* ingredient )+ ( ws+ and ws+ ingredient )? )      <ListNode> /
+      list_e_number /
+      contains:(ingredient ( ws+ and ws+ ingredient )? )                                  <ListNode>
+    end
+
+    rule list_e_number
+      contains:(ingredient_simple_e_number ( ws* '/'  ws* ingredient_simple_e_number )+ ) <ListNode> /
+      contains:(ingredient_simple_e_number ( ws* dash ws* ingredient_simple_e_number )+ ) <ListNode>
     end
   end
 end
