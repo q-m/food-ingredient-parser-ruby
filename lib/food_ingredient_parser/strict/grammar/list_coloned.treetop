@@ -17,6 +17,7 @@ module FoodIngredientParser::Strict::Grammar
     end
 
     rule list_coloned_inner_list
+      contains:( ingredient_simple_e_number ( ws* '/'  ws* ingredient_simple_e_number )+ ) <ListNode> /
       contains:( ingredient_simple_e_number ( ws* dash ws* ingredient_simple_e_number )+ ) <ListNode> /
       contains:( ingredient ( ws* ',' ws* ingredient )* ) <ListNode>
     end

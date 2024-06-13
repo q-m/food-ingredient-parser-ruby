@@ -35,6 +35,7 @@ o, p: a/b//d
 o, p: a(r)
 o, p: a/b (r)
 o, p: e123-E124a
+o, p: E123/E124
 p\na, b\n\nq\nc
 # amounts
 tomaat (30%)
