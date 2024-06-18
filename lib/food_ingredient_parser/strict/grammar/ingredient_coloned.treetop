@@ -14,6 +14,14 @@ module FoodIngredientParser::Strict::Grammar
       contains:( ingredient_coloned_simple_with_amount_and_nest ( ws* '/'+ ws* ingredient_coloned_simple_with_amount_and_nest )* ) <ListNode>
     end
 
+    rule ingredient_coloned_semicol
+      ing:ingredient_simple ws* ':' post:( ws* '}' )? ws* contains:( ingredient_coloned_semicol_inner_list ) ';' <NestedIngredientNode>
+    end
+
+    rule ingredient_coloned_semicol_inner_list
+      contains:( ingredient_coloned_simple_with_amount_and_nest ( ws* ',' ws* ingredient_coloned_simple_with_amount_and_nest )* ) <ListNode>
+    end
+
     # @see IngredientSimple#ingredient_simple
     rule ingredient_coloned_simple
       name:( ingredient_coloned_word ( ws+ !amount ingredient_coloned_word )* ) ws? mark:mark <IngredientNode> /

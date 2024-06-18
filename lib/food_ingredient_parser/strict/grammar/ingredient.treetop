@@ -13,5 +13,13 @@ module FoodIngredientParser::Strict::Grammar
       )
     end
 
+    rule ingredient_nocol
+      ws*
+      (
+        ingredient_nested ( ws* and ws+ ingredient )? /
+        ingredient_simple_with_amount
+      )
+    end
+
   end
 end

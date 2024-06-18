@@ -8,7 +8,7 @@ module FoodIngredientParser::Strict::Grammar
     rule root
       '"'?
       root_prefix? ws*
-      contains:( list_newlined / list_coloned / list )
+      contains:( list_newlined / list_coloned_semicol / list_coloned / list )
       notes:(
         root_mark_sentences_in_list? ws*
         ( ( [.;] ws* newline* / [.;]?  ws* newline+ ) ws* root_sentences? ws* )?

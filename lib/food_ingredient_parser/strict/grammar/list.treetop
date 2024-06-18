@@ -2,8 +2,10 @@ module FoodIngredientParser::Strict::Grammar
   grammar List
     include Common
     include Ingredient
+    include IngredientColoned
 
     rule list
+      list_coloned_semicol /
       contains:(ingredient ( ws* '|' ws* ingredient )+ ( ws+ and ws+ ingredient )? )      <ListNode> /
       contains:(ingredient ( ws* ';' ws* ingredient )+ ( ws+ and ws+ ingredient )? )      <ListNode> /
       contains:(ingredient ( ws* ',' ws* ingredient )+ ( ws+ and ws+ ingredient )? )      <ListNode> /
@@ -11,6 +13,14 @@ module FoodIngredientParser::Strict::Grammar
       contains:(ingredient_simple_e_number ( ws* '/'  ws* ingredient_simple_e_number )+ ) <ListNode> /
       contains:(ingredient_simple_e_number ( ws* dash ws* ingredient_simple_e_number )+ ) <ListNode> /
       contains:(ingredient ( ws+ and ws+ ingredient )? )                                  <ListNode>
+    end
+
+    rule list_coloned_semicol
+       contains:(
+        ( (ingredient_nocol ws* ',' ws*)* ws* ingredient_coloned_semicol )+
+        ( ws* ingredient_nocol (ws* ',' ws* ingredient_nocol)* )?
+        ( ws+ and ws+ ingredient_nocol )?
+      ) <ListNode>
     end
   end
 end

@@ -21,6 +21,7 @@ rode tomaat, groene komkommer
 saus (tomaat, zout)
 saus [tomaat, zout]
 saus: [tomaat, zout]
+tomaat, kruiden: peterselie, basicilum; zout
 saus (tomaat, zout), water
 saus (tomaat, zout) en water
 saus (tomaat, zout) en pasta, water
@@ -34,6 +35,11 @@ o, p: a/b, q: c
 o, p: a/b//d
 o, p: a(r)
 o, p: a/b (r)
+o, p: a,b;
+o, p: a,b; q
+o, p: a,b; q: c,d;
+o, p: a,b; q, r: c,d;
+o, p: a,b; q, r: c,d; s, t
 o, p: e123-E124a
 o, p: E123/E124
 p\na, b\n\nq\nc
