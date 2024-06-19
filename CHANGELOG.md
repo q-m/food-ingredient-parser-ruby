@@ -1,3 +1,8 @@
+# 1.4.0 (2024-06-19)
+
+* Recognize coloned lists ending with a semicolon
+* Recognize "and" in coloned lists as separator
+
 # 1.3.0 (2024-06-13)
 
 * Support names with multiple parts in loose parser
